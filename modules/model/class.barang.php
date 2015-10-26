@@ -1,0 +1,85 @@
+<?php
+	class barang extends koneksi {
+		
+		function get_barang() {
+			if ($list = $this->runQuery("SELECT `id`, `nama`, `stok_isi`, `stok_kosong`, `het`, `harga_beli` FROM `barang`;")) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function get_het($id) {
+			$id = $this->clearText($id);
+			
+			if ($list = $this->runQuery("SELECT `het` FROM `barang` WHERE `id` = '$id';")) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function get_harga_beli($id) {
+			$id = $this->clearText($id);
+			
+			if ($list = $this->runQuery("SELECT `harga_beli` FROM `barang` WHERE `id` = '$id';")) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function ubah_het($het) {
+			$het = $this->clearText($het);
+			
+			if ($result = $this->runQuery("UPDATE `barang` SET `het` = '$het' WHERE `id` = '1';")) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function ubah_harga_beli($harga) {
+			$harga = $this->clearText($harga);
+			
+			if ($result = $this->runQuery("UPDATE `barang` SET `harga_beli` = '$harga' WHERE `id` = '1';")) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function stok_opname($tgl, $stokIsiLama, $stokIsiBaru, $stokKosongLama, $stokKosongBaru, $keterangan, $idKaryawan) {
+			$tgl = $this->clearText($tgl);
+			$stokIsiLama = $this->clearText($stokIsiLama);
+			$stokIsiBaru = $this->clearText($stokIsiBaru);
+			$stokKosongLama = $this->clearText($stokKosongLama);
+			$stokKosongBaru = $this->clearText($stokKosongBaru);
+			$keterangan = $this->clearText($keterangan);
+			$idKaryawan = $this->clearText($idKaryawan);
+			
+			$query = "INSERT INTO `stok_opname` VALUES ('$tgl', '1', '$stokIsiLama', '$stokIsiBaru', '$stokKosongLama', '$stokKosongBaru', '$keterangan', '$idKaryawan');";
+			$query .= "UPDATE `barang` SET `stok_isi` = '$stokIsiBaru', `stok_kosong` = '$stokKosongBaru' WHERE `id` = '1';";
+			
+			if ($result = $this->runMultipleQueries($query)) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+		
+		
+	}
+?>
