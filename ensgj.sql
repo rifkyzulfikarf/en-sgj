@@ -25,11 +25,11 @@ CREATE TABLE `akses` (
   `id_pemakai` int(11) DEFAULT NULL,
   `id_menu` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=latin1;
 
 /*Data for the table `akses` */
 
-insert  into `akses`(`id`,`id_pemakai`,`id_menu`) values (17,2,1),(18,2,2),(19,2,3),(20,2,4),(21,2,5),(22,2,6),(39,1,1),(40,1,2),(41,1,3),(42,1,4),(43,1,5),(44,1,6),(45,1,7),(46,1,8),(47,1,9),(48,1,10),(49,1,11),(50,1,12),(51,1,13),(52,1,14),(53,1,15),(54,1,16),(55,1,17);
+insert  into `akses`(`id`,`id_pemakai`,`id_menu`) values (17,2,1),(18,2,2),(19,2,3),(20,2,4),(21,2,5),(22,2,6),(95,1,1),(96,1,2),(97,1,3),(98,1,4),(99,1,5),(100,1,6),(101,1,7),(102,1,8),(103,1,9),(104,1,10),(105,1,11),(106,1,12),(107,1,13),(108,1,14),(109,1,15),(110,1,16),(111,1,17),(112,1,18),(113,1,19),(114,1,20),(115,1,21);
 
 /*Table structure for table `akses_menu` */
 
@@ -44,11 +44,11 @@ CREATE TABLE `akses_menu` (
   `induk` tinyint(4) NOT NULL DEFAULT '0',
   `icon` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 /*Data for the table `akses_menu` */
 
-insert  into `akses_menu`(`id`,`urutan`,`nama`,`url`,`level`,`induk`,`icon`) values (1,1,'Master Data','#','1',0,'fa fa-th'),(2,1,'Bank','./modules/view/master-data/bank.php','2',1,'-'),(3,2,'Jabatan','./modules/view/master-data/jabatan.php','2',1,'-'),(4,3,'Karyawan','./modules/view/master-data/karyawan.php','2',1,'-'),(5,4,'User','./modules/view/master-data/user.php','2',1,'-'),(6,5,'Kasir','./modules/view/master-data/kasir.php','2',1,'-'),(7,6,'Kendaraan','./modules/view/master-data/kendaraan.php','2',1,'-'),(8,2,'Keuangan','#','1',0,'fa fa-dollar'),(9,1,'Kode Akun','./modules/view/keuangan/akun_kas.php','2',8,'-'),(10,2,'Kas Masuk','./modules/view/keuangan/tambah_dana_kasir.php','2',8,'-'),(11,3,'Kas Keluar','./modules/view/keuangan/pengeluaran_kas_kecil.php','2',8,'-'),(12,4,'Setoran Bank','./modules/view/keuangan/setor_bank.php','2',8,'-'),(13,5,'Tarikan Bank','./modules/view/keuangan/tarik_bank.php','2',8,'-'),(14,3,'Utility','#','1',0,'fa fa-gears'),(15,1,'Ubah Harga Tebus','./modules/view/utility/harga_beli_tabung.php','2',14,'-'),(16,2,'HET Penjualan','./modules/view/utility/het_penjualan.php','2',14,'-'),(17,3,'Stok Opname','./modules/view/utility/stok_opname.php','2',14,'-');
+insert  into `akses_menu`(`id`,`urutan`,`nama`,`url`,`level`,`induk`,`icon`) values (1,1,'Master Data','#','1',0,'fa fa-th'),(2,1,'Bank','./modules/view/master-data/bank.php','2',1,'-'),(3,2,'Jabatan','./modules/view/master-data/jabatan.php','2',1,'-'),(4,3,'Karyawan','./modules/view/master-data/karyawan.php','2',1,'-'),(5,4,'User','./modules/view/master-data/user.php','2',1,'-'),(6,5,'Kasir','./modules/view/master-data/kasir.php','2',1,'-'),(7,6,'Kendaraan','./modules/view/master-data/kendaraan.php','2',1,'-'),(8,2,'Keuangan','#','1',0,'fa fa-dollar'),(9,1,'Kode Akun','./modules/view/keuangan/akun_kas.php','2',8,'-'),(10,2,'Kas Masuk','./modules/view/keuangan/tambah_dana_kasir.php','2',8,'-'),(11,3,'Kas Keluar','./modules/view/keuangan/pengeluaran_kas_kecil.php','2',8,'-'),(12,4,'Setoran Bank','./modules/view/keuangan/setor_bank.php','2',8,'-'),(13,5,'Tarikan Bank','./modules/view/keuangan/tarik_bank.php','2',8,'-'),(14,3,'Utility','#','1',0,'fa fa-gears'),(15,1,'Ubah Harga Tebus','./modules/view/utility/harga_beli_tabung.php','2',14,'-'),(16,2,'HET Penjualan','./modules/view/utility/het_penjualan.php','2',14,'-'),(17,3,'Stok Opname','./modules/view/utility/stok_opname.php','2',14,'-'),(18,4,'Konsumen','#','1',0,'fa fa-user'),(19,1,'Data Konsumen','./modules/view/konsumen/konsumen.php','2',18,'-'),(20,2,'Harga Jual','./modules/view/konsumen/harga_jual.php','2',18,'-'),(21,3,'Kuota Pangkalan','./modules/view/konsumen/kuota_jual.php','2',18,'-');
 
 /*Table structure for table `akun_kas` */
 
@@ -198,6 +198,42 @@ CREATE TABLE `kendaraan` (
 
 insert  into `kendaraan`(`id`,`nopol`,`keterangan`,`hapus`) values (1,'H 1479 ZH','Engkel','0'),(2,'H 1496 YH','Double','0');
 
+/*Table structure for table `konsumen` */
+
+DROP TABLE IF EXISTS `konsumen`;
+
+CREATE TABLE `konsumen` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(50) DEFAULT NULL,
+  `alamat` varchar(150) DEFAULT NULL,
+  `telepon` varchar(20) DEFAULT NULL,
+  `harga_3kg` double DEFAULT '0',
+  `harga_12kg` double DEFAULT '0',
+  `harga_12kg_bg` double DEFAULT '0',
+  `harga_50kg` double DEFAULT '0',
+  `hapus` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+
+/*Data for the table `konsumen` */
+
+insert  into `konsumen`(`id`,`nama`,`alamat`,`telepon`,`harga_3kg`,`harga_12kg`,`harga_12kg_bg`,`harga_50kg`,`hapus`) values (1,'Dwi Ismini','Gusti Putri III / 17, Tlogosari Kulon','02470070559',14250,0,0,0,'0'),(2,'Supiyatun','Cinde Utara II / 12, Jomblang','085641699983',14250,0,0,0,'0'),(3,'Diah','Jl Permata Raya 1, Ngesrep','085228112295',14250,0,0,0,'0'),(4,'David Kusuma','Jl. Menjangan II/59 C, Palebon','085101708289',14250,0,0,0,'0'),(5,'Hery Wijaya','Jl. Zebra Raya 6, Pedurungan Kidul','085641027520',14250,0,0,0,'0'),(6,'Juki Sahara','Jl Banteng Utara I/20 Pandeanlamper','08562655393',14250,0,0,0,'0'),(7,'Daniel Chrustian','Jl. Tambak Mas XVII/420, Panggung Lor','081325615487',14250,0,0,0,'1'),(8,'Boedi Setiawan','Jl. Sekar Jagad IV/2, Tlogosari Kulon','085105000279',14250,0,0,0,'0'),(9,'Andi','0','0',14250,0,0,0,'1'),(10,'Djoelianto','Jl. Ayodyapala 61, Krobokan','0811276887',14250,0,0,0,'0'),(11,'Intan Permai','Jl. Sambiroto Raya A1, Sambiroto','0821234856762',14250,0,0,0,'0'),(12,'Saparin','Jl Sambiroto III Rt 04 / Rw 01 Sambiroto','081228462220',14250,0,0,0,'0'),(13,'Parjo Hadi','Jl Sambiroto Rt 06/Rw 01, Sambiroto','081326297575',14250,0,0,0,'0'),(14,'Evie Theresia','Jl M.T. Haryono 553, Karangkidul','08164884500',14250,0,0,0,'0'),(15,'Haryanto','Jl Delta Mas II / 156, Kuningan','082138679008',14250,0,0,0,'1'),(16,'Andi Sri Atfiantias','Jl. Bukit Flamboyan I/58D, Sendangmulyo','02470903324',14250,0,0,0,'0'),(17,'Tik','Gunung Pati','081',17000,0,0,0,'0'),(18,'Jati','Semarang','081',15000,0,0,0,'0'),(19,'Jono','Mataram','081',14250,0,0,0,'0'),(20,'Andi','Pudak Payung','081',14250,0,0,0,'0'),(21,'Erlien','Gang Pinggir','081',14250,0,0,0,'0'),(22,'tesa','tesa','tesa',14250,100000,150000,200000,'1'),(23,'tesi','tesi','tesi',0,0,0,0,'1');
+
+/*Table structure for table `kuota_penjualan` */
+
+DROP TABLE IF EXISTS `kuota_penjualan`;
+
+CREATE TABLE `kuota_penjualan` (
+  `id_konsumen` int(11) DEFAULT NULL,
+  `tgl` date DEFAULT NULL,
+  `jml_alokasi` double DEFAULT NULL,
+  `jml_terambil` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `kuota_penjualan` */
+
+insert  into `kuota_penjualan`(`id_konsumen`,`tgl`,`jml_alokasi`,`jml_terambil`) values (1,'2015-10-27',200,0);
+
 /*Table structure for table `level` */
 
 DROP TABLE IF EXISTS `level`;
@@ -224,7 +260,7 @@ CREATE TABLE `log_login` (
 
 /*Data for the table `log_login` */
 
-insert  into `log_login`(`tgl`,`id_user`) values ('2015-10-26 08:51:11',1),('2015-10-26 10:46:26',1);
+insert  into `log_login`(`tgl`,`id_user`) values ('2015-10-26 08:51:11',1),('2015-10-26 10:46:26',1),('2015-10-27 08:42:12',1);
 
 /*Table structure for table `pemakai` */
 
