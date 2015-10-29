@@ -126,13 +126,16 @@ $(document).ready(function(){
 		$('#txt-tambah-kuota').number(true,0,'.');
 		$('#txt-ubah-kuota').number(true,0,'.');
         $('#dp-awal').datepicker({
-			format : "yyyy-mm-dd"
+			format : "yyyy-mm-dd",
+			autoclose : true
 		});
         $('#dp-akhir').datepicker({
-			format : "yyyy-mm-dd"
+			format : "yyyy-mm-dd",
+			autoclose : true
 		});
 		$('#dp-tambah-kuota').datepicker({
-			format : "yyyy-mm-dd"
+			format : "yyyy-mm-dd",
+			autoclose : true
 		});
 		$.ajax({
 			url : "./",

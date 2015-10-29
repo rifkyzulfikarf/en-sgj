@@ -25,11 +25,11 @@ CREATE TABLE `akses` (
   `id_pemakai` int(11) DEFAULT NULL,
   `id_menu` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=latin1;
 
 /*Data for the table `akses` */
 
-insert  into `akses`(`id`,`id_pemakai`,`id_menu`) values (17,2,1),(18,2,2),(19,2,3),(20,2,4),(21,2,5),(22,2,6),(95,1,1),(96,1,2),(97,1,3),(98,1,4),(99,1,5),(100,1,6),(101,1,7),(102,1,8),(103,1,9),(104,1,10),(105,1,11),(106,1,12),(107,1,13),(108,1,14),(109,1,15),(110,1,16),(111,1,17),(112,1,18),(113,1,19),(114,1,20),(115,1,21);
+insert  into `akses`(`id`,`id_pemakai`,`id_menu`) values (17,2,1),(18,2,2),(19,2,3),(20,2,4),(21,2,5),(22,2,6),(116,7,1),(117,7,2),(118,7,3),(119,7,4),(120,7,5),(121,7,6),(122,7,7),(123,7,8),(124,7,9),(125,7,10),(126,7,11),(127,7,12),(128,7,13),(129,7,14),(130,7,15),(131,7,16),(132,7,17),(133,7,18),(134,7,19),(135,7,20),(136,7,21),(209,1,1),(210,1,2),(211,1,3),(212,1,4),(213,1,5),(214,1,6),(215,1,7),(216,1,8),(217,1,9),(218,1,10),(219,1,11),(220,1,12),(221,1,13),(222,1,14),(223,1,15),(224,1,16),(225,1,17),(226,1,18),(227,1,19),(228,1,20),(229,1,21),(230,1,22),(231,1,23),(232,1,24),(233,1,25),(234,1,26),(235,1,27),(236,1,28);
 
 /*Table structure for table `akses_menu` */
 
@@ -44,11 +44,11 @@ CREATE TABLE `akses_menu` (
   `induk` tinyint(4) NOT NULL DEFAULT '0',
   `icon` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 /*Data for the table `akses_menu` */
 
-insert  into `akses_menu`(`id`,`urutan`,`nama`,`url`,`level`,`induk`,`icon`) values (1,1,'Master Data','#','1',0,'fa fa-th'),(2,1,'Bank','./modules/view/master-data/bank.php','2',1,'-'),(3,2,'Jabatan','./modules/view/master-data/jabatan.php','2',1,'-'),(4,3,'Karyawan','./modules/view/master-data/karyawan.php','2',1,'-'),(5,4,'User','./modules/view/master-data/user.php','2',1,'-'),(6,5,'Kasir','./modules/view/master-data/kasir.php','2',1,'-'),(7,6,'Kendaraan','./modules/view/master-data/kendaraan.php','2',1,'-'),(8,2,'Keuangan','#','1',0,'fa fa-dollar'),(9,1,'Kode Akun','./modules/view/keuangan/akun_kas.php','2',8,'-'),(10,2,'Kas Masuk','./modules/view/keuangan/tambah_dana_kasir.php','2',8,'-'),(11,3,'Kas Keluar','./modules/view/keuangan/pengeluaran_kas_kecil.php','2',8,'-'),(12,4,'Setoran Bank','./modules/view/keuangan/setor_bank.php','2',8,'-'),(13,5,'Tarikan Bank','./modules/view/keuangan/tarik_bank.php','2',8,'-'),(14,3,'Utility','#','1',0,'fa fa-gears'),(15,1,'Ubah Harga Tebus','./modules/view/utility/harga_beli_tabung.php','2',14,'-'),(16,2,'HET Penjualan','./modules/view/utility/het_penjualan.php','2',14,'-'),(17,3,'Stok Opname','./modules/view/utility/stok_opname.php','2',14,'-'),(18,4,'Konsumen','#','1',0,'fa fa-user'),(19,1,'Data Konsumen','./modules/view/konsumen/konsumen.php','2',18,'-'),(20,2,'Harga Jual','./modules/view/konsumen/harga_jual.php','2',18,'-'),(21,3,'Kuota Pangkalan','./modules/view/konsumen/kuota_jual.php','2',18,'-');
+insert  into `akses_menu`(`id`,`urutan`,`nama`,`url`,`level`,`induk`,`icon`) values (1,1,'Master Data','#','1',0,'fa fa-th'),(2,1,'Bank','./modules/view/master-data/bank.php','2',1,'-'),(3,2,'Jabatan','./modules/view/master-data/jabatan.php','2',1,'-'),(4,3,'Karyawan','./modules/view/master-data/karyawan.php','2',1,'-'),(5,4,'User','./modules/view/master-data/user.php','2',1,'-'),(6,5,'Kasir','./modules/view/master-data/kasir.php','2',1,'-'),(7,6,'Kendaraan','./modules/view/master-data/kendaraan.php','2',1,'-'),(8,2,'Keuangan','#','1',0,'fa fa-dollar'),(9,1,'Kode Akun','./modules/view/keuangan/akun_kas.php','2',8,'-'),(10,2,'Kas Masuk','./modules/view/keuangan/tambah_dana_kasir.php','2',8,'-'),(11,3,'Kas Keluar','./modules/view/keuangan/pengeluaran_kas_kecil.php','2',8,'-'),(12,4,'Setoran Bank','./modules/view/keuangan/setor_bank.php','2',8,'-'),(13,5,'Tarikan Bank','./modules/view/keuangan/tarik_bank.php','2',8,'-'),(14,3,'Utility','#','1',0,'fa fa-gears'),(15,1,'Ubah Harga Tebus','./modules/view/utility/harga_beli_tabung.php','2',14,'-'),(16,2,'HET Penjualan','./modules/view/utility/het_penjualan.php','2',14,'-'),(17,3,'Stok Opname','./modules/view/utility/stok_opname.php','2',14,'-'),(18,4,'Konsumen','#','1',0,'fa fa-user'),(19,1,'Data Konsumen','./modules/view/konsumen/konsumen.php','2',18,'-'),(20,2,'Harga Jual','./modules/view/konsumen/harga_jual.php','2',18,'-'),(21,3,'Kuota Pangkalan','./modules/view/konsumen/kuota_jual.php','2',18,'-'),(22,5,'Tebus','#','1',0,'fa fa-location-arrow'),(23,1,'Tebus LPG','./modules/view/pembelian/pembelian.php','2',22,'-'),(24,2,'Loading','./modules/view/pembelian/loading.php','2',22,'-'),(25,3,'Acc Gudang','./modules/view/pembelian/acc_gudang.php','2',22,'-'),(26,6,'Penjualan','#','1',0,'fa fa-shopping-cart'),(27,1,'Penjualan Energas','./modules/view/penjualan/penjualan_energas.php','2',26,'-'),(28,2,'Penjualan SGJ','./modules/view/penjualan/penjualan_sgj.php','2',26,'-');
 
 /*Table structure for table `akun_kas` */
 
@@ -80,7 +80,7 @@ CREATE TABLE `bank` (
 
 /*Data for the table `bank` */
 
-insert  into `bank`(`id`,`nama`,`nomor_rekening`,`saldo`,`hapus`) values (1,'BCA Energas Nusantara','0093177999',1682292510.2,'0'),(2,'BCA Sumber Gasindo Jaya','0000',2050600768.67,'0');
+insert  into `bank`(`id`,`nama`,`nomor_rekening`,`saldo`,`hapus`) values (1,'BCA Energas Nusantara','0093177999',1678119491.2,'0'),(2,'BCA Sumber Gasindo Jaya','0095072858',2050600768.67,'0');
 
 /*Table structure for table `barang` */
 
@@ -98,7 +98,7 @@ CREATE TABLE `barang` (
 
 /*Data for the table `barang` */
 
-insert  into `barang`(`id`,`nama`,`stok_isi`,`stok_kosong`,`het`,`harga_beli`) values (1,'Tabung LPG 3Kg',0,0,14250,14250),(2,'Tabung LPG 12Kg',0,0,100000,100000),(3,'Tabung LPG 50Kg',0,0,200000,200000),(4,'Tabung LPG 12Kg Bright Gas',0,0,150000,150000);
+insert  into `barang`(`id`,`nama`,`stok_isi`,`stok_kosong`,`het`,`harga_beli`) values (1,'LPG 3Kg',1360,640,14250,11590.91),(2,'LPG 12Kg',0,0,100000,100000),(3,'LPG 50Kg',0,0,200000,200000),(4,'LPG Bright Gas',0,0,150000,150000);
 
 /*Table structure for table `karyawan` */
 
@@ -111,11 +111,11 @@ CREATE TABLE `karyawan` (
   `jk` varchar(1) DEFAULT NULL,
   `hapus` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 /*Data for the table `karyawan` */
 
-insert  into `karyawan`(`id`,`nama`,`id_level`,`jk`,`hapus`) values (1,'Rifky Zulfikar',1,'L','0'),(2,'Michael Sandjaja',2,'L','0'),(3,'Harjito',3,'L','0'),(4,'Samidi',3,'L','0'),(5,'Novi',4,'P','0'),(6,'Yulius',4,'L','0'),(7,'Ronny',5,'L','0'),(8,'Muthosin',6,'L','0'),(9,'Yulia',4,'P','0'),(10,'Husen',6,'L','0'),(11,'Sapari',6,'L','0'),(12,'Casmari',3,'L','0');
+insert  into `karyawan`(`id`,`nama`,`id_level`,`jk`,`hapus`) values (1,'Rifky Zulfikar',1,'L','0'),(2,'Michael Sandjaja',2,'L','0'),(3,'Harjito',3,'L','0'),(4,'Samidi',3,'L','0'),(5,'Novi',4,'P','0'),(6,'Yulius',4,'L','0'),(7,'Ronny',5,'L','0'),(8,'Muthosin',6,'L','0'),(9,'Yulia',4,'P','0'),(10,'Husen',6,'L','0'),(11,'Sapari',6,'L','0'),(12,'Casmari',3,'L','0'),(13,'Daniel',2,'L','0');
 
 /*Table structure for table `kas_bank` */
 
@@ -139,7 +139,7 @@ CREATE TABLE `kas_bank` (
 
 /*Data for the table `kas_bank` */
 
-insert  into `kas_bank`(`id`,`id_bank`,`no_bukti`,`tgl`,`keterangan`,`setor`,`tarik`,`bea_admin`,`saldo`,`id_karyawan`,`tgl_input`,`jenis`) values ('EKB1510270001',1,'ew','2015-10-27','tes',1682793510.45,0,0,1682793510.45,1,'2015-10-27 00:11:53','1'),('EKB1510270002',2,'grbfg','2015-10-27','cvvf',2050600768.67,0,0,2050600768.67,1,'2015-10-27 00:14:08','1'),('EKB1510270003',1,'sd','2015-10-27','sdc',0,500000.25,1000,1682292510.2,1,'2015-10-27 00:16:50','1');
+insert  into `kas_bank`(`id`,`id_bank`,`no_bukti`,`tgl`,`keterangan`,`setor`,`tarik`,`bea_admin`,`saldo`,`id_karyawan`,`tgl_input`,`jenis`) values ('EKB1510270001',1,'ew','2015-10-27','tes',1682793510.45,0,0,1682793510.45,1,'2015-10-27 00:11:53','1'),('EKB1510270002',2,'grbfg','2015-10-27','cvvf',2050600768.67,0,0,2050600768.67,1,'2015-10-27 00:14:08','1'),('EKB1510270003',1,'sd','2015-10-27','sdc',0,500000.25,1000,1682292510.2,1,'2015-10-27 00:16:50','1'),('EKB1510290001',1,'jsdhdsf874','2015-10-29','Pembelian EPB1510290001',0,4173019,0,1678119491.2,1,'2015-10-29 09:39:17','2');
 
 /*Table structure for table `kas_kecil` */
 
@@ -249,6 +249,33 @@ CREATE TABLE `level` (
 
 insert  into `level`(`id`,`jabatan`,`hapus`) values (1,'Super','0'),(2,'Direktur','0'),(3,'Driver','0'),(4,'Admin','0'),(5,'Marketing','0'),(6,'Gudang','0');
 
+/*Table structure for table `loading_pembelian` */
+
+DROP TABLE IF EXISTS `loading_pembelian`;
+
+CREATE TABLE `loading_pembelian` (
+  `id_pembelian` varchar(14) DEFAULT NULL,
+  `id_kendaraan` int(11) DEFAULT NULL,
+  `id_driver` int(11) DEFAULT NULL,
+  `tgl_loading` date DEFAULT '0000-00-00',
+  `jam_berangkat` time DEFAULT '00:00:00',
+  `tabung_kosong` int(11) DEFAULT '0',
+  `id_karyawan_berangkat` int(11) DEFAULT NULL,
+  `acc_gudang_berangkat` varchar(1) DEFAULT '0',
+  `ket_gudang_berangkat` text,
+  `id_gudang_berangkat` int(11) DEFAULT NULL,
+  `jam_kembali` time DEFAULT '00:00:00',
+  `tabung_isi` int(11) DEFAULT '0',
+  `id_karyawan_kembali` int(11) DEFAULT NULL,
+  `acc_gudang_kembali` varchar(1) DEFAULT '0',
+  `ket_gudang_kembali` text,
+  `id_gudang_kembali` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `loading_pembelian` */
+
+insert  into `loading_pembelian`(`id_pembelian`,`id_kendaraan`,`id_driver`,`tgl_loading`,`jam_berangkat`,`tabung_kosong`,`id_karyawan_berangkat`,`acc_gudang_berangkat`,`ket_gudang_berangkat`,`id_gudang_berangkat`,`jam_kembali`,`tabung_isi`,`id_karyawan_kembali`,`acc_gudang_kembali`,`ket_gudang_kembali`,`id_gudang_kembali`) values ('EPB1510290001',1,4,'2015-10-29','08:55:45',360,1,'1','',1,'10:07:30',360,1,'1','',1);
+
 /*Table structure for table `log_login` */
 
 DROP TABLE IF EXISTS `log_login`;
@@ -260,7 +287,7 @@ CREATE TABLE `log_login` (
 
 /*Data for the table `log_login` */
 
-insert  into `log_login`(`tgl`,`id_user`) values ('2015-10-26 08:51:11',1),('2015-10-26 10:46:26',1),('2015-10-27 08:42:12',1);
+insert  into `log_login`(`tgl`,`id_user`) values ('2015-10-26 08:51:11',1),('2015-10-26 10:46:26',1),('2015-10-27 08:42:12',1),('2015-10-27 13:47:12',7),('2015-10-27 18:44:16',1),('2015-10-28 23:25:54',1),('2015-10-29 09:15:11',1);
 
 /*Table structure for table `pemakai` */
 
@@ -273,11 +300,57 @@ CREATE TABLE `pemakai` (
   `kunci` text,
   `hapus` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pemakai` */
 
-insert  into `pemakai`(`id`,`id_karyawan`,`user`,`kunci`,`hapus`) values (1,1,'WWc9PQ==','WWc9PQ==','0'),(2,2,'WVdkMWJtZG9ZWEk0T0RFeQ==','TVRNMk1qVTFPREE9','0'),(3,5,'YzNWdFltVnlJR2RoYzJsdVpHOD0=','YzNWdFltVnlaMkZ6YVc1a2J6ZzQ=','0'),(4,6,'ZVhWc2FYVnpaVzVrWVhJPQ==','TVRrd056RTVPRGs9','0'),(5,8,'YlhWMGFHOXphVzQ9','WjNWa1lXNW4=','0'),(6,9,'ZVhWc2FXRT0=','TVRJek5EVT0=','0');
+insert  into `pemakai`(`id`,`id_karyawan`,`user`,`kunci`,`hapus`) values (1,1,'WWc9PQ==','WWc9PQ==','0'),(2,2,'WVdkMWJtZG9ZWEk0T0RFeQ==','TVRNMk1qVTFPREE9','0'),(3,5,'YzNWdFltVnlJR2RoYzJsdVpHOD0=','YzNWdFltVnlaMkZ6YVc1a2J6ZzQ=','0'),(4,6,'ZVhWc2FYVnpaVzVrWVhJPQ==','TVRrd056RTVPRGs9','0'),(5,8,'YlhWMGFHOXphVzQ9','WjNWa1lXNW4=','0'),(6,9,'ZVhWc2FXRT0=','TVRJek5EVT0=','0'),(7,13,'WkdGdWFXVnNaWEJ6','ZEdobGJHVnJhVzVsZEdocFl3PT0=','0');
+
+/*Table structure for table `pembelian` */
+
+DROP TABLE IF EXISTS `pembelian`;
+
+CREATE TABLE `pembelian` (
+  `id` varchar(14) NOT NULL,
+  `tgl_tebus` date DEFAULT NULL,
+  `no_lo` varchar(12) DEFAULT NULL,
+  `no_sa` varchar(8) DEFAULT NULL,
+  `id_barang` int(11) DEFAULT NULL,
+  `jml_tabung` double DEFAULT NULL,
+  `harga_satuan` double DEFAULT NULL,
+  `pajak` double DEFAULT NULL,
+  `diskon` double DEFAULT NULL,
+  `bea_admin` double DEFAULT NULL,
+  `grand_total` double DEFAULT NULL,
+  `id_bank` int(11) DEFAULT NULL,
+  `no_bukti` varchar(15) DEFAULT NULL,
+  `jenis_tarikan` varchar(1) DEFAULT NULL,
+  `id_karyawan` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `pembelian` */
+
+insert  into `pembelian`(`id`,`tgl_tebus`,`no_lo`,`no_sa`,`id_barang`,`jml_tabung`,`harga_satuan`,`pajak`,`diskon`,`bea_admin`,`grand_total`,`id_bank`,`no_bukti`,`jenis_tarikan`,`id_karyawan`) values ('EPB1510290001','2015-10-29','764373222','345733',1,360,11590.91,417273,419481,2500,4173019,1,'jsdhdsf8745','2',1);
+
+/*Table structure for table `stok_opname` */
+
+DROP TABLE IF EXISTS `stok_opname`;
+
+CREATE TABLE `stok_opname` (
+  `tgl` date DEFAULT NULL,
+  `id_barang` int(11) DEFAULT NULL,
+  `stok_isi_lama` double DEFAULT NULL,
+  `stok_isi_baru` double DEFAULT NULL,
+  `stok_kosong_lama` double DEFAULT NULL,
+  `stok_kosong_baru` double DEFAULT NULL,
+  `keterangan` text,
+  `id_karyawan` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `stok_opname` */
+
+insert  into `stok_opname`(`tgl`,`id_barang`,`stok_isi_lama`,`stok_isi_baru`,`stok_kosong_lama`,`stok_kosong_baru`,`keterangan`,`id_karyawan`) values ('2015-10-29',1,0,1000,0,1000,'tes',1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

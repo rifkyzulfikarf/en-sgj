@@ -15,7 +15,7 @@
 						array_push($detail, number_format($rs["stok_kosong"], 0, ",", "."));
 						array_push($detail, number_format($rs["stok_isi"], 0, ",", "."));
 						array_push($detail, "<button type='button' class='btn btn-sm btn-primary' id='btn-show-opname' data-kosong='".$rs["stok_kosong"]."' 
-											data-isi='".$rs["stok_isi"]."'><i class='fa fa-pencil'></i></button>");
+											data-isi='".$rs["stok_isi"]."' data-id='".$rs['id']."'><i class='fa fa-pencil'></i></button>");
 						array_push($collect, $detail);
 						unset($detail);
 					}
@@ -27,12 +27,12 @@
 				
 				if (isset($_POST['txt-kosong-lama']) && $_POST['txt-kosong-lama'] != "" && isset($_POST['txt-kosong-baru']) && $_POST['txt-kosong-baru'] != "" && 
 				isset($_POST['txt-isi-lama']) && $_POST['txt-isi-lama'] != "" && isset($_POST['txt-isi-baru']) && $_POST['txt-isi-baru'] != "" && 
-				isset($_POST['txt-keterangan']) && $_POST['txt-keterangan'] != "") {
+				isset($_POST['txt-keterangan']) && $_POST['txt-keterangan'] != "" && isset($_POST['txt-id']) && $_POST['txt-id'] != "") {
 					
 					$tgl = date("Y-m-d");
 					
-					if ($result = $barang->stok_opname($tgl, $_POST['txt-isi-lama'], $_POST['txt-isi-baru'], $_POST['txt-kosong-lama'], 
-					$_POST['txt-kosong-baru'], $_POST['txt-keterangan'], d_code($_SESSION['en-data']))) {
+					if ($result = $barang->stok_opname($tgl, $_POST['txt-id'], $_POST['txt-isi-lama'], $_POST['txt-isi-baru'], 
+					$_POST['txt-kosong-lama'], $_POST['txt-kosong-baru'], $_POST['txt-keterangan'], d_code($_SESSION['en-data']))) {
 						$arr['status']=TRUE;
 						$arr['msg']="Data tersimpan..";
 					} else {

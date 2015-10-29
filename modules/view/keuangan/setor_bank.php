@@ -76,7 +76,8 @@ $(document).ready(function(){
 	function init() {
 		$('#txt-jumlah').number(true,2);
 		$('#txt-tglsetor').datepicker({
-			format : "yyyy-mm-dd"
+			format : "yyyy-mm-dd",
+			autoclose : true
 		});
 	};
 	

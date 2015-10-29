@@ -87,7 +87,8 @@ $(document).ready(function(){
 		$('#txt-jumlah').number(true,2);
 		$('#txt-beaadmin').number(true,2);
 		$('#txt-tgltarik').datepicker({
-			format : "yyyy-mm-dd"
+			format : "yyyy-mm-dd",
+			autoclose : true
 		});
 	};
 	

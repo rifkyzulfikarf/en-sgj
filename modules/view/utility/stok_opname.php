@@ -45,6 +45,7 @@
 			<div class="modal-body">
 				<form id="frm-opname" action="#" method="POST" role="form">
 					<input type="hidden" class="form-control" id="apa" name="apa" value="simpan-opname">
+					<input type="hidden" class="form-control" id="txt-id" name="txt-id">
 					<div class="form-group">
 						<input type="text" class="form-control" id="txt-kosong-lama" name="txt-kosong-lama" placeholder="Stok Kosong Lama" readonly>
 					</div>
@@ -94,6 +95,7 @@ $(document).ready(function(){
 		$('#mdl-opname').modal();
 		$('#txt-kosong-lama').val($(this).data('kosong'));
 		$('#txt-isi-lama').val($(this).data('isi'));
+		$('#txt-id').val($(this).data('id'));
 		$('#txt-kosong-baru').val("");
 		$('#txt-isi-baru').val("");
 		$('#txt-keterangan').val("");

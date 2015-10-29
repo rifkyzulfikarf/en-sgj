@@ -13,7 +13,7 @@
 									<th>Nama</th>
 									<th>3 Kg</th>
 									<th>12 Kg</th>
-									<th>12 Kg BG</th>
+									<th>BG</th>
 									<th>50 kg</th>
 									<th></th>
 								</tr>
@@ -26,7 +26,7 @@
 									<th>Nama</th>
 									<th>3 Kg</th>
 									<th>12 Kg</th>
-									<th>12 Kg BG</th>
+									<th>BG</th>
 									<th>50 kg</th>
 									<th></th>
 								</tr>

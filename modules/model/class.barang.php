@@ -61,8 +61,9 @@
 			}
 		}
 		
-		function stok_opname($tgl, $stokIsiLama, $stokIsiBaru, $stokKosongLama, $stokKosongBaru, $keterangan, $idKaryawan) {
+		function stok_opname($tgl, $idBarang, $stokIsiLama, $stokIsiBaru, $stokKosongLama, $stokKosongBaru, $keterangan, $idKaryawan) {
 			$tgl = $this->clearText($tgl);
+			$idBarang = $this->clearText($idBarang);
 			$stokIsiLama = $this->clearText($stokIsiLama);
 			$stokIsiBaru = $this->clearText($stokIsiBaru);
 			$stokKosongLama = $this->clearText($stokKosongLama);
@@ -70,8 +71,8 @@
 			$keterangan = $this->clearText($keterangan);
 			$idKaryawan = $this->clearText($idKaryawan);
 			
-			$query = "INSERT INTO `stok_opname` VALUES ('$tgl', '1', '$stokIsiLama', '$stokIsiBaru', '$stokKosongLama', '$stokKosongBaru', '$keterangan', '$idKaryawan');";
-			$query .= "UPDATE `barang` SET `stok_isi` = '$stokIsiBaru', `stok_kosong` = '$stokKosongBaru' WHERE `id` = '1';";
+			$query = "INSERT INTO `stok_opname` VALUES ('$tgl', '$idBarang', '$stokIsiLama', '$stokIsiBaru', '$stokKosongLama', '$stokKosongBaru', '$keterangan', '$idKaryawan');";
+			$query .= "UPDATE `barang` SET `stok_isi` = '$stokIsiBaru', `stok_kosong` = '$stokKosongBaru' WHERE `id` = '$idBarang';";
 			
 			if ($result = $this->runMultipleQueries($query)) {
 				return TRUE;

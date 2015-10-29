@@ -16,7 +16,7 @@
 		
 		function get_driver() {
 			if ($list = $this->runQuery("SELECT `karyawan`.`id`, `karyawan`.`nama`, `level`.`jabatan`, `karyawan`.`jk` FROM `karyawan` 
-			INNER JOIN `level` ON (`karyawan`.`id_level` = `level`.`id`) WHERE `karyawan`.`id_level` = '9' AND `karyawan`.`hapus` = '0';")) {
+			INNER JOIN `level` ON (`karyawan`.`id_level` = `level`.`id`) WHERE `karyawan`.`id_level` = '3' AND `karyawan`.`hapus` = '0';")) {
 				if ($list->num_rows > 0) {
 					return $list;
 				} else {

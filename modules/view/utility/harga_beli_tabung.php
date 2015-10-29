@@ -11,7 +11,7 @@
 							<thead>
 								<tr>
 									<th>Nama Barang</th>
-									<th>Harga Tebus Tabung</th>
+									<th>Harga Tebus LPG</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -21,7 +21,7 @@
 							<tfoot>
 								<tr>
 									<th>Nama Barang</th>
-									<th>Harga Beli Tabung</th>
+									<th>Harga Tebus LPG</th>
 									<th></th>
 								</tr>
 							</tfoot>
