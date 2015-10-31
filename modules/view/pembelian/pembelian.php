@@ -147,7 +147,7 @@
 							<section class="panel">
 								<select class="form-control" id="cmb-jenis" name="cmb-jenis">
 									<option value="1">Tarikan Tunai</option>
-									<option value="2">Transfer</option>
+									<option value="2">KlikBCA</option>
 								</select>
 							</section>
 						</div>

@@ -27,6 +27,7 @@
 						<div class="col-lg-4">
 							<section class="panel">
 								<button type="button" class="btn btn-primary" id="btn-cari-kuota"><i class="fa fa-search"></i> Cari</button>
+								<button type="button" class="btn btn-danger" id="btn-ubah-0"><i class="fa fa-pencil"></i> Jadikan 0</button>
 							</section>
 						</div>
 					</div>
@@ -35,6 +36,7 @@
 						<table class="display table table-bordered table-striped" id="tabel-kuota">
 							<thead>
 								<tr>
+									<th>Nama</th>
 									<th>Tanggal</th>
 									<th>Jumlah Kuota</th>
 									<th>Telah Diambil</th>
@@ -46,6 +48,7 @@
 							</tbody>
 							<tfoot>
 								<tr>
+									<th>Nama</th>
 									<th>Tanggal</th>
 									<th>Jumlah Kuota</th>
 									<th>Telah Diambil</th>
@@ -248,6 +251,38 @@ $(document).ready(function(){
 	
 	$('#mdl-tambah-kuota').on('shown.bs.modal', function () {
 		$('#cmb-konsumen-tambah-kuota', this).chosen();
+	});
+	
+	$('#btn-ubah-0').click(function(ev){
+		var idKonsumen; var tglAwal; var tglAkhir;
+		ev.preventDefault();
+		
+		idKonsumen = $('#cmb-cari-konsumen').val();
+		tglAwal = $('#dp-awal').val();
+		tglAkhir = $('#dp-akhir').val();
+		
+		if (confirm('Ubah kuota jadi 0 ?')) {
+			$.ajax({
+				url: "./",
+				method: "POST",
+				cache: false,
+				dataType: "JSON",
+				data: {"aksi":"<?php echo e_url('modules/controller/konsumen/kuota_jual.php'); ?>", "apa":"ubah-0", 
+				"id":idKonsumen, "tglAwal":tglAwal, "tglAkhir":tglAkhir},
+				success: function(eve){
+					if (eve.status){
+						alert(eve.msg);
+						tabelkuota.fnReloadAjax();
+					} else {
+						alert(eve.msg);
+					}
+				},
+				error: function(err){
+					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
+					alert('Gagal terkoneksi dengan server..');
+				}
+			});
+		}
 	});
 	
 });

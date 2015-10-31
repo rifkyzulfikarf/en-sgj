@@ -18,8 +18,10 @@
 			$idKonsumen = $this->clearText($idKonsumen);
 			$tgl = $this->clearText($tgl);
 			
-			if ($list = $this->runQuery("SELECT `konsumen`.`harga_jual`, `kuota_penjualan`.`jml_alokasi` FROM `kuota_penjualan` INNER JOIN `konsumen` 
-			ON (`kuota_penjualan`.`id_konsumen` = `konsumen`.`id`) WHERE `konsumen`.`id` = '$idKonsumen' AND `kuota_penjualan`.`tgl` = '$tgl';")) {
+			if ($list = $this->runQuery("SELECT `konsumen`.`harga_3kg`, `harga_12kg`, `harga_12kg_bg`, `harga_50kg`, 
+			`kuota_penjualan`.`jml_alokasi` FROM `kuota_penjualan` INNER JOIN `konsumen` ON 
+			(`kuota_penjualan`.`id_konsumen` = `konsumen`.`id`) WHERE 
+			`kuota_penjualan`.`id_konsumen` = '$idKonsumen' AND `kuota_penjualan`.`tgl` = '$tgl';")) {
 				if ($list->num_rows > 0) {
 					return $list;
 				} else {
@@ -37,7 +39,7 @@
 		
 			if ($list = $this->runQuery("SELECT `kuota_penjualan`.`id_konsumen`, `konsumen`.`nama`, `kuota_penjualan`.`tgl`, `kuota_penjualan`.`jml_alokasi`, 
 			`kuota_penjualan`.`jml_terambil` FROM `kuota_penjualan` INNER JOIN `konsumen` ON (`kuota_penjualan`.`id_konsumen` = `konsumen`.`id`) 
-			WHERE `kuota_penjualan`.`id_konsumen` = '$idKonsumen' AND `konsumen`.`hapus` = '0' AND `kuota_penjualan`.`tgl` BETWEEN '$tglAwal' AND '$tglAkhir';")) {
+			WHERE `kuota_penjualan`.`id_konsumen` LIKE '$idKonsumen' AND `konsumen`.`hapus` = '0' AND `kuota_penjualan`.`tgl` BETWEEN '$tglAwal' AND '$tglAkhir';")) {
 				if ($list->num_rows > 0) {
 					return $list;
 				} else {
@@ -129,6 +131,19 @@
 			$jumlahTerambil = $this->clearText($jumlahTerambil);
 			
 			if ($result = $this->runQuery("UPDATE `kuota_penjualan` SET `jumlah_terambil` = `jumlah_terambil` + $jumlahTerambil WHERE `id_konsumen` = '$idKonsumen' AND `tgl` = '$tgl';")) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function set_kuota_0($idKonsumen, $tglAwal, $tglAkhir) {
+			$idKonsumen = $this->clearText($idKonsumen);
+			$tglAwal = $this->clearText($tglAwal);
+			$tglAkhir = $this->clearText($tglAkhir);
+			
+			if ($result = $this->runQuery("UPDATE `kuota_penjualan` SET `jml_alokasi` = '0' 
+			WHERE `id_konsumen` LIKE '$idKonsumen' AND `tgl` BETWEEN '$tglAwal' AND '$tglAkhir';")) {
 				return TRUE;
 			} else {
 				return FALSE;

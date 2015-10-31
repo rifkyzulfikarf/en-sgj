@@ -7,6 +7,7 @@
 		switch ($_POST['apa']) {
 			case 'get-konsumen':
 				if ($query = $konsumen->get_konsumen()) {
+					echo "<option value='%'>Semua</option>";
 					while ($rs = $query->fetch_array()) {
 						echo "<option value='".$rs['id']."'>".$rs['nama']."</option>";
 					}
@@ -21,6 +22,7 @@
 					if ($query = $konsumen->get_kuota_jual($_POST['id'], $_POST['tglAwal'], $_POST['tglAkhir'])) {
 						while ($rs = $query->fetch_array()) {
 							$detail = array();
+							array_push($detail, $rs["nama"]);
 							array_push($detail, $rs["tgl"]);
 							array_push($detail, $rs["jml_alokasi"]);
 							array_push($detail, $rs["jml_terambil"]);
@@ -67,6 +69,26 @@
 					} else {
 						$arr['status']=FALSE;
 						$arr['msg']="Gagal menyimpan..";
+					}
+				} else {
+					$arr['status']=FALSE;
+					$arr['msg']="Harap isi data dengan lengkap..";
+				}
+				
+				echo json_encode($arr);
+				break;
+			case "ubah-0":
+				$arr=array();
+				
+				if (isset($_POST['id']) && $_POST['id'] != "" && isset($_POST['tglAwal']) && $_POST['tglAwal'] != "" && 
+					isset($_POST['tglAkhir']) && $_POST['tglAkhir'] != "") {
+					
+					if ($result = $konsumen->set_kuota_0($_POST['id'], $_POST['tglAwal'], $_POST['tglAkhir'])) {
+						$arr['status']=TRUE;
+						$arr['msg']="Ubah kuota sukses..";
+					} else {
+						$arr['status']=FALSE;
+						$arr['msg']="Gagal mengubah kuota..";
 					}
 				} else {
 					$arr['status']=FALSE;
