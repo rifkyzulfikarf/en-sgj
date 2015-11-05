@@ -43,7 +43,7 @@
 							
 				if (isset($_POST['id']) && $_POST['id'] != "" && isset($_POST['tgl']) && $_POST['tgl'] != "" && 
 				isset($_POST['total']) && $_POST['total'] != "" && isset($_POST['jenis']) && $_POST['jenis'] != "" && 
-				isset($_POST['bank']) && $_POST['bank'] != "" && isset($_POST['bukti']) && $_POST['bukti'] != "") {
+				isset($_POST['bank']) && $_POST['bank'] != "") {
 					
 					if ($_POST['jenis'] == '4') {
 						$tglBg = $_POST['tglBg'];

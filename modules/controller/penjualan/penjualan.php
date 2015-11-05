@@ -45,13 +45,17 @@
 				
 				if (isset($_POST['konsumen']) && $_POST['konsumen'] != "" && isset($_POST['barang']) && $_POST['barang'] != "" && 
 				isset($_POST['tgl']) && $_POST['tgl'] != "") {
-					if ($query = $konsumen->get_harga_dan_kuota_jual($_POST['konsumen'], $_POST['tgl'])) {
+					if ($query = $konsumen->get_harga_jual($_POST['konsumen'])) {
 						$rs = $query->fetch_array();
 						$arr['status']=TRUE;
 						
 						if ($_POST['barang'] == "1") {
 							$arr['harga'] = ($rs['harga_3kg'] != null)?$rs['harga_3kg']:0;
-							$arr['kuota'] = ($rs['jml_alokasi'] != null)?$rs['jml_alokasi']:0;
+							
+							if ($kuota = $konsumen->get_kuota_jual($_POST['konsumen'], $_POST['tgl'], $_POST['tgl'])) {
+								$rsKuota = $kuota->fetch_array();
+								$arr['kuota'] = ($rsKuota['jml_alokasi'] != null)?$rsKuota['jml_alokasi']:0;
+							}
 						} elseif($_POST['barang'] == "2") {
 							$arr['harga'] = ($rs['harga_12kg'] != null)?$rs['harga_12kg']:0;
 							$arr['kuota'] = 0;
@@ -76,14 +80,13 @@
 				isset($_POST['barang']) && $_POST['barang'] != "" && isset($_POST['konsumen']) && $_POST['konsumen'] != "" && 
 				isset($_POST['jml']) && $_POST['jml'] != "" && isset($_POST['hargaJual']) && $_POST['hargaJual'] != "" && 
 				isset($_POST['het']) && $_POST['het'] != "" && isset($_POST['total']) && $_POST['total'] != "" && 
-				isset($_POST['jenis']) && $_POST['jenis'] != "") {
+				isset($_POST['jenis']) && $_POST['jenis'] != "" && isset($_POST['nota']) && $_POST['nota'] != "") {
 					
 					if ($_POST['jenis'] == '4') {
 						$tempo = $_POST['tempo'];
 						$bank = "0";
 						$bukti = "-";
 						$totalBayar = 0;
-						
 					} else {
 						$tempo = '0000-00-00';
 						$bank = $_POST['bank'];
@@ -93,7 +96,7 @@
 					
 					if ($result = $penjualan->transaksi_penjualan($_POST['tgl'], $_POST['konsumen'], $_POST['barang'], $_POST['jml'], 
 					$_POST['hargaJual'], $_POST['het'], $_POST['total'], $_POST['total'], $totalBayar, $_POST['jenis'], $tempo, 
-					$bank, $bukti, $_POST['sales'], d_code($_SESSION['en-data']))) {
+					$bank, $bukti, $_POST['sales'], d_code($_SESSION['en-data']), $_POST['nota'])) {
 						$arr['status']=TRUE;
 						$arr['msg']="Transaksi sukses tersimpan..";
 					} else {

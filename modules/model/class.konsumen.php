@@ -14,6 +14,21 @@
 			}
 		}
 		
+		function get_harga_jual($idKonsumen) {
+			$idKonsumen = $this->clearText($idKonsumen);
+			
+			if ($list = $this->runQuery("SELECT `konsumen`.`harga_3kg`, `konsumen`.`harga_12kg`, `konsumen`.`harga_12kg_bg`, 
+			`konsumen`.`harga_50kg` FROM `konsumen` WHERE `konsumen`.`id` = '$idKonsumen';")) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
 		function get_harga_dan_kuota_jual($idKonsumen, $tgl) {
 			$idKonsumen = $this->clearText($idKonsumen);
 			$tgl = $this->clearText($tgl);

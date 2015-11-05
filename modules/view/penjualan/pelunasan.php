@@ -87,11 +87,11 @@
 					<div class="form-group" id="div-bg">
 						<input type="text" class="form-control" name="dp-bg" id="dp-bg" placeholder="Tgl BG">
 					</div>
-					<div class="form-group">
+					<div class="form-group" id="div-bank">
 						<select class="form-control" id="cmb-bank" name="cmb-bank"></select>
 					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" id="txt-bukti" name="txt-bukti" placeholder="No. Bukti">
+					<div class="form-group" id="div-bukti">
+						<input type="text" class="form-control" id="txt-bukti" name="txt-bukti" placeholder="No. Bukti EDC / Bukti Transfer / No. BG">
 					</div>
 				</form>
 			</div>
@@ -127,6 +127,8 @@ $(document).ready(function(){
 		$('.rupiah').number(true,0);
 		$('.rupiah').val(0);
 		$('#div-bg').hide();
+		$('#div-bukti').hide();
+		$('#div-bank').hide();
 		$('#dp-tempo').datepicker({
 			format : "yyyy-mm-dd",
 			autoclose : true
@@ -178,8 +180,13 @@ $(document).ready(function(){
 		var selected = $(this).val();
 		if (selected == '4') {
 			$('#div-bg').show();
+		} else if (selected != '1') {
+			$('#div-bukti').show();
+			$('#div-bank').show();
 		} else {
 			$('#div-bg').hide();
+			$('#div-bukti').hide();
+			$('#div-bank').hide();
 		}
     });
 	

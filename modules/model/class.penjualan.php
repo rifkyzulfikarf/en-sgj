@@ -7,24 +7,22 @@
 	
 	class penjualan extends koneksi {
 		
-		function autocode_penjualan($tgl) {
+		function autocode_penjualan($tgl, $idBarang) {
 			$kode = "";
-			$query = "SELECT COUNT(`id`) FROM `penjualan` WHERE `tgl` = '$tgl';";
+			$prefix = "";
+			
+			$prefix = ($idBarang=="1")?"EGN":"SGJ";
+			
+			$query = "SELECT COUNT(`id`) FROM `penjualan` WHERE `tgl` = '$tgl' AND `id` LIKE '$prefix%';";
 			if ($result = $this->runQuery($query)) {
 				$rs = $result->fetch_array();
 				
 				switch (strlen($rs[0] + 1)) {
 					case 1:
-						$kode = "EPJ".date("ymd", strtotime($tgl))."000".($rs[0] + 1);
+						$kode = $prefix.date("ymd", strtotime($tgl))."0".($rs[0] + 1);
 						break;
 					case 2:
-						$kode = "EPJ".date("ymd", strtotime($tgl))."00".($rs[0] + 1);
-						break;
-					case 3:
-						$kode = "EPJ".date("ymd", strtotime($tgl))."0".($rs[0] + 1);
-						break;
-					case 4:
-						$kode = "EPJ".date("ymd", strtotime($tgl)).($rs[0] + 1);
+						$kode = $prefix.date("ymd", strtotime($tgl)).($rs[0] + 1);
 						break;
 				}
 			}
@@ -58,7 +56,7 @@
 		}
 		
 		function transaksi_penjualan($tgl, $idKonsumen, $idBarang, $jmlTabung, $hargaJual, $het, $totalJual, $totalHet, 
-		$totalBayar, $jenis, $tglTempo, $idBank, $noBukti, $idSales, $idKaryawan) {
+		$totalBayar, $jenis, $tglTempo, $idBank, $noBukti, $idSales, $idKaryawan, $nota) {
 			$tgl = $this->clearText($tgl);
 			$idKonsumen = $this->clearText($idKonsumen);
 			$idBarang = $this->clearText($idBarang);
@@ -74,8 +72,9 @@
 			$noBukti = $this->clearText($noBukti);
 			$idSales = $this->clearText($idSales);
 			$idKaryawan = $this->clearText($idKaryawan);
+			$nota = $this->clearText($nota);
 			
-			$id = $this->autocode_penjualan($tgl);
+			$id = $this->autocode_penjualan($tgl, $idBarang);
 			
 			if ($jenis != "4") {			//tempo
 				$tglTempo = "0000-00-00";
@@ -83,9 +82,10 @@
 			
 			$query = "INSERT INTO `penjualan` VALUES('$id', '$tgl', '$idKonsumen', '$idBarang', '$jmlTabung', '$hargaJual', 
 						'$het', '$totalJual', '$totalHet', '$totalBayar', '$jenis', '$tglTempo', '$idBank', '$noBukti', 
-						'$idSales', '$idKaryawan');";
-			if ($result = $this->runQuery($query)) {
-				if ($jenis == "1" || $jenis == "2" || $jenis == "3") {
+						'$idSales', '$idKaryawan', '$nota');";
+			$query .= "INSERT INTO `penjualan_acc_gudang`(`id_penjualan`) VALUES('$id');";
+			if ($result = $this->runMultipleQueries($query)) {
+				if ($jenis == "2" || $jenis == "3") {
 					$bank = new bank();
 					$hasilBank = $bank->transaksi_setor($idBank, $noBukti, $tgl, "Penjualan ".$id, $totalJual, $idKaryawan);
 				} else {
@@ -102,20 +102,16 @@
 			}
 		}
 		
-		function acc_gudang($idPenjualan, $tgl, $idKonsumen, $jmlBeli, $tabungKosong, $acc, $ket, $idGudang) {
+		function acc_gudang($idPenjualan, $idBarang, $jml, $acc, $idGudang) {
 			$idPenjualan = $this->clearText($idPenjualan);
-			$tgl = $this->clearText($tgl);
-			$idKonsumen = $this->clearText($idKonsumen);
-			$jmlBeli = $this->clearText($jmlBeli);
-			$tabungKosong = $this->clearText($tabungKosong);
+			$idBarang = $this->clearText($idBarang);
+			$jml = $this->clearText($jml);
 			$acc = $this->clearText($acc);
-			$ket = $this->clearText($ket);
 			$idGudang = $this->clearText($idGudang);
 			
-			$query = "UPDATE `penjualan` SET `acc_gudang` = '$acc', `ket_gudang` = '$ket', `id_gudang` = '$idGudang' WHERE `id` = '$idPenjualan';";
+			$query = "UPDATE `penjualan_acc_gudang` SET `acc_gudang` = '$acc', `id_gudang` = '$idGudang' WHERE `id_penjualan` = '$idPenjualan';";
 			if ($acc == "1") {
-				$query .= "UPDATE `barang` SET `stok_isi` = `stok_isi` - $jmlBeli, `stok_kosong` = `stok_kosong` + $tabungKosong WHERE `id` = '1';";
-				$query .= "UPDATE `kuota_penjualan` SET `jml_terambil` = `jml_terambil` + $jmlBeli WHERE `id_konsumen` = '$idKonsumen' AND `tgl` = '$tgl';";
+				$query .= "UPDATE `barang` SET `stok_isi` = `stok_isi` - $jml, `stok_kosong` = `stok_kosong` + $jml WHERE `id` = '$idBarang';";
 			}
 			
 			if ($result = $this->runMultipleQueries($query)) {

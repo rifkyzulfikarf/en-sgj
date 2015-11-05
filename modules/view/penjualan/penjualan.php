@@ -172,6 +172,18 @@
 								</form>
 							</section>
 						</div>
+						<div class="col-lg-4">
+							<section class="panel">
+								<form class="form-horizontal tasi-form">
+									<div class="form-group">
+										<label class="col-sm-2 col-sm-2 control-label">Nota</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="txt-nota" placeholder="No. Nota">
+										</div>
+									</div>
+								</form>
+							</section>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-lg-4" id="div-bank">
@@ -192,7 +204,7 @@
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label">Bukti</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="txt-bukti">
+											<input type="text" class="form-control" id="txt-bukti" placeholder="No. EDC / Bukti Transfer">
 										</div>
 									</div>
 								</form>
@@ -244,6 +256,8 @@ $(document).ready(function(){
 			autoclose : true
 		});
 		$('#div-tempo').hide();
+		$('#div-bank').hide();
+		$('#div-bukti').hide();
 		$.ajax({
 			url : "./",
 			method: "POST",
@@ -354,6 +368,10 @@ $(document).ready(function(){
 			$('#div-tempo').show();
 			$('#div-bank').hide();
 			$('#div-bukti').hide();
+		} else if(selected == '1') {
+			$('#div-tempo').hide();
+			$('#div-bank').hide();
+			$('#div-bukti').hide();
 		} else {
 			$('#div-tempo').hide();
 			$('#div-bank').show();
@@ -376,6 +394,7 @@ $(document).ready(function(){
 		var tempo = $('#dp-tempo').val();
 		var bank = $('#cmb-bank').val();
 		var bukti = $('#txt-bukti').val();
+		var nota = $('#txt-nota').val();
 		
 		if ((barang == '1') && (jml > alokasi)) {
 			alert("Pembelian anda melebihi alokasi !");
@@ -385,7 +404,7 @@ $(document).ready(function(){
 		if (confirm("Harap cek kembali data - data yang anda masukkan ! Simpan penebusan ?")) {
 			var post_data = {"aksi" : "<?php echo e_url('modules/controller/penjualan/penjualan.php'); ?>", "apa" : "simpan", 
 							"tgl" : tgl, "sales" : sales, "barang" : barang, "konsumen" : konsumen, "jml" : jml, "hargaJual" : hargaJual, 
-							"het" : het, "total" : total, "jenis" : jenis, "tempo" : tempo, "bank" : bank, "bukti" : bukti};
+							"het" : het, "total" : total, "jenis" : jenis, "tempo" : tempo, "bank" : bank, "bukti" : bukti, "nota" : nota};
 			
 			$.ajax({
 				url: "./",

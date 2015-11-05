@@ -73,8 +73,8 @@
 			'$ambilBg', '$idBank', '$noBukti', '$idKaryawan');";
 			$query .= "UPDATE `penjualan` SET `total_bayar` = `total_bayar` + '$totalBayar' WHERE `id` = '$idPenjualan';";
 			
-			if ($result = $this->runQuery($query)) {
-				if ($jenis == "1" || $jenis == "2" || $jenis == "3") {
+			if ($result = $this->runMultipleQueries($query)) {
+				if ($jenis == "2" || $jenis == "3") {
 					$bank = new bank();
 					$hasilBank = $bank->transaksi_setor($idBank, $noBukti, $tgl, "Piutang ".$id, $totalBayar, $idKaryawan);
 				} else {
