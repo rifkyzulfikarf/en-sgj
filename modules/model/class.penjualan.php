@@ -121,6 +121,38 @@
 			}
 		}
 		
+		function setor_bank($id, $bank, $bukti, $total, $idKaryawan) {
+			$id = $this->clearText($id);
+			$bank = $this->clearText($bank);
+			$bukti = $this->clearText($bukti);
+			$total = $this->clearText($total);
+			$idKaryawan = $this->clearText($idKaryawan);
+			
+			$tgl = date("Y-m-d");
+			$prefixID = substr($id, 0, 3);
+			
+			if ($prefixID == "EPP") {
+				$query = "UPDATE `pelunasan` SET `id_bank` = '$bank', `no_bukti` = '$bukti' WHERE `id` = '$id';";
+				$keterangan = "Setoran Pelunasan ".$id;
+			} else {
+				$query = "UPDATE `penjualan` SET `id_bank` = '$bank', `no_bukti` = '$bukti' WHERE `id` = '$id';";
+				$keterangan = "Setoran Penjualan ".$id;
+			}
+			
+			if ($result = $this->runQuery($query)) {
+				$cbank = new bank();
+				$hasilBank = $cbank->transaksi_setor($bank, $bukti, $tgl, $keterangan, $total, $idKaryawan);
+				
+				if ($hasilBank) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
 	}
 	
 	//$penjualan = new penjualan();

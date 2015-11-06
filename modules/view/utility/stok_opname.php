@@ -13,6 +13,7 @@
 									<th>Nama Barang</th>
 									<th>Stok Tabung Kosong</th>
 									<th>Stok Tabung Isi</th>
+									<th>Stok Tabung Pinjam</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -24,6 +25,7 @@
 									<th>Nama Barang</th>
 									<th>Stok Tabung Kosong</th>
 									<th>Stok Tabung Isi</th>
+									<th>Stok Tabung Pinjam</th>
 									<th></th>
 								</tr>
 							</tfoot>
@@ -59,6 +61,12 @@
 						<input type="text" class="form-control" id="txt-isi-baru" name="txt-isi-baru" placeholder="Jumlah Tabung Isi Sekarang">
 					</div>
 					<div class="form-group">
+						<input type="text" class="form-control" id="txt-pinjam-lama" name="txt-pinjam-lama" placeholder="Stok Pinjam Lama" readonly>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="txt-pinjam-baru" name="txt-pinjam-baru" placeholder="Jumlah Tabung Pinjam Sekarang">
+					</div>
+					<div class="form-group">
 						<input type="text" class="form-control" id="txt-keterangan" name="txt-keterangan" placeholder="Keterangan Perubahan">
 					</div>
 				</form>
@@ -79,6 +87,7 @@ $(document).ready(function(){
 	function init() {
 		$('#txt-kosong-baru').number(true,0);
 		$('#txt-isi-baru').number(true,0);
+		$('#txt-pinjam-baru').number(true,0);
 	};
 	
 	var tabelstok = $('#tabel-stok').dataTable({
@@ -95,9 +104,11 @@ $(document).ready(function(){
 		$('#mdl-opname').modal();
 		$('#txt-kosong-lama').val($(this).data('kosong'));
 		$('#txt-isi-lama').val($(this).data('isi'));
+		$('#txt-pinjam-lama').val($(this).data('pinjam'));
 		$('#txt-id').val($(this).data('id'));
-		$('#txt-kosong-baru').val("");
-		$('#txt-isi-baru').val("");
+		$('#txt-kosong-baru').val(0);
+		$('#txt-isi-baru').val(0);
+		$('#txt-pinjam-baru').val(0);
 		$('#txt-keterangan').val("");
 	});
 	

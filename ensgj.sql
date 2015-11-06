@@ -80,7 +80,7 @@ CREATE TABLE `bank` (
 
 /*Data for the table `bank` */
 
-insert  into `bank`(`id`,`nama`,`nomor_rekening`,`saldo`,`hapus`) values (1,'BCA Energas Nusantara','0093177999',1679900741.2,'0'),(2,'BCA Sumber Gasindo Jaya','0095072858',2051800768.67,'0');
+insert  into `bank`(`id`,`nama`,`nomor_rekening`,`saldo`,`hapus`) values (1,'BCA Energas Nusantara','0093177999',1680185741.2,'0'),(2,'BCA Sumber Gasindo Jaya','0095072858',2054500768.67,'0');
 
 /*Table structure for table `barang` */
 
@@ -91,6 +91,7 @@ CREATE TABLE `barang` (
   `nama` varchar(50) DEFAULT NULL,
   `stok_isi` double DEFAULT NULL,
   `stok_kosong` double DEFAULT NULL,
+  `stok_pinjam` double DEFAULT NULL,
   `het` double DEFAULT NULL,
   `harga_beli` double DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -98,7 +99,7 @@ CREATE TABLE `barang` (
 
 /*Data for the table `barang` */
 
-insert  into `barang`(`id`,`nama`,`stok_isi`,`stok_kosong`,`het`,`harga_beli`) values (1,'LPG 3Kg',1350,650,14250,11590.91),(2,'LPG 12Kg',0,0,100000,100000),(3,'LPG 50Kg',0,0,200000,200000),(4,'LPG Bright Gas',0,0,150000,150000);
+insert  into `barang`(`id`,`nama`,`stok_isi`,`stok_kosong`,`stok_pinjam`,`het`,`harga_beli`) values (1,'LPG 3Kg',1350,650,25,14250,11590.91),(2,'LPG 12Kg',0,0,0,100000,100000),(3,'LPG 50Kg',0,0,0,200000,200000),(4,'LPG Bright Gas',0,0,0,150000,150000);
 
 /*Table structure for table `karyawan` */
 
@@ -139,7 +140,7 @@ CREATE TABLE `kas_bank` (
 
 /*Data for the table `kas_bank` */
 
-insert  into `kas_bank`(`id`,`id_bank`,`no_bukti`,`tgl`,`keterangan`,`setor`,`tarik`,`bea_admin`,`saldo`,`id_karyawan`,`tgl_input`,`jenis`) values ('EKB1510270001',1,'ew','2015-10-27','tes',1682793510.45,0,0,1682793510.45,1,'2015-10-27 00:11:53','1'),('EKB1510270002',2,'grbfg','2015-10-27','cvvf',2050600768.67,0,0,2050600768.67,1,'2015-10-27 00:14:08','1'),('EKB1510270003',1,'sd','2015-10-27','sdc',0,500000.25,1000,1682292510.2,1,'2015-10-27 00:16:50','1'),('EKB1510290001',1,'jsdhdsf874','2015-10-29','Pembelian EPB1510290001',0,4173019,0,1678119491.2,1,'2015-10-29 09:39:17','2'),('EKB1511040001',1,'sdf45','2015-11-04','Penjualan EGN15110401',712500,0,0,1678831991.2,1,'2015-11-04 14:08:15','1'),('EKB1511040002',1,'dfg678','2015-11-04','Penjualan EGN15110402',712500,0,0,1679544491.2,1,'2015-11-04 14:08:28','1'),('EKB1511040003',2,'sdf46','2015-11-04','Penjualan SGJ15110401',1200000,0,0,2051800768.67,1,'2015-11-04 14:51:16','1'),('EKB1511040004',1,'','2015-11-04','Penjualan EGN15110403',356250,0,0,1679900741.2,1,'2015-11-04 15:14:53','1');
+insert  into `kas_bank`(`id`,`id_bank`,`no_bukti`,`tgl`,`keterangan`,`setor`,`tarik`,`bea_admin`,`saldo`,`id_karyawan`,`tgl_input`,`jenis`) values ('EKB1510270001',1,'ew','2015-10-27','tes',1682793510.45,0,0,1682793510.45,1,'2015-10-27 00:11:53','1'),('EKB1510270002',2,'grbfg','2015-10-27','cvvf',2050600768.67,0,0,2050600768.67,1,'2015-10-27 00:14:08','1'),('EKB1510270003',1,'sd','2015-10-27','sdc',0,500000.25,1000,1682292510.2,1,'2015-10-27 00:16:50','1'),('EKB1510290001',1,'jsdhdsf874','2015-10-29','Pembelian EPB1510290001',0,4173019,0,1678119491.2,1,'2015-10-29 09:39:17','2'),('EKB1511040001',1,'sdf45','2015-11-04','Penjualan EGN15110401',712500,0,0,1678831991.2,1,'2015-11-04 14:08:15','1'),('EKB1511040002',1,'dfg678','2015-11-04','Penjualan EGN15110402',712500,0,0,1679544491.2,1,'2015-11-04 14:08:28','1'),('EKB1511040003',2,'sdf46','2015-11-04','Penjualan SGJ15110401',1200000,0,0,2051800768.67,1,'2015-11-04 14:51:16','1'),('EKB1511040004',1,'','2015-11-04','Penjualan EGN15110403',356250,0,0,1679900741.2,1,'2015-11-04 15:14:53','1'),('EKB1511060001',1,'sldkjf3845','2015-11-06','Setoran Penjualan EGN15110403',356250,0,0,356250,1,'2015-11-06 10:27:20','1'),('EKB1511060002',1,'sdfsdf4565','2015-11-06','Setoran Penjualan EGN15110404',142500,0,0,1680043241.2,1,'2015-11-06 10:28:59','1'),('EKB1511060003',1,'sdfsdf4565','2015-11-06','Setoran Penjualan EGN15110405',142500,0,0,1680185741.2,1,'2015-11-06 10:29:12','1'),('EKB1511060004',2,'dkjf8476','2015-11-06','Setoran Pelunasan EPP1511230001',2700000,0,0,2054500768.67,1,'2015-11-06 10:30:03','1');
 
 /*Table structure for table `kas_kecil` */
 
@@ -309,7 +310,7 @@ CREATE TABLE `pelunasan` (
 
 /*Data for the table `pelunasan` */
 
-insert  into `pelunasan`(`id`,`id_penjualan`,`tgl`,`total_bayar`,`jenis`,`tgl_bg`,`ambil_bg`,`id_bank`,`no_bukti`,`id_karyawan`) values ('EPP1511230001','SGJ15110402','2015-11-23',2700000,'1','0000-00-00','1',1,'',1);
+insert  into `pelunasan`(`id`,`id_penjualan`,`tgl`,`total_bayar`,`jenis`,`tgl_bg`,`ambil_bg`,`id_bank`,`no_bukti`,`id_karyawan`) values ('EPP1511230001','SGJ15110402','2015-11-23',2700000,'1','0000-00-00','1',2,'dkjf8476',1);
 
 /*Table structure for table `pemakai` */
 
@@ -382,7 +383,7 @@ CREATE TABLE `penjualan` (
 
 /*Data for the table `penjualan` */
 
-insert  into `penjualan`(`id`,`tgl`,`id_konsumen`,`id_barang`,`jml`,`harga_jual`,`het`,`total_jual`,`total_het`,`total_bayar`,`jenis`,`tgl_tempo`,`id_bank`,`no_bukti`,`id_sales`,`id_karyawan`,`no_nota`) values ('EGN15110401','2015-11-04',1,1,50,14250,14250,712500,712500,712500,'2','0000-00-00',1,'sdf45',2,1,NULL),('EGN15110402','2015-11-04',1,1,50,14250,14250,712500,712500,712500,'2','0000-00-00',1,'dfg678',1,1,NULL),('EGN15110403','2015-11-04',1,1,25,14250,14250,356250,356250,356250,'1','0000-00-00',1,'',1,1,'029344'),('EGN15110404','2015-11-04',1,1,10,14250,14250,142500,142500,142500,'1','0000-00-00',1,'',1,1,'575678'),('EGN15110405','2015-11-04',1,1,10,14250,14250,142500,142500,142500,'1','0000-00-00',1,'',1,1,'928349'),('SGJ15110401','2015-11-04',3,2,10,120000,100000,1200000,1200000,1200000,'2','0000-00-00',2,'sdf46',1,1,NULL),('SGJ15110402','2015-11-04',3,3,10,270000,200000,2700000,2700000,2700000,'4','2015-11-30',0,'-',1,1,'235435');
+insert  into `penjualan`(`id`,`tgl`,`id_konsumen`,`id_barang`,`jml`,`harga_jual`,`het`,`total_jual`,`total_het`,`total_bayar`,`jenis`,`tgl_tempo`,`id_bank`,`no_bukti`,`id_sales`,`id_karyawan`,`no_nota`) values ('EGN15110401','2015-11-04',1,1,50,14250,14250,712500,712500,712500,'2','0000-00-00',1,'sdf45',2,1,NULL),('EGN15110402','2015-11-04',1,1,50,14250,14250,712500,712500,712500,'2','0000-00-00',1,'dfg678',1,1,NULL),('EGN15110403','2015-11-04',1,1,25,14250,14250,356250,356250,356250,'1','0000-00-00',1,'sldkjf3845',1,1,'029344'),('EGN15110404','2015-11-04',1,1,10,14250,14250,142500,142500,142500,'1','0000-00-00',1,'sdfsdf4565',1,1,'575678'),('EGN15110405','2015-11-04',1,1,10,14250,14250,142500,142500,142500,'1','0000-00-00',1,'sdfsdf4565',1,1,'928349'),('SGJ15110401','2015-11-04',3,2,10,120000,100000,1200000,1200000,1200000,'2','0000-00-00',2,'sdf46',1,1,NULL),('SGJ15110402','2015-11-04',3,3,10,270000,200000,2700000,2700000,2700000,'4','2015-11-30',0,'-',1,1,'235435');
 
 /*Table structure for table `penjualan_acc_gudang` */
 
@@ -409,13 +410,15 @@ CREATE TABLE `stok_opname` (
   `stok_isi_baru` double DEFAULT NULL,
   `stok_kosong_lama` double DEFAULT NULL,
   `stok_kosong_baru` double DEFAULT NULL,
+  `stok_pinjam_lama` double DEFAULT NULL,
+  `stok_pinjam_baru` double DEFAULT NULL,
   `keterangan` text,
   `id_karyawan` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `stok_opname` */
 
-insert  into `stok_opname`(`tgl`,`id_barang`,`stok_isi_lama`,`stok_isi_baru`,`stok_kosong_lama`,`stok_kosong_baru`,`keterangan`,`id_karyawan`) values ('2015-10-29',1,0,1000,0,1000,'tes',1);
+insert  into `stok_opname`(`tgl`,`id_barang`,`stok_isi_lama`,`stok_isi_baru`,`stok_kosong_lama`,`stok_kosong_baru`,`stok_pinjam_lama`,`stok_pinjam_baru`,`keterangan`,`id_karyawan`) values ('2015-10-29',1,0,1000,0,1000,NULL,NULL,'tes',1),('2015-11-05',1,1350,1350,650,650,0,25,'tes',1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
