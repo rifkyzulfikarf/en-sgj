@@ -13,17 +13,24 @@
 			
 			$prefix = ($idBarang=="1")?"EGN":"SGJ";
 			
-			$query = "SELECT COUNT(`id`) FROM `penjualan` WHERE `tgl` = '$tgl' AND `id` LIKE '$prefix%';";
+			$query = "SELECT MAX(`id`) FROM `penjualan` WHERE `tgl` = '$tgl' AND `id` LIKE '$prefix%';";
 			if ($result = $this->runQuery($query)) {
 				$rs = $result->fetch_array();
 				
-				switch (strlen($rs[0] + 1)) {
-					case 1:
-						$kode = $prefix.date("ymd", strtotime($tgl))."0".($rs[0] + 1);
-						break;
-					case 2:
-						$kode = $prefix.date("ymd", strtotime($tgl)).($rs[0] + 1);
-						break;
+				if ($rs[0] == null) {
+					$kode = $prefix.date("ymd", strtotime($tgl))."01";
+				} else {
+					$lastCode = substr($rs[0], -1, 1);
+					$newCode = $lastCode + 1;
+					
+					switch (strlen($newCode)) {
+						case 1:
+							$kode = $prefix.date("ymd", strtotime($tgl))."0".$newCode;
+							break;
+						case 2:
+							$kode = $prefix.date("ymd", strtotime($tgl)).$newCode;
+							break;
+					}
 				}
 			}
 			return $kode;
@@ -151,6 +158,47 @@
 			} else {
 				return FALSE;
 			}
+		}
+		
+		function penjualan_hapus($idPenjualan, $idBarang, $jenis, $jml, $totalBayar, $idBank, $accGudang, $idKaryawan) {
+			$idPenjualan = $this->clearText($idPenjualan);
+			$idBarang = $this->clearText($idBarang);
+			$jenis = $this->clearText($jenis);
+			$jml = $this->clearText($jml);
+			$totalBayar = $this->clearText($totalBayar);
+			$idBank = $this->clearText($idBank);
+			$accGudang = $this->clearText($accGudang);
+			$idKaryawan = $this->clearText($idKaryawan);
+			
+			$query = "";
+			
+			//cek acc gudang, jika sudah diacc, stok barang dikembalikan seperti semula
+			if ($accGudang == "1") {
+				$query .= "UPDATE `barang` SET `stok_isi` = `stok_isi` + $jml, `stok_kosong` = `stok_kosong` - $jml WHERE `id` = '$idBarang';";
+			}
+			
+			//hapus record penjualan
+			$query .= "DELETE FROM `penjualan` WHERE `id` = '$idPenjualan';";
+			
+			if ($jenis == "4") {
+				$query .= "DELETE FROM `pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
+			}
+			
+			if ($result = $this->runQuery($query)) {
+				//update kas bank
+				$cbank = new bank();
+				$hasilBank = $cbank->transaksi_tarik($idBank, "-", date("Y-m-d"), "Pembatalan Transaksi", $totalBayar, 
+				0, $idKaryawan, "1");
+				
+				if ($hasilBank) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+			
 		}
 		
 	}
