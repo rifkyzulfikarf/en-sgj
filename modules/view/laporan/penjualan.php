@@ -54,7 +54,7 @@
 										FROM `penjualan` 
 										INNER JOIN `barang` ON (`penjualan`.`id_barang` = `barang`.`id`) 
 										INNER JOIN `konsumen` ON (`penjualan`.`id_konsumen` = `konsumen`.`id`) 
-										WHERE `penjualan`.`id_bank` = '2' OR `penjualan`.`id_bank` = '0' 
+										WHERE (`penjualan`.`id_bank` = '2' OR `penjualan`.`id_bank` = '0') 
 										AND `penjualan`.`id_konsumen` LIKE '".$_POST['cmb-konsumen']."' 
 										AND `penjualan`.`jenis` LIKE '".$_POST['cmb-jenis']."' 
 										AND `penjualan`.`tgl` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."';";

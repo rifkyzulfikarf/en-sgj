@@ -24,9 +24,9 @@
 			case "ubah-het":
 				$arr=array();
 				
-				if (isset($_POST['txt-het']) && $_POST['txt-het'] != "") {
+				if (isset($_POST['txt-het']) && $_POST['txt-het'] != "" && isset($_POST['txt-id']) && $_POST['txt-id'] != "") {
 					
-					if ($result = $barang->ubah_het($_POST['txt-het'])) {
+					if ($result = $barang->ubah_het($_POST['txt-het'], $_POST['txt-id'])) {
 						$arr['status']=TRUE;
 						$arr['msg']="Data tersimpan..";
 					} else {

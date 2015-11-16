@@ -46,7 +46,7 @@
 				isset($_POST['bank']) && $_POST['bank'] != "") {
 					
 					if ($_POST['jenis'] == '4') {
-						$tglBg = $_POST['tglBg'];
+						$tglBg = $_POST['tglbg'];
 					} else {
 						$tglBg = '0000-00-00';
 					}

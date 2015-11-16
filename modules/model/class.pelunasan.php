@@ -51,6 +51,26 @@
 			}
 		}
 		
+		function get_bg_belum_ambil($tglAwal, $tglAkhir) {
+			$tglAwal = $this->clearText($tglAwal);
+			$tglAkhir = $this->clearText($tglAkhir);
+			
+			$query = "SELECT `pelunasan`.*, `konsumen`.`nama` FROM `pelunasan` 
+					INNER JOIN `penjualan` ON (`pelunasan`.`id_penjualan` = `penjualan`.`id`) 
+					INNER JOIN `konsumen` ON (`penjualan`.`id_konsumen` = `konsumen`.`id`) WHERE `pelunasan`.`jenis` = '4' AND 
+					`pelunasan`.`ambil_bg` = '0' AND `pelunasan`.`tgl_bg` BETWEEN '$tglAwal' AND '$tglAkhir';";
+			
+			if ($list = $this->runQuery($query)) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
 		function bayar_pelunasan($idPenjualan, $tgl, $totalBayar, $jenis, $tglBg, $idBank, $noBukti, $idKaryawan){
 			$idPenjualan = $this->clearText($idPenjualan);
 			$tgl = $this->clearText($tgl);
@@ -89,6 +109,31 @@
 			} else {
 				return FALSE;
 			}
+		}
+		
+		function ambil_bg($idPelunasan, $tglBg, $totalBayar, $idBank, $bukti, $idKaryawan){
+			$idPelunasan = $this->clearText($idPelunasan);
+			$tglBg = $this->clearText($tglBg);
+			$totalBayar = $this->clearText($totalBayar);
+			$idBank = $this->clearText($idBank);
+			$bukti = $this->clearText($bukti);
+			$idKaryawan = $this->clearText($idKaryawan);
+			
+			$query = "UPDATE `pelunasan` SET `ambil_bg` = '1' WHERE `id` = '$idPelunasan';";
+			
+			if ($result = $this->runQuery($query)) {
+				$bank = new bank();
+				$hasilBank = $bank->transaksi_setor($idBank, $bukti, $tglBg, "Pencairan BG ".$bukti, $totalBayar, $idKaryawan);
+				
+				if ($hasilBank) {
+					return TRUE;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+			
 		}
 		
 	}

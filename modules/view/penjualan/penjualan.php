@@ -256,7 +256,6 @@ $(document).ready(function(){
 			autoclose : true
 		});
 		$('#div-tempo').hide();
-		$('#div-bank').hide();
 		$('#div-bukti').hide();
 		$.ajax({
 			url : "./",
@@ -366,15 +365,12 @@ $(document).ready(function(){
 		var selected = $(this).val();
 		if (selected == '4') {
 			$('#div-tempo').show();
-			$('#div-bank').hide();
 			$('#div-bukti').hide();
 		} else if(selected == '1') {
 			$('#div-tempo').hide();
-			$('#div-bank').hide();
 			$('#div-bukti').hide();
 		} else {
 			$('#div-tempo').hide();
-			$('#div-bank').show();
 			$('#div-bukti').show();
 		}
     });
@@ -401,7 +397,7 @@ $(document).ready(function(){
 			return;
 		}
 		
-		if (confirm("Harap cek kembali data - data yang anda masukkan ! Simpan penebusan ?")) {
+		if (confirm("Harap cek kembali data - data yang anda masukkan ! Simpan penjualan ?")) {
 			var post_data = {"aksi" : "<?php echo e_url('modules/controller/penjualan/penjualan.php'); ?>", "apa" : "simpan", 
 							"tgl" : tgl, "sales" : sales, "barang" : barang, "konsumen" : konsumen, "jml" : jml, "hargaJual" : hargaJual, 
 							"het" : het, "total" : total, "jenis" : jenis, "tempo" : tempo, "bank" : bank, "bukti" : bukti, "nota" : nota};

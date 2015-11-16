@@ -1,0 +1,2 @@
+- akses_menu : hapus penjualan urutan = 6, add ambil BG urutan 5
+- create table pinjaman_tabung

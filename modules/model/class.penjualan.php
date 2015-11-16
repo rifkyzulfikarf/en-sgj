@@ -20,7 +20,7 @@
 				if ($rs[0] == null) {
 					$kode = $prefix.date("ymd", strtotime($tgl))."01";
 				} else {
-					$lastCode = substr($rs[0], -1, 1);
+					$lastCode = substr($rs[0], 9, 2);
 					$newCode = $lastCode + 1;
 					
 					switch (strlen($newCode)) {

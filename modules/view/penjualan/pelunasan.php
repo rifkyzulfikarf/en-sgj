@@ -180,7 +180,10 @@ $(document).ready(function(){
 		var selected = $(this).val();
 		if (selected == '4') {
 			$('#div-bg').show();
+			$('#div-bukti').show();
+			$('#div-bank').show();
 		} else if (selected != '1') {
+			$('#div-bg').hide();
 			$('#div-bukti').show();
 			$('#div-bank').show();
 		} else {

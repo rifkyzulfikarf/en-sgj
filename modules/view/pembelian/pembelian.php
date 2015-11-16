@@ -96,7 +96,7 @@
 											<div class="input-group">
 												<span class="input-group-addon">Rp</span>
 												<input type="text" class="form-control rupiah-bulat" name="txt-diskon" 
-												id="txt-diskon">
+												id="txt-diskon" readonly>
 											</div>
 										</div>
 									</div>
@@ -249,10 +249,6 @@ $(document).ready(function(){
 	};
 	
 	$('#txt-jml-tabung').keyup(function(){
-		hitung();
-	});
-	
-	$('#txt-diskon').keyup(function(){
 		hitung();
 	});
 	

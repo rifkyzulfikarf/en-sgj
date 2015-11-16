@@ -41,20 +41,22 @@
 			}
 		}
 		
-		function ubah_het($het) {
+		function ubah_het($het, $id) {
 			$het = $this->clearText($het);
+			$id = $this->clearText($id);
 			
-			if ($result = $this->runQuery("UPDATE `barang` SET `het` = '$het' WHERE `id` = '1';")) {
+			if ($result = $this->runQuery("UPDATE `barang` SET `het` = '$het' WHERE `id` = '$id';")) {
 				return TRUE;
 			} else {
 				return FALSE;
 			}
 		}
 		
-		function ubah_harga_beli($harga) {
+		function ubah_harga_beli($harga, $id) {
 			$harga = $this->clearText($harga);
+			$id = $this->clearText($id);
 			
-			if ($result = $this->runQuery("UPDATE `barang` SET `harga_beli` = '$harga' WHERE `id` = '1';")) {
+			if ($result = $this->runQuery("UPDATE `barang` SET `harga_beli` = '$harga' WHERE `id` = '$id';")) {
 				return TRUE;
 			} else {
 				return FALSE;

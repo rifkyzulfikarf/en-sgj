@@ -24,9 +24,9 @@
 			case "ubah-harga-beli":
 				$arr=array();
 				
-				if (isset($_POST['txt-harga-beli']) && $_POST['txt-harga-beli'] != "") {
+				if (isset($_POST['txt-harga-beli']) && $_POST['txt-harga-beli'] != "" && isset($_POST['txt-id']) && $_POST['txt-id'] != "") {
 					
-					if ($result = $barang->ubah_harga_beli($_POST['txt-harga-beli'])) {
+					if ($result = $barang->ubah_harga_beli($_POST['txt-harga-beli'], $_POST['txt-id'])) {
 						$arr['status']=TRUE;
 						$arr['msg']="Data tersimpan..";
 					} else {
