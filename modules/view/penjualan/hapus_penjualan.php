@@ -81,5 +81,32 @@ $(document).ready(function(){
 	$('#btn-cari').click(function(ev){
 		tabeljual.fnReloadAjax();
 	});
+	
+	$('#tabel-jual').on('click', '#btn-hapus', function(ev){
+		ev.preventDefault();
+		var id = $(this).data('id');
+		if (confirm('Setuju hapus data ?')) {
+			$.ajax({
+				url: "./",
+				method: "POST",
+				cache: false,
+				dataType: "JSON",
+				data: {"aksi" : "<?php echo e_url('modules/controller/penjualan/hapus_penjualan.php'); ?>", "apa" : "hapus-penjualan", 
+				"id" : id},
+				success: function(eve){
+					if (eve.status){
+						alert(eve.msg);
+						tabeljual.fnReloadAjax();
+					} else {
+						alert(eve.msg);
+					}
+				},
+				error: function(err){
+					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
+					alert('Gagal terkoneksi dengan server..');
+				}
+			});
+		}
+	});
 });
 </script>

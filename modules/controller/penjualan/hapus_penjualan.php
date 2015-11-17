@@ -25,10 +25,7 @@
 							array_push($detail, $rs["nama_barang"]);
 							array_push($detail, $rs["jml"]);
 							array_push($detail, "Rp ".number_format($rs["total_bayar"],0,".",","));
-							array_push($detail, "<button class='btn btn-sm btn-danger' id='btn-hapus' data-id='".$rs['id']."' 
-							data-barang='".$rs['id_barang']."' data-jenis='".$rs['jenis']."' data-jml='".$rs['jml']."' 
-							data-bayar='".$rs['total_bayar']."' data-bank='".$rs['id_bank']."' data-accgudang='".$rs['acc_gudang']."' 
-							data-banklunas='".$rs['idbanklunas']."'>
+							array_push($detail, "<button class='btn btn-sm btn-danger' id='btn-hapus' data-id='".$rs['id']."'>
 							<i class='fa fa-trash-o'></i></button>");
 							array_push($collect, $detail);
 							unset($detail);
@@ -36,6 +33,25 @@
 					}
 				}
 				echo json_encode(array("aaData"=>$collect));
+				break;
+			case "hapus-penjualan" :
+				$arr=array();
+				
+				if (isset($_POST['id']) && $_POST['id'] != "") {
+					
+					if ($result = $penjualan->penjualan_hapus($_POST['id'], d_code($_SESSION['en-data']))) {
+						$arr['status']=TRUE;
+						$arr['msg']="Transaksi sukses terhapus..";
+					} else {
+						$arr['status']=FALSE;
+						$arr['msg']="Gagal menghapus..";
+					}
+				} else {
+					$arr['status']=FALSE;
+					$arr['msg']="Harap isi data dengan lengkap..";
+				}
+				
+				echo json_encode($arr);
 				break;
 		}
 	}
