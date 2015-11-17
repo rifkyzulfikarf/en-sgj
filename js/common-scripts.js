@@ -137,6 +137,8 @@ $(".btn-confirm-logout").on('click', function(){
 //menu click
 $(".link-menu").on("click",function(ev) {
 	ev.preventDefault();
+	
+	window.scrollTo(0, 0);
 
 	$('#main-content').html("<section class='wrapper site-min-height'><div class='text-center' id='spinner'><i class='fa fa-spinner fa-spin fa-5x'></i></div></section>");
 	var uri = $(this).data('hash');
