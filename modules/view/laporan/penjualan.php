@@ -25,6 +25,7 @@
 							<table class="table table-hover table-striped table-mod">
 								<thead>
 									<tr>
+										<th class="text-center">ID</th>
 										<th class="text-center">Tgl</th>
 										<th class="text-center">Konsumen</th>
 										<th class="text-center">Barang</th>
@@ -41,7 +42,8 @@
 									<?php
 									
 									if ($_POST['cmb-bank'] == "1") {	//energas
-										$query = "SELECT `penjualan`.*, `barang`.`nama` AS `nama_barang`, `konsumen`.`nama` AS `nama_konsumen` 
+										$query = "SELECT `penjualan`.*, `barang`.`nama` AS `nama_barang`, `konsumen`.`nama` AS `nama_konsumen`, 
+										`penjualan`.`id` 
 										FROM `penjualan` 
 										INNER JOIN `barang` ON (`penjualan`.`id_barang` = `barang`.`id`) 
 										INNER JOIN `konsumen` ON (`penjualan`.`id_konsumen` = `konsumen`.`id`) 
@@ -50,7 +52,8 @@
 										AND `penjualan`.`jenis` LIKE '".$_POST['cmb-jenis']."' 
 										AND `penjualan`.`tgl` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."';";
 									} else {							//gasindo
-										$query = "SELECT `penjualan`.*, `barang`.`nama` AS `nama_barang`, `konsumen`.`nama` AS `nama_konsumen` 
+										$query = "SELECT `penjualan`.*, `barang`.`nama` AS `nama_barang`, `konsumen`.`nama` AS `nama_konsumen`, 
+										`penjualan`.`id` 
 										FROM `penjualan` 
 										INNER JOIN `barang` ON (`penjualan`.`id_barang` = `barang`.`id`) 
 										INNER JOIN `konsumen` ON (`penjualan`.`id_konsumen` = `konsumen`.`id`) 
@@ -82,6 +85,7 @@
 											}
 											
 											echo "<tr>
+												<td class='text-center'>".$rs['id']."</td>
 												<td class='text-center'>".$rs['tgl']."</td>
 												<td class='text-center'>".$rs['nama_konsumen']."</td>
 												<td class='text-center'>".$rs['nama_barang']."</td>
@@ -97,7 +101,7 @@
 									}
 									?>
 										<tr>
-											<td colspan="3"><strong>Total</strong></td>
+											<td colspan="4"><strong>Total</strong></td>
 											<td class="text-center"><?php echo number_format($totalJml,0,",",".") ?></td>
 											<td></td>
 											<td class="text-center"><?php echo number_format($totalJual,0,",",".") ?></td>

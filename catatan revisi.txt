@@ -1,0 +1,17 @@
+- Kas Kecil +1 ID Transaksi + Nomor Nota
+
+
+
+
+- Menu Berita Acara, jika ada sesuatu misal lampu mati, internet down, salah ketik id
+	Tgl, Yang Input Siapa, Keterangan Event
+	
+- Processing  message on Button Click
+
+
+- Non DO -> Loading dulu Tgl, Jumlah, terakhir diglobal utk ditebus, ID penjualan AHS, stok pisah, tebus loading pisah
+
+- pengajuan , tgl, yg input, nomor urut, jenis dan tipe barang, jumlah, harga satuan, total, vendor/supplier, keterangan
+- acc -> edit(edit jumlah pencairan), delete, acc
+
+Acc Gudang Tebus berdasar Tanggal Loading
