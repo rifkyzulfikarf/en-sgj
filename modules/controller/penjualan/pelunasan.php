@@ -9,8 +9,8 @@
 			case "get-penjualan-tempo":
 				$collect = array();
 				
-				if (isset($_POST['tgl']) && $_POST['tgl'] != "") {
-					if ($query = $pelunasan->get_penjualan_belum_lunas($_POST['tgl'], $_POST['tgl'])) {
+				if (isset($_POST['konsumen']) && $_POST['konsumen'] != "") {
+					if ($query = $pelunasan->get_penjualan_belum_lunas_by_konsumen($_POST['konsumen'])) {
 						while ($rs = $query->fetch_array()) {
 							$detail = array();
 							array_push($detail, $rs["id"]);

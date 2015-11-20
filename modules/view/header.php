@@ -35,9 +35,8 @@
 			<!-- notification dropdown end -->
 			
 			<li id="header_notification_bar" class="dropdown">
-				<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+				<a data-toggle="dropdown" class="dropdown-toggle link-menu" href="#" data-link="<?php echo e_url("modules/view/khusus/password.php") ?>" data-hash='Password'>
 					<i class="fa fa-eye"></i>
-					<span class="badge bg-warning"></span>
 				</a>
 			</li>
 			

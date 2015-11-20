@@ -51,6 +51,27 @@
 			}
 		}
 		
+		function get_penjualan_belum_lunas_by_konsumen($idKonsumen) {
+			$idKonsumen = $this->clearText($idKonsumen);
+			
+			$query = "SELECT `penjualan`.*, `barang`.`nama` AS `nama_barang`, `konsumen`.`nama` AS `nama_konsumen`, 
+			`sales`.`nama` AS `nama_sales` FROM `penjualan` INNER JOIN `barang` ON (`penjualan`.`id_barang` = `barang`.`id`) 
+			INNER JOIN `konsumen` ON (`penjualan`.`id_konsumen` = `konsumen`.`id`) 
+			INNER JOIN `karyawan` AS `sales` ON (`penjualan`.`id_sales` = `sales`.`id`) 
+			WHERE `penjualan`.`jenis` = '4' AND `penjualan`.`total_bayar` < `penjualan`.`total_jual` 
+			AND `konsumen`.`id` = '$idKonsumen';";
+			
+			if ($list = $this->runQuery($query)) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
 		function get_bg_belum_ambil($tglAwal, $tglAkhir) {
 			$tglAwal = $this->clearText($tglAwal);
 			$tglAkhir = $this->clearText($tglAkhir);

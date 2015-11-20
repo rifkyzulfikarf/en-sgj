@@ -1,3 +1,6 @@
+<?php
+	$data = new koneksi();
+?>
 <section class="wrapper site-min-height">
 	<div class="row">
 		<div class="col-lg-12">
@@ -10,7 +13,15 @@
 						<div class="col-lg-2">
 							<section class="panel">
 								<div class="input-group input-large">
-									<input type="text" class="form-control" name="dp-tempo" id="dp-tempo" placeholder="Tanggal Tempo">
+									<select class="form-control" id="cmb-konsumen">
+									<?php
+										if ($result = $data->runQuery("SELECT id, nama FROM konsumen WHERE hapus = '0'")) {
+											while ($rs = $result->fetch_array()) {
+												echo "<option value='".$rs['id']."'>".$rs['nama']."</option>";
+											}
+										}
+									?>
+									</select>
 								</div>
 							</section>
 						</div>
@@ -129,6 +140,7 @@ $(document).ready(function(){
 		$('#div-bg').hide();
 		$('#div-bukti').hide();
 		$('#div-bank').hide();
+		$('#cmb-konsumen').chosen();
 		$('#dp-tempo').datepicker({
 			format : "yyyy-mm-dd",
 			autoclose : true
@@ -162,7 +174,7 @@ $(document).ready(function(){
 		"fnServerParams": function ( aoData ) {
             aoData.push({"name": "aksi", "value": "<?php echo e_url('modules/controller/penjualan/pelunasan.php'); ?>"});
             aoData.push({"name": "apa", "value": "get-penjualan-tempo"});
-            aoData.push({"name": "tgl", "value": $('#dp-tempo').val()});
+            aoData.push({"name": "konsumen", "value": $('#cmb-konsumen').val()});
         }
     });
 	
