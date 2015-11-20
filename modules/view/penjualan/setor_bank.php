@@ -136,6 +136,13 @@ $(document).ready(function(){
 		$('#mdl-setor').modal();
 		$('#txt-id').val($(this).data('id'));
 		$('#txt-total').val($(this).data('total'));
+		
+		if ($(this).data('idbarang') == "1") {
+			$('#cmb-bank').val("1");
+		} else {
+			$('#cmb-bank').val("2");
+		}
+		
 	});
 	
 	$('#btn-simpan-setoran').click(function(ev){
@@ -146,6 +153,7 @@ $(document).ready(function(){
 		var total = $('#txt-total').val();
 		
 		if (confirm("Harap cek kembali data - data yang anda masukkan ! Simpan setoran ?")) {
+			$('#btn-simpan-setoran').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			var post_data = {"aksi" : "<?php echo e_url('modules/controller/penjualan/setor_bank.php'); ?>", "apa" : "simpan-setoran", 
 							"id" : id, "bank" : bank, "bukti" : bukti, "total" : total};
 			
@@ -163,6 +171,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
+					$('#btn-simpan-setoran').removeClass('disabled').html('Simpan Setoran');
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));

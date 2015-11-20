@@ -67,6 +67,7 @@ $(document).ready(function() {
 
 	$('#btn-simpan').on('click', function(ev){
 	    ev.preventDefault();
+		$('#btn-simpan').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 	    var post_data = $('#form-menu').serialize();
 	        
 		$.ajax({

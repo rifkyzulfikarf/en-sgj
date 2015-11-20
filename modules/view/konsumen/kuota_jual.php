@@ -188,6 +188,7 @@ $(document).ready(function(){
 		var kuota = $('#txt-tambah-kuota').val();
 		
 		if (confirm('Simpan data ?')) {
+			$('#btn-simpan-tambah-kuota').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			$.ajax({
 				url: "./",
 				method: "POST",
@@ -201,6 +202,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
+					$('#btn-simpan-tambah-kuota').removeClass('disabled').html('Simpan Data');
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));

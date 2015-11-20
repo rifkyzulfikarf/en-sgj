@@ -110,6 +110,7 @@ $(document).ready(function(){
 		ev.preventDefault();
 		var post_data = "aksi=" + "<?php echo e_url('modules/controller/keuangan/pengeluaran_kas_kecil.php'); ?>" + "&" +$('#frm-kasir').serialize();
 		if (confirm('Setuju simpan pengeluaran ?')) {
+			$('#btn-simpan-data').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			$.ajax({
 				url: "./",
 				method: "POST",
@@ -124,6 +125,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
+					$('#btn-simpan-data').removeClass('disabled').html('Simpan Pengeluaran');
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));

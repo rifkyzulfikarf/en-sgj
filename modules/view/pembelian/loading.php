@@ -210,6 +210,7 @@ $(document).ready(function(){
 		ev.preventDefault();
 		var post_data = "aksi=" + "<?php echo e_url('modules/controller/pembelian/loading.php'); ?>" + "&" +$('#frm-loading-out').serialize();
 		if (confirm('Simpan data ?')) {
+			$('#btn-simpan-loading-out').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			$.ajax({
 				url: "./",
 				method: "POST",
@@ -224,6 +225,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
+					$('#btn-simpan-loading-out').removeClass('disabled').html('Simpan');
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
@@ -237,6 +239,7 @@ $(document).ready(function(){
 		ev.preventDefault();
 		var post_data = "aksi=" + "<?php echo e_url('modules/controller/pembelian/loading.php'); ?>" + "&" +$('#frm-loading-in').serialize();
 		if (confirm('Simpan data ?')) {
+			$('#btn-simpan-loading-in').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			$.ajax({
 				url: "./",
 				method: "POST",
@@ -251,6 +254,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
+					$('#btn-simpan-loading-in').removeClass('disabled').html('Simpan');
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));

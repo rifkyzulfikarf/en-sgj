@@ -323,6 +323,8 @@ $(document).ready(function(){
 		var het = selected.data('het'); 
 		$('#txt-het').val(het);
 		
+		$('#btn-cek').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
+		
 		$.ajax({
 			url : "./",
 			method: "POST",
@@ -341,6 +343,7 @@ $(document).ready(function(){
 					$('#txt-harga-jual').val("0");
 					hitungTotal();
 				}
+				$('#btn-cek').removeClass('disabled').html('<i class="fa fa-lightbulb-o"></i> Cek');
 			},
 			error: function(err){
 				console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
@@ -360,6 +363,15 @@ $(document).ready(function(){
 	$('#txt-jml').keyup(function(){
 		hitungTotal();
 	});
+	
+	$('#cmb-barang').change(function(){
+		var selected = $(this).val();
+		if (selected == '1') {
+			$('#cmb-bank').val("1");
+		} else {
+			$('#cmb-bank').val("2");
+		}
+    });
 	
 	$('#cmb-jenis').change(function(){
 		var selected = $(this).val();
@@ -398,6 +410,7 @@ $(document).ready(function(){
 		}
 		
 		if (confirm("Harap cek kembali data - data yang anda masukkan ! Simpan penjualan ?")) {
+			$('#btn-simpan').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			var post_data = {"aksi" : "<?php echo e_url('modules/controller/penjualan/penjualan.php'); ?>", "apa" : "simpan", 
 							"tgl" : tgl, "sales" : sales, "barang" : barang, "konsumen" : konsumen, "jml" : jml, "hargaJual" : hargaJual, 
 							"het" : het, "total" : total, "jenis" : jenis, "tempo" : tempo, "bank" : bank, "bukti" : bukti, "nota" : nota};
@@ -415,6 +428,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
+					$('#btn-simpan').removeClass('disabled').html('<i class="fa fa-share"></i> Simpan Penjualan');
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));

@@ -136,6 +136,7 @@ $(document).ready(function(){
 		ev.preventDefault();
 		var post_data = "aksi=" + "<?php echo e_url('modules/controller/pinjam-tabung/pengembalian.php'); ?>" + "&" + $('#frm-pengembalian').serialize();
 		if (confirm('Simpan data ?')) {
+			$('#btn-simpan-pengembalian').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			$.ajax({
 				url: "./",
 				method: "POST",
@@ -150,6 +151,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
+					$('#btn-simpan-pengembalian').removeClass('disabled').html('Simpan Pengembalian');
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));

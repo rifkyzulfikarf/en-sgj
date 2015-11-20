@@ -89,6 +89,7 @@ $(document).ready(function(){
 		var jml = $(this).data('jml');
 		
 		if (confirm("Acc penjualan ini ?")) {
+			$(this).addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			var post_data = {"aksi" : "<?php echo e_url('modules/controller/penjualan/acc_gudang.php'); ?>", "apa" : "acc-penjualan", 
 							"id" : id, "barang" : barang, "jml" : jml};
 			

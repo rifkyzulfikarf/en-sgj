@@ -102,6 +102,7 @@ $(document).ready(function(){
 		var bukti = $(this).data('bukti');
 		
 		if (confirm("Simpan pengambilan BG ?")) {
+			$(this).addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			var post_data = {"aksi" : "<?php echo e_url('modules/controller/penjualan/ambil_bg.php'); ?>", "apa" : "ambil-bg", 
 							"id" : id, "tgl" : tgl, "total" : total, "bank" : bank, "bukti" : bukti};
 			

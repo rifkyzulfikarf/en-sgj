@@ -204,6 +204,7 @@ $(document).ready(function(){
 		var bukti = $('#txt-bukti').val();
 		
 		if (confirm("Harap cek kembali data - data yang anda masukkan ! Simpan pelunasan ?")) {
+			$('#btn-simpan-pelunasan').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			var post_data = {"aksi" : "<?php echo e_url('modules/controller/penjualan/pelunasan.php'); ?>", "apa" : "simpan-pelunasan", 
 							"id" : id, "tgl" : tgl, "total" : total, "jenis" : jenis, "tglbg" : tglbg, "bank" : bank, "bukti" : bukti};
 			
@@ -220,6 +221,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
+					$('#btn-simpan-data').removeClass('disabled').html('Bayar Pelunasan');
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));

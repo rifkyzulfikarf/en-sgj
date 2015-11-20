@@ -34,7 +34,8 @@
 							array_push($detail, $rs["nama_barang"]);
 							array_push($detail, $rs["jml"]);
 							array_push($detail, "<button class='btn btn-sm btn-primary' id='btn-show-setor' data-id='".$rs['id']."' 
-										data-total='".$rs['total_bayar']."'><i class='fa fa-mail-forward'></i></button>");
+										data-total='".$rs['total_bayar']."' data-idbarang='".$rs['id_barang']."'>
+										<i class='fa fa-mail-forward'></i></button>");
 							array_push($collect, $detail);
 							unset($detail);
 						}

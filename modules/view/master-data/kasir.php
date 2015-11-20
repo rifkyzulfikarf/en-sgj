@@ -85,6 +85,7 @@ $(document).ready(function(){
 		ev.preventDefault();
 		var post_data = "aksi=" + "<?php echo e_url('modules/controller/master-data/kasir.php'); ?>" + "&" +$('#frm-kasir').serialize();
 		if (confirm('Simpan data ?')) {
+			$('#btn-simpan-data').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			$.ajax({
 				url: "./",
 				method: "POST",
@@ -99,6 +100,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
+					$('#btn-simpan-data').removeClass('disabled').html('Simpan Data');
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));

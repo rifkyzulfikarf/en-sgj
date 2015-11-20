@@ -25,6 +25,7 @@
 							<table class="table table-hover table-striped table-mod">
 								<thead>
 									<tr>
+										<th class="text-center">ID</th>
 										<th class="text-center">Tgl Tebus</th>
 										<th class="text-center">No LO</th>
 										<th class="text-center">No SA</th>
@@ -60,6 +61,7 @@
 											$jenis = ($rs['jenis_tarikan']=="1")?"Tunai":"Transfer";
 											
 											echo "<tr>
+												<td class='text-center'>".$rs['id']."</td>
 												<td class='text-center'>".$rs['tgl_tebus']."</td>
 												<td class='text-center'>".$rs['no_lo']."</td>
 												<td class='text-center'>".$rs['no_sa']."</td>
@@ -77,7 +79,7 @@
 									}
 									?>
 										<tr>
-											<td colspan="4"><strong>Total</strong></td>
+											<td colspan="5"><strong>Total</strong></td>
 											<td class="text-center"><?php echo number_format($totalJml,0,",",".") ?></td>
 											<td></td>
 											<td class="text-center"><?php echo number_format($totalPajak,0,",",".") ?></td>

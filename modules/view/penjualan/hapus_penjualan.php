@@ -86,6 +86,7 @@ $(document).ready(function(){
 		ev.preventDefault();
 		var id = $(this).data('id');
 		if (confirm('Setuju hapus data ?')) {
+		$(this).addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			$.ajax({
 				url: "./",
 				method: "POST",

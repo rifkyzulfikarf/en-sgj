@@ -232,6 +232,12 @@ $(document).ready(function(){
        var selected = $(this).find('option:selected');
        var harga = selected.data('harga'); 
        $('#txt-harga-satuan').val(harga);
+	   
+	   if ($(this).val() == '1') {
+			$('#cmb-bank').val("1");
+		} else {
+			$('#cmb-bank').val("2");
+		}
     });
 	
 	function hitung(){
@@ -259,6 +265,9 @@ $(document).ready(function(){
 	$('#btn-simpan').click(function(ev){
 		ev.preventDefault();
 		if (confirm("Harap cek kembali data - data yang anda masukkan ! Simpan penebusan ?")) {
+		
+			$('#btn-simpan').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
+		
 			var tgl = $('#dp-tgl').val(); var lo = $('#txt-lo').val(); var sa = $('#txt-sa').val();
 			var barang = $('#cmb-barang').val(); var harga = $('#txt-harga-satuan').val();
 			var jml = $('#txt-jml-tabung').val(); var pajak = $('#txt-pajak').val();
@@ -284,6 +293,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
+					$('#btn-simpan').removeClass('disabled').html('<i class="fa fa-share"></i> Simpan Penebusan');
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));

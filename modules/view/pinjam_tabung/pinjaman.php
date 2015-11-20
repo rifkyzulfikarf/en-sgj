@@ -171,6 +171,7 @@ $(document).ready(function(){
 		var jumlah = $('#txt-jumlah').val();
 		
 		if (confirm("Harap cek kembali data - data yang anda masukkan ! Simpan peminjaman ?")) {
+		$('#btn-pinjam').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			var post_data = {"aksi" : "<?php echo e_url('modules/controller/pinjam-tabung/pinjaman.php'); ?>", "apa" : "simpan", 
 							"tglpinjam" : tglpinjam, "barang" : barang, "konsumen" : konsumen, "jumlah" : jumlah, "jenis" : jenis, 
 							"tglkembali" : tglkembali};
