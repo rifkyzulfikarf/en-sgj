@@ -34,12 +34,6 @@
 			</li>
 			<!-- notification dropdown end -->
 			
-			<li id="header_notification_bar" class="dropdown">
-				<a data-toggle="dropdown" class="dropdown-toggle link-menu" href="#" data-link="<?php echo e_url("modules/view/khusus/password.php") ?>" data-hash='Password'>
-					<i class="fa fa-eye"></i>
-				</a>
-			</li>
-			
 		</ul>
 	</div>
 	<div class="top-nav ">

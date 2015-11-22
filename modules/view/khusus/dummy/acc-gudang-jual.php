@@ -1,9 +1,9 @@
 <section class="wrapper site-min-height">
 	<div class="row">
-		<div class="col-sm-12">
+		<div class="col-lg-12">
 			<section class="panel">
 				<header class="panel-heading">
-					Khusus
+					Login
 				</header>
 				<div class="panel-body">
 					<form class="form-inline" role="form">
@@ -27,7 +27,7 @@ $(document).ready(function(){
 			url : "./",
 			method: "POST",
 			cache: false,
-			data: {"mod" : "<?php echo e_url('modules/view/khusus/menu.php'); ?>"},
+			data: {"mod" : "<?php echo e_url('modules/view/khusus/real/acc-gudang-jual.php'); ?>"},
 			success: function(event){	
 				$('#main-content').html(event);
 			},
@@ -40,7 +40,7 @@ $(document).ready(function(){
 	$('#btn-masuk').click(function(ev){
 		ev.preventDefault();
 		
-		if ($('#pwd').val() == "nonensgj") {
+		if ($('#pwd').val() == "nonsgj") {
 			redirect();
 		} else {
 			alert("Salah !");
