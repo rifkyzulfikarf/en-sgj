@@ -66,23 +66,30 @@
 		
 		function autocode_on_history() {
 			$kode = "";
-			$query = "SELECT COUNT(`id`) FROM `kas_bank` WHERE DATE(`tgl_input`) = '".date("Y-m-d")."';";
+			$query = "SELECT MAX(`id`) FROM `kas_bank` WHERE DATE(`tgl_input`) = '".date("Y-m-d")."';";
 			if ($result = $this->runQuery($query)) {
 				$rs = $result->fetch_array();
 				
-				switch (strlen($rs[0] + 1)) {
-					case 1:
-						$kode = "EKB".date("ymd")."000".($rs[0] + 1);
-						break;
-					case 2:
-						$kode = "EKB".date("ymd")."00".($rs[0] + 1);
-						break;
-					case 3:
-						$kode = "EKB".date("ymd")."0".($rs[0] + 1);
-						break;
-					case 4:
-						$kode = "EKB".date("ymd").($rs[0] + 1);
-						break;
+				if ($rs[0] == null) {
+					$kode = "EKB".date("ymd")."0001";
+				} else {
+					$lastCode = substr($rs[0], 9, 4);
+					$newCode = $lastCode + 1;
+					
+					switch (strlen($newCode)) {
+						case 1:
+							$kode = "EKB".date("ymd")."000".$newCode;
+							break;
+						case 2:
+							$kode = "EKB".date("ymd")."00".$newCode;
+							break;
+						case 3:
+							$kode = "EKB".date("ymd")."0".$newCode;
+							break;
+						case 4:
+							$kode = "EKB".date("ymd").$newCode;
+							break;
+					}
 				}
 			}
 			return $kode;

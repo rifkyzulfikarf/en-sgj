@@ -8,23 +8,30 @@
 		
 		function autocode_pembelian($tgl) {
 			$kode = "";
-			$query = "SELECT COUNT(`id`) FROM `pembelian` WHERE `tgl_tebus` = '$tgl';";
+			$query = "SELECT MAX(`id`) FROM `pembelian` WHERE `tgl_tebus` = '$tgl';";
 			if ($result = $this->runQuery($query)) {
 				$rs = $result->fetch_array();
 				
-				switch (strlen($rs[0] + 1)) {
-					case 1:
-						$kode = "EPB".date("ymd", strtotime($tgl))."000".($rs[0] + 1);
-						break;
-					case 2:
-						$kode = "EPB".date("ymd", strtotime($tgl))."00".($rs[0] + 1);
-						break;
-					case 3:
-						$kode = "EPB".date("ymd", strtotime($tgl))."0".($rs[0] + 1);
-						break;
-					case 4:
-						$kode = "EPB".date("ymd", strtotime($tgl)).($rs[0] + 1);
-						break;
+				if ($rs[0] == null) {
+					$kode = "EPB".date("ymd", strtotime($tgl))."0001";
+				} else {
+					$lastCode = substr($rs[0], 9, 4);
+					$newCode = $lastCode + 1;
+					
+					switch (strlen($newCode)) {
+						case 1:
+							$kode = "EPB".date("ymd", strtotime($tgl))."000".$newCode;
+							break;
+						case 2:
+							$kode = "EPB".date("ymd", strtotime($tgl))."00".$newCode;
+							break;
+						case 3:
+							$kode = "EPB".date("ymd", strtotime($tgl))."0".$newCode;
+							break;
+						case 4:
+							$kode = "EPB".date("ymd", strtotime($tgl)).$newCode;
+							break;
+					}
 				}
 			}
 			return $kode;
@@ -35,6 +42,21 @@
 			$tglAkhir = $this->clearText($tglAkhir);
 			
 			if ($list = $this->runQuery("SELECT * FROM `pembelian` WHERE `tgl` BETWEEN '$tglAwal' AND '$tglAkhir';")) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function get_pembelian_by_id($id) {
+			$id = $this->clearText($id);
+			
+			if ($list = $this->runQuery("SELECT `pembelian`.*, `barang`.`nama` FROM `pembelian` INNER JOIN `barang` 
+			ON (`pembelian`.`id_barang` = `barang`.`id`) WHERE `pembelian`.`id` = '$id';")) {
 				if ($list->num_rows > 0) {
 					return $list;
 				} else {
@@ -81,6 +103,34 @@
 				} else {
 					return FALSE;
 				}
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function hapus_pembelian($id, $tarik, $idBank) {
+			$id = $this->clearText($id);
+			$tarik = $this->clearText($tarik);
+			$idBank = $this->clearText($idBank);
+			
+			$revisiJumlah = 0;
+			$query = "";
+			
+			if ($resCek = $this->runQuery("SELECT `id` FROM `kas_bank` WHERE `keterangan` = 'Pembelian $id'")) {
+				$rsCek = $resCek->fetch_array();
+				$idKas = $rsCek['id'];
+			}
+			
+			$query .= "DELETE FROM `pembelian` WHERE `id` = '$id';";
+			
+			$revisiJumlah = $tarik;
+			$query .= "UPDATE `kas_bank` SET `saldo` = `saldo` + $revisiJumlah WHERE `id` > '$idKas' AND id_bank = '$idBank';";
+			$query .= "UPDATE `bank` SET `saldo` = `saldo` + $revisiJumlah WHERE `id` = '$idBank';";
+			
+			$query .= "DELETE FROM `kas_bank` WHERE `id` = '$idKas';";
+			
+			if ($result = $this->runMultipleQueries($query)) {
+				return TRUE;
 			} else {
 				return FALSE;
 			}
