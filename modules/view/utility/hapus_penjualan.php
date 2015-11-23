@@ -72,7 +72,7 @@ $(document).ready(function(){
 		"sAjaxSource": './',
 		"sServerMethod": "POST",
 		"fnServerParams": function ( aoData ) {
-            aoData.push({"name": "aksi", "value": "<?php echo e_url('modules/controller/penjualan/hapus_penjualan.php'); ?>"});
+            aoData.push({"name": "aksi", "value": "<?php echo e_url('modules/controller/utility/hapus_penjualan.php'); ?>"});
             aoData.push({"name": "apa", "value": "get-penjualan"});
             aoData.push({"name": "tgl", "value": $('#dp-jual').val()});
         }
@@ -92,7 +92,7 @@ $(document).ready(function(){
 				method: "POST",
 				cache: false,
 				dataType: "JSON",
-				data: {"aksi" : "<?php echo e_url('modules/controller/penjualan/hapus_penjualan.php'); ?>", "apa" : "hapus-penjualan", 
+				data: {"aksi" : "<?php echo e_url('modules/controller/utility/hapus_penjualan.php'); ?>", "apa" : "hapus-penjualan", 
 				"id" : id},
 				success: function(eve){
 					if (eve.status){

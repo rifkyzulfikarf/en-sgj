@@ -47,25 +47,35 @@
 			return $saldo;
 		}
 		
-		function autocode_on_history() {
+		function autocode_on_history($idKasir) {
 			$kode = "";
-			$query = "SELECT COUNT(`id`) FROM `kas_kecil` WHERE `tgl` = '".date("Y-m-d")."';";
+			
+			$prefix = ($idKasir=="1")?"KKE":"KKS";
+			
+			$query = "SELECT MAX(`id`) FROM `kas_kecil` WHERE `tgl` = '".date("Y-m-d")."' AND `id` LIKE '$prefix%';";
 			if ($result = $this->runQuery($query)) {
 				$rs = $result->fetch_array();
 				
-				switch (strlen($rs[0] + 1)) {
-					case 1:
-						$kode = "EKK".date("ymd")."000".($rs[0] + 1);
-						break;
-					case 2:
-						$kode = "EKK".date("ymd")."00".($rs[0] + 1);
-						break;
-					case 3:
-						$kode = "EKK".date("ymd")."0".($rs[0] + 1);
-						break;
-					case 4:
-						$kode = "EKK".date("ymd").($rs[0] + 1);
-						break;
+				if ($rs[0] == null) {
+					$kode = $prefix.date("ymd")."0001";
+				} else {
+					$lastCode = substr($rs[0], 9, 4);
+					$newCode = $lastCode + 1;
+					
+					switch (strlen($newCode)) {
+						case 1:
+							$kode = $prefix.date("ymd")."000".$newCode;
+							break;
+						case 2:
+							$kode = $prefix.date("ymd")."00".$newCode;
+							break;
+						case 3:
+							$kode = $prefix.date("ymd")."0".$newCode;
+							break;
+						case 4:
+							$kode = $prefix.date("ymd").$newCode;
+							break;
+					}
 				}
 			}
 			return $kode;
@@ -80,7 +90,7 @@
 			$debet = $this->clearText($debet);
 			$idKaryawan = $this->clearText($idKaryawan);
 			
-			$id = $this->autocode_on_history();
+			$id = $this->autocode_on_history($idKasir);
 			$saldoAwal = $this->get_saldo($idKasir);
 			$saldoAkhir = $saldoAwal + $debet;
 			
@@ -111,6 +121,50 @@
 			$query = "INSERT INTO `kas_kecil`(`id`, `id_kasir`, `no_bukti`, `tgl`, `keterangan`, `kode_akun`, `debet`, `kredit`, `saldo`, `id_karyawan`) 
 						VALUES('$id', '$idKasir', '$noBukti', '$tgl', '$keterangan', '$kodeAkun', '0', '$kredit', '$saldoAkhir', '$idKaryawan');";
 			$query .= "UPDATE `kasir` SET `saldo` = '$saldoAkhir' WHERE `id` = '$idKasir';";
+			
+			if ($result = $this->runMultipleQueries($query)) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function get_kas_kecil_by_id($id) {
+			$id = $this->clearText($id);
+			
+			$query = "SELECT * FROM `kas_kecil` WHERE `kas_kecil`.`id` = '$id';";
+			if ($list = $this->runQuery($query)) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function kas_kecil_hapus($id, $debet, $kredit, $idKasir) {
+			$id = $this->clearText($id);
+			$debet = $this->clearText($debet);
+			$kredit = $this->clearText($kredit);
+			$idKasir = $this->clearText($idKasir);
+			
+			$revisiJumlah = 0;
+			$saldoAkhir = 0;
+			$query = "";
+			
+			if ($debet != 0) {
+				$revisiJumlah = $debet;
+				$query = "UPDATE `kas_kecil` SET `saldo` = `saldo` - $revisiJumlah WHERE `id` > '$id' AND id_kasir = '$idKasir';";
+				$query .= "UPDATE `kasir` SET `saldo` = `saldo` - $revisiJumlah WHERE `id` = '$idKasir';";
+			} else {
+				$revisiJumlah = $kredit;
+				$query = "UPDATE `kas_kecil` SET `saldo` = `saldo` + $revisiJumlah WHERE `id` > '$id' AND id_kasir = '$idKasir';";
+				$query .= "UPDATE `kasir` SET `saldo` = `saldo` + $revisiJumlah WHERE `id` = '$idKasir';";
+			}
+			
+			$query .= "DELETE FROM `kas_kecil` WHERE `id` = '$id';";
 			
 			if ($result = $this->runMultipleQueries($query)) {
 				return TRUE;
