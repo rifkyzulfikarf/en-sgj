@@ -25,6 +25,7 @@
 							<table class="table table-hover table-striped table-mod">
 								<thead>
 									<tr>
+										<th class="text-center">ID</th>
 										<th class="text-center">Tanggal</th>
 										<th class="text-center">No. Bukti</th>
 										<th class="text-center">Keterangan</th>
@@ -36,8 +37,7 @@
 								</thead>
 								<tbody>
 									<?php
-									$query = "SELECT `kas_kecil`.`tgl`, `kas_kecil`.`no_bukti`, `kas_kecil`.`keterangan`, `kas_kecil`.`kode_akun`, 
-									`kas_kecil`.`debet`, `kas_kecil`.`kredit`, `kas_kecil`.`saldo`, `kasir`.`nama` FROM `kas_kecil` 
+									$query = "SELECT `kas_kecil`.*, `kasir`.`nama` FROM `kas_kecil` 
 									INNER JOIN `kasir` ON (`kas_kecil`.`id_kasir` = `kasir`.`id`) 
 									INNER JOIN `akun_kas` ON (`kas_kecil`.`kode_akun` = `akun_kas`.`kode`) 
 									WHERE `kas_kecil`.`id_kasir` LIKE '".$_POST['kasir']."' 
@@ -53,6 +53,7 @@
 											$totalSaldo = $rs['saldo'];
 											
 											echo "<tr>
+												<td class='text-center'>".$rs['id']."</td>
 												<td class='text-center'>".$rs['tgl']."</td>
 												<td>".$rs['no_bukti']."</td>
 												<td>".$rs['keterangan']."</td>
@@ -65,7 +66,7 @@
 									}
 									?>
 										<tr>
-											<td colspan="4"><strong>Total</strong></td>
+											<td colspan="5"><strong>Total</strong></td>
 											<td class="text-center"><?php echo number_format($totalDebet,0,",",".") ?></td>
 											<td class="text-center"><?php echo number_format($totalKredit,0,",",".") ?></td>
 											<td class="text-center"><?php echo number_format($totalSaldo,0,",",".") ?></td>
