@@ -14,6 +14,19 @@
 			}
 		}
 		
+		function get_konsumen_khusus() {
+			if ($list = $this->runQuery("SELECT `id`, `nama`, `alamat`, `telepon`, `harga_50kg_khusus` 
+			FROM `konsumen` WHERE `hapus` = '0';")) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
 		function get_harga_jual($idKonsumen) {
 			$idKonsumen = $this->clearText($idKonsumen);
 			
@@ -110,6 +123,17 @@
 			
 			if ($result = $this->runQuery("UPDATE `konsumen` SET `harga_3kg` = '$harga3kg', `harga_12kg` = '$harga12kg', `harga_12kg_bg` = '$harga12kgbg', 
 			`harga_50kg` = '$harga50kg' WHERE `id` = '$id';")) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function set_harga_jual_khusus($id, $harga50kgkhusus) {
+			$id = $this->clearText($id);
+			$harga50kgkhusus = $this->clearText($harga50kgkhusus);
+			
+			if ($result = $this->runQuery("UPDATE `konsumen` SET `harga_50kg_khusus` = '$harga50kgkhusus' WHERE `id` = '$id';")) {
 				return TRUE;
 			} else {
 				return FALSE;
