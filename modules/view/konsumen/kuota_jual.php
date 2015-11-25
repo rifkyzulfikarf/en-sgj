@@ -152,6 +152,7 @@ $(document).ready(function(){
 				
 				$('#cmb-konsumen-tambah-kuota').empty();	
 				$('#cmb-konsumen-tambah-kuota').html(event);
+				$("#cmb-konsumen-tambah-kuota option[value='%']").remove();
 			},
 			error: function(){
 				alert('Gagal terkoneksi dengan server, coba lagi..!');
