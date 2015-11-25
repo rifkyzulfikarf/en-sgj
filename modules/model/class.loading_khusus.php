@@ -1,32 +1,32 @@
 <?php
 	class loading_khusus extends koneksi {
 		
-		function autocode() {
+		function autocode($tgl) {
 			$kode = "";
 			$prefix = "KLD";
 			
-			$query = "SELECT MAX(`id`) FROM `khusus_loading_pembelian` WHERE `tgl_loading` = '".date("Y-m-d")."';";
+			$query = "SELECT MAX(`id`) FROM `khusus_loading_pembelian` WHERE `tgl_loading` = '$tgl';";
 			if ($result = $this->runQuery($query)) {
 				$rs = $result->fetch_array();
 				
 				if ($rs[0] == null) {
-					$kode = $prefix.date("ymd")."0001";
+					$kode = $prefix.date("ymd", strtotime($tgl))."0001";
 				} else {
 					$lastCode = substr($rs[0], 9, 4);
 					$newCode = $lastCode + 1;
 					
 					switch (strlen($newCode)) {
 						case 1:
-							$kode = $prefix.date("ymd")."000".$newCode;
+							$kode = $prefix.date("ymd", strtotime($tgl))."000".$newCode;
 							break;
 						case 2:
-							$kode = $prefix.date("ymd")."00".$newCode;
+							$kode = $prefix.date("ymd", strtotime($tgl))."00".$newCode;
 							break;
 						case 3:
-							$kode = $prefix.date("ymd")."0".$newCode;
+							$kode = $prefix.date("ymd", strtotime($tgl))."0".$newCode;
 							break;
 						case 4:
-							$kode = $prefix.date("ymd").$newCode;
+							$kode = $prefix.date("ymd", strtotime($tgl)).$newCode;
 							break;
 					}
 				}
@@ -56,7 +56,7 @@
 		
 		function input_loading_pembelian_keluar($idKendaraan, $idDriver, $idBarang, $tglLoading, $jamBerangkat, 
 		$tabungKosong, $idKaryawan) {
-			$id = $this->autocode();
+			$id = $this->autocode($tglLoading);
 			$idKendaraan = $this->clearText($idKendaraan);
 			$idDriver = $this->clearText($idDriver);
 			$idBarang = $this->clearText($idBarang);
