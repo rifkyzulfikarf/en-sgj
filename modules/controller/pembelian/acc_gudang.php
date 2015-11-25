@@ -8,8 +8,8 @@
 			case "get-loading":
 				$collect = array();
 				
-				if (isset($_POST['lo']) && $_POST['lo'] != "") {
-					if ($query = $loading->get_loading_by_lo($_POST['lo'])) {
+				if (isset($_POST['tgl']) && $_POST['tgl'] != "") {
+					if ($query = $loading->get_loading_by_tgl($_POST['tgl'])) {
 						while ($rs = $query->fetch_array()) {
 							$kendaraan = ($rs['nopol']==null)?" ":$rs['nopol'];
 							

@@ -10,7 +10,7 @@
 						<div class="col-lg-2">
 							<section class="panel">
 								<div class="input-group input-large">
-									<input type="text" class="form-control" name="txt-lo" id="txt-lo" placeholder="Nomor LO">
+									<input type="text" class="form-control" name="dp-loading" id="dp-loading" placeholder="Tanggal Loading">
 								</div>
 							</section>
 						</div>
@@ -120,7 +120,10 @@ $(document).ready(function(){
 	init();
 	
 	function init() {
-		
+		$('#dp-loading').datepicker({
+			format : "yyyy-mm-dd",
+			autoclose : true
+		});
 	};
 	
 	var tabelloading = $('#tabel-loading').dataTable({
@@ -129,7 +132,7 @@ $(document).ready(function(){
 		"fnServerParams": function ( aoData ) {
             aoData.push({"name": "aksi", "value": "<?php echo e_url('modules/controller/pembelian/acc_gudang.php'); ?>"});
             aoData.push({"name": "apa", "value": "get-loading"});
-            aoData.push({"name": "lo", "value": $('#txt-lo').val()});
+            aoData.push({"name": "tgl", "value": $('#dp-loading').val()});
         }
     });
 	
