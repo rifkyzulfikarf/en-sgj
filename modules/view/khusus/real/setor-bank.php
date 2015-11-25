@@ -38,8 +38,8 @@
 									<th>ID</th>
 									<th>Nota</th>
 									<th>Konsumen</th>
-									<th>Barang</th>
 									<th>Jml</th>
+									<th>Total</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -51,8 +51,8 @@
 									<th>ID</th>
 									<th>Nota</th>
 									<th>Konsumen</th>
-									<th>Barang</th>
 									<th>Jml</th>
+									<th>Total</th>
 									<th></th>
 								</tr>
 							</tfoot>
