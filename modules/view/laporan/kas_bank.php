@@ -28,7 +28,6 @@
 										<th class="text-center">Tanggal</th>
 										<th class="text-center">No. Bukti</th>
 										<th class="text-center">Keterangan</th>
-										<th class="text-center">Jenis</th>
 										<th class="text-center">Setor</th>
 										<th class="text-center">Tarik</th>
 										<th class="text-center">Bea Admin</th>
@@ -53,11 +52,18 @@
 											$totalAdmin += $rs['bea_admin'];
 											$totalSaldo = $rs['saldo'];
 											
+											if ($rs['jenis'] == "1") {
+												$jenis = "Tunai";
+											} elseif($rs['jenis'] == "2") {
+												$jenis = "Transfer";
+											} else {
+												$jenis = "BG / Cek";
+											}
+											
 											echo "<tr>
 												<td class='text-center'>".$rs['tgl']."</td>
 												<td>".$rs['no_bukti']."</td>
 												<td>".$rs['keterangan']."</td>
-												<td class='text-center'>".$rs['jenis']."</td>
 												<td class='text-center'>".number_format($rs['setor'],0,",",".")."</td>
 												<td class='text-center'>".number_format($rs['tarik'],0,",",".")."</td>
 												<td class='text-center'>".number_format($rs['bea_admin'],0,",",".")."</td>
@@ -67,7 +73,7 @@
 									}
 									?>
 										<tr>
-											<td colspan="4"><strong>Total</strong></td>
+											<td colspan="3"><strong>Total</strong></td>
 											<td class="text-center"><?php echo number_format($totalSetor,0,",",".") ?></td>
 											<td class="text-center"><?php echo number_format($totalTarik,0,",",".") ?></td>
 											<td class="text-center"><?php echo number_format($totalAdmin,0,",",".") ?></td>

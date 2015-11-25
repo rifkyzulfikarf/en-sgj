@@ -6,7 +6,7 @@
 		<div class="col-sm-12">
 			<section class="panel">
 				<header class="panel-heading">
-					Laporan Piutang
+					Laporan Piutang Khusus
 					<span class="tools pull-right">
 						<button data-toggle="modal" href="#mdl-kriteria" class="btn btn-primary btn-sm"><i class="fa fa-tint"></i> Kriteria</button>
 					</span>
@@ -20,7 +20,7 @@
 							<button class="btn btn-default btn-sm" id="btn-print"><i class="fa fa-print"></i> Print</button>
 						</div>
 						<div id="print-section">
-							<div class="text-center"><h3>Laporan Piutang PT. Sumber Gasindo Jaya</h3></div><hr>
+							<div class="text-center"><h3>Laporan Piutang Khusus</h3></div><hr>
 							Periode : <?php echo $_POST['tgl-awal']." s/d ".$_POST['tgl-akhir'] ?><br><br>
 							<table class="table table-hover table-striped table-mod">
 								<thead>
@@ -38,15 +38,15 @@
 								</thead>
 								<tbody>
 									<?php
-									$query = "SELECT `penjualan`.`id`, `penjualan`.`tgl`, `penjualan`.`no_nota`, `konsumen`.`nama` AS `nama_konsumen`, 
-									`barang`.`nama` AS `nama_barang`, `penjualan`.`jml`, `penjualan`.`harga_jual`, `penjualan`.`total_jual`, 
-									`penjualan`.`tgl_tempo` FROM `penjualan` 
-									INNER JOIN `konsumen` ON (`penjualan`.`id_konsumen` = `konsumen`.`id`)  
-									INNER JOIN `barang` ON (`penjualan`.`id_barang` = `barang`.`id`)  
-									WHERE `penjualan`.`jenis` = '4' AND 
-									`penjualan`.`total_bayar` < `penjualan`.`total_jual` AND 
-									`penjualan`.`id_konsumen` LIKE '".$_POST['konsumen']."' AND 
-									`penjualan`.`tgl` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."';";
+									$query = "SELECT `khusus_penjualan`.`id`, `khusus_penjualan`.`tgl`, `khusus_penjualan`.`no_nota`, `konsumen`.`nama` AS `nama_konsumen`, 
+									``khusus_barang`.`nama` AS `nama_`khusus_barang`, `khusus_penjualan`.`jml`, `khusus_penjualan`.`harga_jual`, `khusus_penjualan`.`total_jual`, 
+									`khusus_penjualan`.`tgl_tempo` FROM `khusus_penjualan` 
+									INNER JOIN `konsumen` ON (`khusus_penjualan`.`id_konsumen` = `konsumen`.`id`)  
+									INNER JOIN ``khusus_barang` ON (`khusus_penjualan`.`id_`khusus_barang` = ``khusus_barang`.`id`)  
+									WHERE `khusus_penjualan`.`jenis` = '4' AND 
+									`khusus_penjualan`.`total_bayar` < `khusus_penjualan`.`total_jual` AND 
+									`khusus_penjualan`.`id_konsumen` LIKE '".$_POST['konsumen']."' AND 
+									`khusus_penjualan`.`tgl` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."';";
 									
 									$total = 0;
 									
@@ -103,7 +103,7 @@
 					<h4 class="modal-title">Kriteria</h4>
 				</div>
 				<div class="modal-body">
-					<input type="hidden" id="no_spa" name="no_spa" value="<?php echo e_url('modules/view/laporan/piutang.php'); ?>">
+					<input type="hidden" id="no_spa" name="no_spa" value="<?php echo e_url('modules/view/khusus/real/lap-piutang.php'); ?>">
 					<div class="form-group">
 						<select class="form-control" id="konsumen" name="konsumen">
 							<option value="%">Semua</option>

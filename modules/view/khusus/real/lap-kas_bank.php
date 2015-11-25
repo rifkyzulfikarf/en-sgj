@@ -6,73 +6,78 @@
 		<div class="col-sm-12">
 			<section class="panel">
 				<header class="panel-heading">
-					Laporan Piutang
+					Laporan Kas Bank
 					<span class="tools pull-right">
 						<button data-toggle="modal" href="#mdl-kriteria" class="btn btn-primary btn-sm"><i class="fa fa-tint"></i> Kriteria</button>
 					</span>
 				</header>
 				<div class="panel-body">
 					<?php  
-						if (isset($_POST['konsumen']) && $_POST['konsumen'] != "" && isset($_POST['tgl-awal']) && $_POST['tgl-awal'] != "" && 
+						if (isset($_POST['bank']) && $_POST['bank'] != "" && isset($_POST['tgl-awal']) && $_POST['tgl-awal'] != "" && 
 						isset($_POST['tgl-akhir']) && $_POST['tgl-akhir'] != "") {
 					?>
 						<div class="pull-right">
 							<button class="btn btn-default btn-sm" id="btn-print"><i class="fa fa-print"></i> Print</button>
 						</div>
 						<div id="print-section">
-							<div class="text-center"><h3>Laporan Piutang PT. Sumber Gasindo Jaya</h3></div><hr>
+							<div class="text-center"><h3>Laporan Kas Bank Khusus</h3></div><hr>
 							Periode : <?php echo $_POST['tgl-awal']." s/d ".$_POST['tgl-akhir'] ?><br><br>
 							<table class="table table-hover table-striped table-mod">
 								<thead>
 									<tr>
-										<th class="text-center">ID</th>
-										<th class="text-center">Tgl Trx</th>
-										<th class="text-center">Nota</th>
-										<th class="text-center">Konsumen</th>
-										<th class="text-center">Barang</th>
-										<th class="text-center">Jumlah</th>
-										<th class="text-center">Satuan</th>
-										<th class="text-center">Total</th>
-										<th class="text-center">Tgl Tempo</th>
+										<th class="text-center">Tanggal</th>
+										<th class="text-center">No. Bukti</th>
+										<th class="text-center">Keterangan</th>
+										<th class="text-center">Setor</th>
+										<th class="text-center">Tarik</th>
+										<th class="text-center">Bea Admin</th>
+										<th class="text-center">Saldo</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php
-									$query = "SELECT `penjualan`.`id`, `penjualan`.`tgl`, `penjualan`.`no_nota`, `konsumen`.`nama` AS `nama_konsumen`, 
-									`barang`.`nama` AS `nama_barang`, `penjualan`.`jml`, `penjualan`.`harga_jual`, `penjualan`.`total_jual`, 
-									`penjualan`.`tgl_tempo` FROM `penjualan` 
-									INNER JOIN `konsumen` ON (`penjualan`.`id_konsumen` = `konsumen`.`id`)  
-									INNER JOIN `barang` ON (`penjualan`.`id_barang` = `barang`.`id`)  
-									WHERE `penjualan`.`jenis` = '4' AND 
-									`penjualan`.`total_bayar` < `penjualan`.`total_jual` AND 
-									`penjualan`.`id_konsumen` LIKE '".$_POST['konsumen']."' AND 
-									`penjualan`.`tgl` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."';";
+									$query = "SELECT `khusus_kas_bank`.`tgl`, `khusus_kas_bank`.`no_bukti`, `khusus_kas_bank`.`keterangan`, `khusus_kas_bank`.`jenis`, 
+									`khusus_kas_bank`.`setor`, `khusus_kas_bank`.`tarik`, `khusus_kas_bank`.`bea_admin`, `khusus_kas_bank`.`saldo` FROM `khusus_kas_bank` 
+									INNER JOIN `khusus_bank` ON (`khusus_kas_bank`.`id_bank` = `khusus_bank`.`id`)  
+									WHERE `khusus_kas_bank`.`id_bank` LIKE '".$_POST['bank']."' 
+									AND `khusus_kas_bank`.`tgl` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."';";
 									
-									$total = 0;
+									$totalSetor = 0; $totalTarik = 0; $totalAdmin = 0; $totalSaldo = 0;
 									
 									if ($daftar = $data->runQuery($query)){
 										while( $rs = $daftar->fetch_assoc() ){
 											
-											$total += $rs['total_jual'];
+											$totalSetor += $rs['setor'];
+											$totalTarik += $rs['tarik'];
+											$totalAdmin += $rs['bea_admin'];
+											$totalSaldo = $rs['saldo'];
+											
+											if ($rs['jenis'] == "1") {
+												$jenis = "Tunai";
+											} elseif($rs['jenis'] == "2") {
+												$jenis = "Transfer";
+											} else {
+												$jenis = "BG / Cek";
+											}
 											
 											echo "<tr>
-												<td class='text-center'>".$rs['id']."</td>
 												<td class='text-center'>".$rs['tgl']."</td>
-												<td>".$rs['no_nota']."</td>
-												<td>".$rs['nama_konsumen']."</td>
-												<td>".$rs['nama_barang']."</td>
-												<td class='text-center'>".number_format($rs['jml'],0,",",".")."</td>
-												<td class='text-center'>".number_format($rs['harga_jual'],0,",",".")."</td>
-												<td class='text-center'>".number_format($rs['total_jual'],0,",",".")."</td>
-												<td>".$rs['tgl_tempo']."</td>";
+												<td>".$rs['no_bukti']."</td>
+												<td>".$rs['keterangan']."</td>
+												<td class='text-center'>".number_format($rs['setor'],0,",",".")."</td>
+												<td class='text-center'>".number_format($rs['tarik'],0,",",".")."</td>
+												<td class='text-center'>".number_format($rs['bea_admin'],0,",",".")."</td>
+												<td class='text-center'>".number_format($rs['saldo'],0,",",".")."</td>";
 											echo "</tr>";
 										}
 									}
 									?>
 										<tr>
-											<td colspan="7"><strong>Total</strong></td>
-											<td class="text-center"><?php echo number_format($total,0,",",".") ?></td>
-											<td></td>
+											<td colspan="4"><strong>Total</strong></td>
+											<td class="text-center"><?php echo number_format($totalSetor,0,",",".") ?></td>
+											<td class="text-center"><?php echo number_format($totalTarik,0,",",".") ?></td>
+											<td class="text-center"><?php echo number_format($totalAdmin,0,",",".") ?></td>
+											<td class="text-center"><?php echo number_format($totalSaldo,0,",",".") ?></td>
 										</tr>
 								</tbody>
 							</table>
@@ -103,12 +108,11 @@
 					<h4 class="modal-title">Kriteria</h4>
 				</div>
 				<div class="modal-body">
-					<input type="hidden" id="no_spa" name="no_spa" value="<?php echo e_url('modules/view/laporan/piutang.php'); ?>">
+					<input type="hidden" id="no_spa" name="no_spa" value="<?php echo e_url('modules/view/khusus/real/lap-kas_bank.php'); ?>">
 					<div class="form-group">
-						<select class="form-control" id="konsumen" name="konsumen">
-							<option value="%">Semua</option>
+						<select class="form-control" id="bank" name="bank">
 							<?php
-								if ($query = $data->runQuery("SELECT `konsumen`.`id`, `konsumen`.`nama` FROM `konsumen`;")) {
+								if ($query = $data->runQuery("SELECT `khusus_bank`.`id`, `khusus_bank`.`nama` FROM `khusus_bank`;")) {
 									while ($rs = $query->fetch_array()) {
 										echo "<option value='".$rs['id']."'>".$rs['nama']."</option>";
 									}
@@ -150,10 +154,6 @@ $(document).ready(function(){
 			globalStyles: true,
 			timeout: 250
 		});
-	});
-	
-	$('#mdl-kriteria').on('shown.bs.modal', function () {
-		$('#konsumen', this).chosen();
 	});
 	
 });

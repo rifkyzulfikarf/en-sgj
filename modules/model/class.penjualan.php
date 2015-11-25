@@ -114,7 +114,7 @@
 				
 				if ($sparta) {
 					$penjualanKhusus = new penjualan_khusus();
-					$hasilPenjualanKhusus = $penjualanKhusus->transaksi_penjualan($tgl, $idKonsumen, $idBarang, $jmlTabung, $selisih, 
+					$hasilPenjualanKhusus = $penjualanKhusus->transaksi_penjualan($tgl, $idKonsumen, "2", $jmlTabung, $selisih, 
 											$het, $totalJualKhusus, $totalHet, $totalBayarKhusus, $jenis, $tglTempo, "1", $noBukti, 
 											$idSales, $idKaryawan, $nota);
 				}
