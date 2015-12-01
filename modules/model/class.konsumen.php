@@ -203,5 +203,16 @@
 			}
 		}
 		
+		function hapus_kuota_penjualan($idKonsumen, $tgl) {
+			$idKonsumen = $this->clearText($idKonsumen);
+			$tgl = $this->clearText($tgl);
+			
+			if ($result = $this->runQuery("DELETE FROM `kuota_penjualan` WHERE `id_konsumen` = '$idKonsumen' AND `tgl` = '$tgl';")) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+		
 	}
 ?>

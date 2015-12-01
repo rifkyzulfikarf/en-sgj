@@ -40,7 +40,7 @@
 									<th>Tanggal</th>
 									<th>Jumlah Kuota</th>
 									<th>Telah Diambil</th>
-									<th></th>
+									<th>&nbsp;&nbsp;&nbsp;</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -52,7 +52,7 @@
 									<th>Tanggal</th>
 									<th>Jumlah Kuota</th>
 									<th>Telah Diambil</th>
-									<th></th>
+									<th>&nbsp;&nbsp;&nbsp;</th>
 								</tr>
 							</tfoot>
 						</table>
@@ -222,6 +222,35 @@ $(document).ready(function(){
 		$('#txt-ubah-kuota').val($(this).data('kuota'));
 	});
 	
+	$('#tabel-kuota').on('click', '#btn-hapus-data', function(ev){
+		ev.preventDefault();
+		var id = $(this).data('id');
+		var tgl = $(this).data('tgl');
+		
+		if (confirm('Hapus data ?')) {
+			$(this).addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i>');
+			$.ajax({
+				url: "./",
+				method: "POST",
+				cache: false,
+				dataType: "JSON",
+				data: {"aksi":"<?php echo e_url('modules/controller/konsumen/kuota_jual.php'); ?>", "apa":"hapus-kuota", "id":id, "tgl":tgl},
+				success: function(eve){
+					if (eve.status){
+						alert(eve.msg);
+						tabelkuota.fnReloadAjax();
+					} else {
+						alert(eve.msg);
+					}
+				},
+				error: function(err){
+					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
+					alert('Gagal terkoneksi dengan server..');
+				}
+			});
+		}
+	});
+	
 	$('#btn-simpan-ubah-kuota').click(function(ev){
 		ev.preventDefault();
 		var id = $('#txt-id-konsumen').val();
@@ -229,6 +258,7 @@ $(document).ready(function(){
 		var kuota = $('#txt-ubah-kuota').val();
 		
 		if (confirm('Simpan data ?')) {
+			$('#btn-simpan-ubah-kuota').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			$.ajax({
 				url: "./",
 				method: "POST",
@@ -243,6 +273,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
+					$('#btn-simpan-ubah-kuota').removeClass('disabled').html('Simpan Data');
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));
@@ -265,6 +296,7 @@ $(document).ready(function(){
 		tglAkhir = $('#dp-akhir').val();
 		
 		if (confirm('Ubah kuota jadi 0 ?')) {
+			$('#btn-ubah-0').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			$.ajax({
 				url: "./",
 				method: "POST",
@@ -279,6 +311,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
+					$('#btn-ubah-0').removeClass('disabled').html("<i class='fa fa-pencil'></i> Jadikan 0");
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));

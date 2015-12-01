@@ -28,7 +28,10 @@
 							array_push($detail, $rs["jml_terambil"]);
 							array_push($detail, "<button type='button' class='btn btn-sm btn-primary' id='btn-ubah-data' data-id='".$rs['id_konsumen']."' 
 										data-kuota='".$rs['jml_alokasi']."' data-tgl='".$rs['tgl']."' data-nama='".$rs['nama']."'>
-										<i class='fa fa-pencil'></i></button>");
+										<i class='fa fa-pencil'></i></button>
+										<button type='button' class='btn btn-sm btn-danger' id='btn-hapus-data' data-id='".$rs['id_konsumen']."' 
+										data-tgl='".$rs['tgl']."'>
+										<i class='fa fa-trash-o'></i></button>");
 							array_push($collect, $detail);
 							unset($detail);
 						}
@@ -89,6 +92,25 @@
 					} else {
 						$arr['status']=FALSE;
 						$arr['msg']="Gagal mengubah kuota..";
+					}
+				} else {
+					$arr['status']=FALSE;
+					$arr['msg']="Harap isi data dengan lengkap..";
+				}
+				
+				echo json_encode($arr);
+				break;
+			case "hapus-kuota":
+				$arr=array();
+				
+				if (isset($_POST['id']) && $_POST['id'] != "" && isset($_POST['tgl']) && $_POST['tgl'] != "") {
+					
+					if ($result = $konsumen->hapus_kuota_penjualan($_POST['id'], $_POST['tgl'])) {
+						$arr['status']=TRUE;
+						$arr['msg']="Data terhapus..";
+					} else {
+						$arr['status']=FALSE;
+						$arr['msg']="Gagal menghapus..";
 					}
 				} else {
 					$arr['status']=FALSE;
