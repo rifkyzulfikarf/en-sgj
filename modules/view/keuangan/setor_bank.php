@@ -40,7 +40,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Setoran Bank</h4>
+				<h4 class="modal-title" id="modal-title">Setoran Bank</h4>
 			</div>
 			<div class="modal-body">
 				<form id="frm-setoran" action="#" method="POST" role="form">
@@ -98,6 +98,12 @@ $(document).ready(function(){
 		$('#txt-bukti').val("");
 		$('#txt-keterangan').val("");
 		$('#txt-jumlah').val("");
+		
+		if ($(this).data('id') == "1") {
+			$('#modal-title').text("Setoran Bank PT. Energas Nusantara");
+		} else {
+			$('#modal-title').text("Setoran Bank PT. Sumber Gasindo Jaya");
+		}
 	});
 	
 	$('#btn-simpan-data').click(function(ev){

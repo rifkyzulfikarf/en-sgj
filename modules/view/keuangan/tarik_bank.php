@@ -40,7 +40,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Tarikan Bank</h4>
+				<h4 class="modal-title" id="modal-title">Tarikan Bank</h4>
 			</div>
 			<div class="modal-body">
 				<form id="frm-tarikan" action="#" method="POST" role="form">
@@ -110,6 +110,12 @@ $(document).ready(function(){
 		$('#txt-keterangan').val("");
 		$('#txt-jumlah').val("");
 		$('#txt-beaadmin').val("");
+		
+		if ($(this).data('id') == "1") {
+			$('#modal-title').text("Tarikan Bank PT. Energas Nusantara");
+		} else {
+			$('#modal-title').text("Tarikan Bank PT. Sumber Gasindo Jaya");
+		}
 	});
 	
 	$('#btn-simpan-data').click(function(ev){

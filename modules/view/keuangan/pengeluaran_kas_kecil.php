@@ -38,7 +38,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Kas Keluar</h4>
+				<h4 class="modal-title" id="modal-title">Kas Keluar</h4>
 			</div>
 			<div class="modal-body">
 				<form id="frm-kasir" action="#" method="POST" role="form">
@@ -103,7 +103,15 @@ $(document).ready(function(){
 		$('#apa').val('pengeluaran-dana');
 		$('#txt-idkasir').val($(this).data('id'));
 		$('#txt-keterangan').val("");
+		$('#txt-bukti').val("");
 		$('#txt-jumlah').val("");
+		
+		if ($(this).data('id') == "1") {
+			$('#modal-title').text("Kas Keluar PT. Energas Nusantara");
+		} else {
+			$('#modal-title').text("Kas Keluar PT. Sumber Gasindo Jaya");
+		}
+		
 	});
 	
 	$('#btn-simpan-data').click(function(ev){
