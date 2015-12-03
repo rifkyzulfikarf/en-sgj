@@ -14,7 +14,7 @@
 				<div class="panel-body">
 					<?php  
 						if (isset($_POST['kasir']) && $_POST['kasir'] != "" && isset($_POST['tgl-awal']) && $_POST['tgl-awal'] != "" && 
-						isset($_POST['tgl-akhir']) && $_POST['tgl-akhir'] != "") {
+						isset($_POST['tgl-akhir']) && $_POST['tgl-akhir'] != "" && isset($_POST['akun']) && $_POST['akun'] != "") {
 					?>
 						<div class="pull-right">
 							<button class="btn btn-default btn-sm" id="btn-print"><i class="fa fa-print"></i> Print</button>
@@ -22,6 +22,7 @@
 						<div id="print-section">
 							<div class="text-center"><h3>Laporan Kas Kecil <?php echo ($_POST['kasir'] == "1")?"PT. Energas Nusantara":"PT. Sumber Gasindo Jaya"; ?></h3></div><hr>
 							Periode : <?php echo $_POST['tgl-awal']." s/d ".$_POST['tgl-akhir'] ?><br><br>
+							Kode Akun : <?php echo $_POST['akun'] ?><br><br>
 							<table class="table table-hover table-striped table-mod">
 								<thead>
 									<tr>
@@ -41,12 +42,15 @@
 									INNER JOIN `kasir` ON (`kas_kecil`.`id_kasir` = `kasir`.`id`) 
 									INNER JOIN `akun_kas` ON (`kas_kecil`.`kode_akun` = `akun_kas`.`kode`) 
 									WHERE `kas_kecil`.`id_kasir` LIKE '".$_POST['kasir']."' 
+									AND `kas_kecil`.`kode_akun` LIKE '".$_POST['akun']."' 
 									AND `kas_kecil`.`tgl` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."';";
 									
 									$totalDebet = 0; $totalKredit = 0; $totalSaldo = 0;
 									
 									if ($daftar = $data->runQuery($query)){
 										while( $rs = $daftar->fetch_assoc() ){
+											
+											if ($_POST['akun'] != "%") { $rs['saldo'] = 0; }
 											
 											$totalDebet += $rs['debet'];
 											$totalKredit += $rs['kredit'];
@@ -113,6 +117,18 @@
 						</select>
 					</div>
 					<div class="form-group">
+						<select class="form-control" id="akun" name="akun">
+							<option value="%">Semua</option>
+							<?php
+								if ($query = $data->runQuery("SELECT `kode`, `nama_akun` FROM `akun_kas`;")) {
+									while ($rs = $query->fetch_array()) {
+										echo "<option value='".$rs['kode']."'>".$rs['nama_akun']."</option>";
+									}
+								}
+							?>
+						</select>
+					</div>
+					<div class="form-group">
 						<input type="text" class="form-control" id="tgl-awal" name="tgl-awal" placeholder="Tanggal Awal">
 					</div>
 					<div class="form-group">
@@ -146,6 +162,10 @@ $(document).ready(function(){
 			globalStyles: true,
 			timeout: 250
 		});
+	});
+	
+	$('#mdl-kriteria').on('shown.bs.modal', function () {
+		$('#akun', this).chosen();
 	});
 	
 });
