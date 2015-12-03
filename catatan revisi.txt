@@ -15,3 +15,21 @@
 - acc -> edit(edit jumlah pencairan), delete, acc
 
 Acc Gudang Tebus berdasar Tanggal Loading
+
+1 Desember ->
+- menu autoclose pada hp													OK
+- Laporan pinjam tabung														OK
+- Edit dan delete berita acara
+- alokasi tidak diambil / tidak ada transaksi tidak bisa acc gudang			OK
+- laporan kas kecil berdasarkan kode akun
+- mobil non do 1443 , sopir maskuri
+- tebus non do lgsg muncul seperti piutang
+- non do harga per tabung +- 438000
+- non do pelunasan hilang, hanya cash
+- non do non piutang hilang
+
+- Gaji mingguan dan bulanan, mingguan jumlah hari x uang makan, ambil tiap sabtu
+bulanan , gapok x hari x um x uang transport - bpjs/jamsostek, bonus itu lembur, komisi, potongan(bpjs/jamsostek, angsuran), take home pay gapok bulanan
+cetak 2 slip utk karyawan dan utk perusahaan
+- menu pemesanan, id, tgl, yg pesan, jumlah, harga satuan. ini link ke penjualan.
+pengajuan dana sisa masuk kas

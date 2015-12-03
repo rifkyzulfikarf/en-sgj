@@ -205,5 +205,15 @@ $(document).ready(function(){
 	var tblalokasi = $('#tabel-alokasi-pangkalan').dataTable();
 	
 	var tbltebusanpending = $('#tabel-tebusan-pending').dataTable();
+	
+	$('#main-content').css({
+		'margin-left': '0px'
+	});
+	$('#sidebar').css({
+		'margin-left': '-210px'
+	});
+	$('#sidebar > ul').hide();
+	$("#container").addClass("sidebar-closed");
+	
 });
 </script>

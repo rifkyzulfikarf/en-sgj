@@ -151,6 +151,14 @@ $(".link-menu").on("click",function(ev) {
 		success: function(event) {
 			$('#main-content').html(event);
 			window.location.hash = uri;
+			$('#main-content').css({
+                'margin-left': '0px'
+            });
+            $('#sidebar').css({
+                'margin-left': '-210px'
+            });
+            $('#sidebar > ul').hide();
+            $("#container").addClass("sidebar-closed");
 		},
 		error: function(){
 			$('#spinner').remove();
