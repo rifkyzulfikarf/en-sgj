@@ -19,9 +19,9 @@ Acc Gudang Tebus berdasar Tanggal Loading
 1 Desember ->
 - menu autoclose pada hp													OK
 - Laporan pinjam tabung														OK
-- Edit dan delete berita acara
+- Edit dan delete berita acara												OK
 - alokasi tidak diambil / tidak ada transaksi tidak bisa acc gudang			OK
-- laporan kas kecil berdasarkan kode akun
+- laporan kas kecil berdasarkan kode akun									OK
 - mobil non do 1443 , sopir maskuri
 - tebus non do lgsg muncul seperti piutang
 - non do harga per tabung +- 438000

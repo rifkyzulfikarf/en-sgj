@@ -24,6 +24,25 @@
 				
 				echo json_encode($arr);
 				break;
+			case "hapus":
+				$arr=array();
+				
+				if (isset($_POST['id']) && $_POST['id'] != "") {
+					
+					if ($result = $data->hapus($_POST['id'])) {
+						$arr['status']=TRUE;
+						$arr['msg']="Data terhapus..";
+					} else {
+						$arr['status']=FALSE;
+						$arr['msg']="Gagal menghapus..";
+					}
+				} else {
+					$arr['status']=FALSE;
+					$arr['msg']="Harap isi data dengan lengkap..";
+				}
+				
+				echo json_encode($arr);
+				break;
 		}
 	}
 ?>
