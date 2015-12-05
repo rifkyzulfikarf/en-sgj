@@ -56,6 +56,14 @@
 								$rsKuota = $kuota->fetch_array();
 								$arr['kuota'] = ($rsKuota['jml_alokasi'] != null)?$rsKuota['jml_alokasi']:0;
 							}
+							
+							$qCek = "SELECT SUM(`jml`) FROM `penjualan` WHERE `id_konsumen` = '".$_POST['konsumen']."' AND 
+							`tgl` = '".$_POST['tgl']."' AND `id_barang` = '".$_POST['barang']."';";
+							if ($resCek = $konsumen->runQuery($qCek)) {
+								$rsCek = $resCek->fetch_array();
+								$arr['kuota'] = $arr['kuota'] - $rsCek[0];
+							}
+							
 						} elseif($_POST['barang'] == "2") {
 							$arr['harga'] = ($rs['harga_12kg'] != null)?$rs['harga_12kg']:0;
 							$arr['kuota'] = 0;
