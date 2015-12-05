@@ -26,11 +26,10 @@
 							array_push($detail, $rs["tgl"]);
 							array_push($detail, $rs["jml_alokasi"]);
 							array_push($detail, $rs["jml_terambil"]);
-							array_push($detail, "<button type='button' class='btn btn-sm btn-primary' id='btn-ubah-data' data-id='".$rs['id_konsumen']."' 
+							array_push($detail, "<button type='button' class='btn btn-sm btn-primary' id='btn-ubah-data' data-id='".$rs['id']."' 
 										data-kuota='".$rs['jml_alokasi']."' data-tgl='".$rs['tgl']."' data-nama='".$rs['nama']."'>
 										<i class='fa fa-pencil'></i></button>
-										<button type='button' class='btn btn-sm btn-danger' id='btn-hapus-data' data-id='".$rs['id_konsumen']."' 
-										data-tgl='".$rs['tgl']."'>
+										<button type='button' class='btn btn-sm btn-danger' id='btn-hapus-data' data-id='".$rs['id']."'>
 										<i class='fa fa-trash-o'></i></button>");
 							array_push($collect, $detail);
 							unset($detail);
@@ -63,10 +62,9 @@
 			case "ubah-kuota":
 				$arr=array();
 				
-				if (isset($_POST['id']) && $_POST['id'] != "" && isset($_POST['kuota']) && $_POST['kuota'] != "" 
-				&& isset($_POST['tgl']) && $_POST['tgl'] != "") {
+				if (isset($_POST['id']) && $_POST['id'] != "" && isset($_POST['kuota']) && $_POST['kuota'] != "") {
 					
-					if ($result = $konsumen->ubah_kuota_penjualan($_POST['id'], $_POST['tgl'], $_POST['kuota'])) {
+					if ($result = $konsumen->ubah_kuota_penjualan($_POST['id'], $_POST['kuota'])) {
 						$arr['status']=TRUE;
 						$arr['msg']="Data tersimpan..";
 					} else {
@@ -103,9 +101,9 @@
 			case "hapus-kuota":
 				$arr=array();
 				
-				if (isset($_POST['id']) && $_POST['id'] != "" && isset($_POST['tgl']) && $_POST['tgl'] != "") {
+				if (isset($_POST['id']) && $_POST['id'] != "") {
 					
-					if ($result = $konsumen->hapus_kuota_penjualan($_POST['id'], $_POST['tgl'])) {
+					if ($result = $konsumen->hapus_kuota_penjualan($_POST['id'])) {
 						$arr['status']=TRUE;
 						$arr['msg']="Data terhapus..";
 					} else {

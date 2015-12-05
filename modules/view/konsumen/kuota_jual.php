@@ -100,7 +100,7 @@
 			</div>
 			<div class="modal-body">
 				<form id="frm-ubah-kuota" action="#" method="POST" role="form">
-					<input type="hidden" class="form-control" name="txt-id-konsumen" id="txt-id-konsumen" readonly>
+					<input type="hidden" class="form-control" name="txt-id-kuota" id="txt-id-kuota" readonly>
 					<div class="form-group">
 						<input type="text" class="form-control" name="txt-nama-konsumen" id="txt-nama-konsumen" readonly>
 					</div>
@@ -216,7 +216,7 @@ $(document).ready(function(){
 	$('#tabel-kuota').on('click', '#btn-ubah-data', function(ev){
 		ev.preventDefault();
 		$('#mdl-ubah-kuota').modal();
-		$('#txt-id-konsumen').val($(this).data('id'));
+		$('#txt-id-kuota').val($(this).data('id'));
 		$('#txt-nama-konsumen').val($(this).data('nama'));
 		$('#txt-tgl-kuota').val($(this).data('tgl'));
 		$('#txt-ubah-kuota').val($(this).data('kuota'));
@@ -225,7 +225,6 @@ $(document).ready(function(){
 	$('#tabel-kuota').on('click', '#btn-hapus-data', function(ev){
 		ev.preventDefault();
 		var id = $(this).data('id');
-		var tgl = $(this).data('tgl');
 		
 		if (confirm('Hapus data ?')) {
 			$(this).addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i>');
@@ -234,7 +233,7 @@ $(document).ready(function(){
 				method: "POST",
 				cache: false,
 				dataType: "JSON",
-				data: {"aksi":"<?php echo e_url('modules/controller/konsumen/kuota_jual.php'); ?>", "apa":"hapus-kuota", "id":id, "tgl":tgl},
+				data: {"aksi":"<?php echo e_url('modules/controller/konsumen/kuota_jual.php'); ?>", "apa":"hapus-kuota", "id":id},
 				success: function(eve){
 					if (eve.status){
 						alert(eve.msg);
@@ -253,8 +252,7 @@ $(document).ready(function(){
 	
 	$('#btn-simpan-ubah-kuota').click(function(ev){
 		ev.preventDefault();
-		var id = $('#txt-id-konsumen').val();
-		var tgl = $('#txt-tgl-kuota').val();
+		var id = $('#txt-id-kuota').val();
 		var kuota = $('#txt-ubah-kuota').val();
 		
 		if (confirm('Simpan data ?')) {
@@ -264,7 +262,7 @@ $(document).ready(function(){
 				method: "POST",
 				cache: false,
 				dataType: "JSON",
-				data: {"aksi":"<?php echo e_url('modules/controller/konsumen/kuota_jual.php'); ?>", "apa":"ubah-kuota", "id":id, "tgl":tgl, "kuota":kuota},
+				data: {"aksi":"<?php echo e_url('modules/controller/konsumen/kuota_jual.php'); ?>", "apa":"ubah-kuota", "id":id, "kuota":kuota},
 				success: function(eve){
 					if (eve.status){
 						alert(eve.msg);
