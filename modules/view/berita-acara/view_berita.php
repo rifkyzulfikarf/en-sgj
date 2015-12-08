@@ -34,11 +34,12 @@
 			<div class="inbox-head">
 				<h3>View Berita Acara</h3>
 			</div>
-			<div class="inbox-body">
+			<div class="inbox-body" id="print-section">
 				<div class="heading-inbox row">
 					<div class="col-md-8">
 						<?php if ($_SESSION['en-level'] == "1" || $_SESSION['en-level'] == "2") { ?>
 						<div class="compose-btn">
+							<button title="" data-placement="top" data-toggle="tooltip" data-original-title="Print" class="btn btn-sm tooltips" id="btn-print"><i class="fa fa-print"></i></button>
 							<button title="" data-placement="top" data-toggle="tooltip" data-original-title="Trash" class="btn btn-sm tooltips" id="btn-hapus"><i class="fa fa-trash-o"></i></button>
 						</div>
 						<?php } ?>
@@ -111,6 +112,14 @@ $(document).ready(function(){
 				}
 			});
 		}
+	});
+	
+	$('#btn-print').click(function(ev){
+		ev.preventDefault();
+		$('#print-section').print({
+			globalStyles: true,
+			timeout: 250
+		});
 	});
 	
 });
