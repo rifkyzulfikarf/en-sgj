@@ -18,14 +18,20 @@
 				
 				if (isset($_POST['id']) && $_POST['id'] != "" && isset($_POST['tglAwal']) && $_POST['tglAwal'] != "" && 
 					isset($_POST['tglAkhir']) && $_POST['tglAkhir'] != "") {
-				
+					
 					if ($query = $konsumen->get_kuota_jual($_POST['id'], $_POST['tglAwal'], $_POST['tglAkhir'])) {
 						while ($rs = $query->fetch_array()) {
+							$qCek = "SELECT SUM(jml) FROM penjualan WHERE id_konsumen = '".$rs["id_konsumen"]."' AND tgl = '".$rs['tgl']."' AND id_barang = '1';";
+							if ($resCek = $konsumen->runQuery($qCek)) {
+								$rsCek = $resCek->fetch_array();
+								$jumlahTerambil = $rsCek[0];
+							}
+						
 							$detail = array();
 							array_push($detail, $rs["nama"]);
 							array_push($detail, $rs["tgl"]);
 							array_push($detail, $rs["jml_alokasi"]);
-							array_push($detail, $rs["jml_terambil"]);
+							array_push($detail, $jumlahTerambil);
 							array_push($detail, "<button type='button' class='btn btn-sm btn-primary' id='btn-ubah-data' data-id='".$rs['id']."' 
 										data-kuota='".$rs['jml_alokasi']."' data-tgl='".$rs['tgl']."' data-nama='".$rs['nama']."'>
 										<i class='fa fa-pencil'></i></button>
