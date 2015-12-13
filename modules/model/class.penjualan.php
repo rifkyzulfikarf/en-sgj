@@ -98,11 +98,16 @@
 				$totalJualKhusus = $selisih * $jmlTabung;
 				$totalBayarKhusus = $totalJualKhusus;
 				$sparta = TRUE;
-			}
-			
-			$query = "INSERT INTO `penjualan` VALUES('$id', '$tgl', '$idKonsumen', '$idBarang', '$jmlTabung', '$het', 
+				
+				$query = "INSERT INTO `penjualan` VALUES('$id', '$tgl', '$idKonsumen', '$idBarang', '$jmlTabung', '$het', 
 						'$het', '$totalJual', '$totalJual', '$totalBayar', '$jenis', '$tglTempo', '$idBank', '$noBukti', 
 						'$idSales', '$idKaryawan', '$nota');";
+			} else {
+				$query = "INSERT INTO `penjualan` VALUES('$id', '$tgl', '$idKonsumen', '$idBarang', '$jmlTabung', '$hargaJual', 
+						'$het', '$totalJual', '$totalHet', '$totalBayar', '$jenis', '$tglTempo', '$idBank', '$noBukti', 
+						'$idSales', '$idKaryawan', '$nota');";
+			}
+			
 			$query .= "INSERT INTO `penjualan_acc_gudang`(`id_penjualan`) VALUES('$id');";
 			if ($result = $this->runMultipleQueries($query)) {
 				if ($jenis == "2" || $jenis == "3") {
