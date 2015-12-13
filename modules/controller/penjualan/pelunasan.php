@@ -14,6 +14,7 @@
 						while ($rs = $query->fetch_array()) {
 							$detail = array();
 							array_push($detail, $rs["id"]);
+							array_push($detail, $rs["no_nota"]);
 							array_push($detail, $rs["tgl"]);
 							array_push($detail, $rs["nama_konsumen"]);
 							array_push($detail, $rs["nama_barang"]);

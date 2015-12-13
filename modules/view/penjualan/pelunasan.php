@@ -37,6 +37,7 @@
 							<thead>
 								<tr>
 									<th>ID</th>
+									<th>Nota</th>
 									<th>Tgl Jual</th>
 									<th>Konsumen</th>
 									<th>Barang</th>
@@ -53,6 +54,7 @@
 							<tfoot>
 								<tr>
 									<th>ID</th>
+									<th>Nota</th>
 									<th>Tgl Jual</th>
 									<th>Konsumen</th>
 									<th>Barang</th>
