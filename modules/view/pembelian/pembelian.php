@@ -69,6 +69,7 @@
 								</form>
 							</section>
 						</div>
+						<!--
 						<div class="col-lg-4">
 							<section class="panel">
 								<form class="form-horizontal tasi-form">
@@ -85,8 +86,10 @@
 								</form>
 							</section>
 						</div>
+						-->
 					</div>
 					<div class="row">
+						<!--
 						<div class="col-lg-4">
 							<section class="panel">
 								<form class="form-horizontal tasi-form">
@@ -103,6 +106,7 @@
 								</form>
 							</section>
 						</div>
+						-->
 						<div class="col-lg-4">
 							<section class="panel">
 								<form class="form-horizontal tasi-form">
@@ -244,13 +248,13 @@ $(document).ready(function(){
 		var jumlah; var harga; var subtotal; var pajak; var diskon; var beaadmin; var total;
 		jumlah = Number($('#txt-jml-tabung').val());
 		harga = Number($('#txt-harga-satuan').val());
-		diskon = Number($('#txt-diskon').val());
+		diskon = 0;
 		beaadmin = Number($('#txt-bea-admin').val());
 		subtotal = jumlah * harga;
-		pajak = subtotal * 10 / 100;
+		pajak = 0;
 		total = subtotal + pajak + beaadmin - diskon;
 		$('#txt-subtotal').val(subtotal);
-		$('#txt-pajak').val(pajak);
+		//$('#txt-pajak').val(pajak);
 		$('#txt-total').val(total);
 	};
 	
@@ -270,8 +274,8 @@ $(document).ready(function(){
 		
 			var tgl = $('#dp-tgl').val(); var lo = $('#txt-lo').val(); var sa = $('#txt-sa').val();
 			var barang = $('#cmb-barang').val(); var harga = $('#txt-harga-satuan').val();
-			var jml = $('#txt-jml-tabung').val(); var pajak = $('#txt-pajak').val();
-			var diskon = $('#txt-diskon').val(); var beaadmin = $('#txt-bea-admin').val();
+			var jml = $('#txt-jml-tabung').val(); var pajak = 0;
+			var diskon = 0; var beaadmin = $('#txt-bea-admin').val();
 			var total = $('#txt-total').val(); var bank = $('#cmb-bank').val();
 			var jenis = $('#cmb-jenis').val(); var bukti = $('#txt-bukti').val();
 			
