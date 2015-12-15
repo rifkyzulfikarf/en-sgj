@@ -158,7 +158,7 @@
 									</thead>
 									<tbody>
 									<?php
-										$query = "SELECT `pembelian`.`tgl_tebus`, `pembelian`.`no_lo`, `pembelian`.`no_sa`, `barang`.`nama` 
+										$query = "SELECT `pembelian`.`tgl_tebus`, `pembelian`.`no_lo`, `pembelian`.`no_sa`, `barang`.`nama`, 
 										`pembelian`.`jml_tabung`
 										FROM `loading_pembelian` 
 										INNER JOIN `pembelian` ON (`loading_pembelian`.`id_pembelian` = `pembelian`.`id`) 
