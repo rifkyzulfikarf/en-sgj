@@ -33,3 +33,12 @@ bulanan , gapok x hari x um x uang transport - bpjs/jamsostek, bonus itu lembur,
 cetak 2 slip utk karyawan dan utk perusahaan
 - menu pemesanan, id, tgl, yg pesan, jumlah, harga satuan. ini link ke penjualan.
 pengajuan dana sisa masuk kas
+
+- nota penjualan dobel, harus dicek/verif
+- tambah field jumlah bayar di penjualan
+- sum group laporan penjualan per hari
+- het penjualan hidden
+- home - jatuh tempo penjualan highlight jatuh tempo telah lewat tanggal
+- home - tgl cair bg highlight telah lewat tanggal
+- nota loncat
+- dropping saldo langsung masuk potong bank
