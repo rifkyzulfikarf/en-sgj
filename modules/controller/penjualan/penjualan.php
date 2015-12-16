@@ -90,27 +90,39 @@
 				isset($_POST['het']) && $_POST['het'] != "" && isset($_POST['total']) && $_POST['total'] != "" && 
 				isset($_POST['jenis']) && $_POST['jenis'] != "" && isset($_POST['nota']) && $_POST['nota'] != "") {
 					
-					if ($_POST['jenis'] == '4') {
-						$tempo = $_POST['tempo'];
-						$bank = "0";
-						$bukti = "-";
-						$totalBayar = 0;
-					} else {
-						$tempo = '0000-00-00';
-						$bank = $_POST['bank'];
-						$bukti = $_POST['bukti'];
-						$totalBayar = $_POST['total'];
+					$qCek = "SELECT COUNT(`id`) FROM `penjualan` WHERE `no_nota` = '".$_POST['nota']."'";
+					if ($resCek = $penjualan->runQuery($qCek)) {
+						$rsCek = $resCek->fetch_array();
+						if ($rsCek[0] > 0) {
+							$arr['status']=FALSE;
+							$arr['msg']="Penjualan dengan nomor nota tersebut sudah ada..";
+						} else {
+						
+							if ($_POST['jenis'] == '4') {
+								$tempo = $_POST['tempo'];
+								$bank = "0";
+								$bukti = "-";
+								$totalBayar = 0;
+							} else {
+								$tempo = '0000-00-00';
+								$bank = $_POST['bank'];
+								$bukti = $_POST['bukti'];
+								$totalBayar = $_POST['total'];
+							}
+							
+							if ($result = $penjualan->transaksi_penjualan($_POST['tgl'], $_POST['konsumen'], $_POST['barang'], $_POST['jml'], 
+							$_POST['hargaJual'], $_POST['het'], $_POST['total'], $_POST['total'], $totalBayar, $_POST['jenis'], $tempo, 
+							$bank, $bukti, $_POST['sales'], d_code($_SESSION['en-data']), $_POST['nota'])) {
+								$arr['status']=TRUE;
+								$arr['msg']="Transaksi sukses tersimpan..";
+							} else {
+								$arr['status']=FALSE;
+								$arr['msg']="Gagal menyimpan..";
+							}
+							
+						}
 					}
-					
-					if ($result = $penjualan->transaksi_penjualan($_POST['tgl'], $_POST['konsumen'], $_POST['barang'], $_POST['jml'], 
-					$_POST['hargaJual'], $_POST['het'], $_POST['total'], $_POST['total'], $totalBayar, $_POST['jenis'], $tempo, 
-					$bank, $bukti, $_POST['sales'], d_code($_SESSION['en-data']), $_POST['nota'])) {
-						$arr['status']=TRUE;
-						$arr['msg']="Transaksi sukses tersimpan..";
-					} else {
-						$arr['status']=FALSE;
-						$arr['msg']="Gagal menyimpan..";
-					}
+
 				} else {
 					$arr['status']=FALSE;
 					$arr['msg']="Harap isi data dengan lengkap..";

@@ -34,7 +34,7 @@ cetak 2 slip utk karyawan dan utk perusahaan
 - menu pemesanan, id, tgl, yg pesan, jumlah, harga satuan. ini link ke penjualan.
 pengajuan dana sisa masuk kas
 
-- nota penjualan dobel, harus dicek/verif
+- nota penjualan dobel, harus dicek/verif									OK
 - tambah field jumlah bayar di penjualan
 - sum group laporan penjualan per hari
 - het penjualan hidden
