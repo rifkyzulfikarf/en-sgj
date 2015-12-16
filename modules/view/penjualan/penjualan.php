@@ -66,7 +66,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-4">
+						<div class="col-lg-4 " id="div-het">
 							<section class="panel">
 								<form class="form-horizontal tasi-form">
 									<div class="form-group">
@@ -255,6 +255,7 @@ $(document).ready(function(){
 			format : "yyyy-mm-dd",
 			autoclose : true
 		});
+		$('#div-het').hide();
 		$('#div-tempo').hide();
 		$('#div-bukti').hide();
 		$.ajax({
