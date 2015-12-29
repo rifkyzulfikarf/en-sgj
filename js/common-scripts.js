@@ -168,6 +168,4 @@ $(".link-menu").on("click",function(ev) {
 	});
 });
 
-
-
 }();

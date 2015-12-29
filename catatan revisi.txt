@@ -37,8 +37,10 @@ pengajuan dana sisa masuk kas
 - nota penjualan dobel, harus dicek/verif									OK
 - tambah field jumlah bayar di penjualan
 - sum group laporan penjualan per hari
-- het penjualan hidden
+- het penjualan hidden														OK
 - home - jatuh tempo penjualan highlight jatuh tempo telah lewat tanggal
 - home - tgl cair bg highlight telah lewat tanggal
 - nota loncat
 - dropping saldo langsung masuk potong bank
+- home - tebusan pending -> loading pending									OK
+- tanggal loading muncul antara tgl tebus dan no LO di laporan

@@ -27,6 +27,7 @@
 									<tr>
 										<th class="text-center">ID</th>
 										<th class="text-center">Tgl Tebus</th>
+										<th class="text-center">Tgl Loading</th>
 										<th class="text-center">No LO</th>
 										<th class="text-center">No SA</th>
 										<th class="text-center">Barang</th>
@@ -42,8 +43,9 @@
 								</thead>
 								<tbody>
 									<?php
-									$query = "SELECT `pembelian`.*, `barang`.`nama` FROM `pembelian` 
+									$query = "SELECT `pembelian`.*, `barang`.`nama`, `loading_pembelian`.`tgl_loading` FROM `pembelian` 
 									INNER JOIN `barang` ON (`pembelian`.`id_barang` = `barang`.`id`) 
+									INNER JOIN `loading_pembelian` ON (`loading_pembelian`.`id_pembelian` = `pembelian`.`id`) 
 									WHERE `pembelian`.`id_bank` = '".$_POST['cmb-bank']."' 
 									AND `pembelian`.`tgl_tebus` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."';";
 									
@@ -63,6 +65,7 @@
 											echo "<tr>
 												<td class='text-center'>".$rs['id']."</td>
 												<td class='text-center'>".$rs['tgl_tebus']."</td>
+												<td class='text-center'>".$rs['tgl_loading']."</td>
 												<td class='text-center'>".$rs['no_lo']."</td>
 												<td class='text-center'>".$rs['no_sa']."</td>
 												<td class='text-center'>".$rs['nama']."</td>

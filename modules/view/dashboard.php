@@ -17,7 +17,7 @@
 							<a data-toggle="tab" href="#alokasipangkalan" aria-expanded="false">Alokasi Hari Ini</a>
 						</li>
 						<li>
-							<a data-toggle="tab" href="#tebusanpending" aria-expanded="false">Tebusan Pending</a>
+							<a data-toggle="tab" href="#tebusanpending" aria-expanded="false">Loading Pending</a>
 						</li>
 					</ul>
 				</header>
