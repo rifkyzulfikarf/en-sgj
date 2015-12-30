@@ -42,7 +42,7 @@
 										INNER JOIN `konsumen` ON (`penjualan`.`id_konsumen` = `konsumen`.`id`) 
 										INNER JOIN `barang` ON (`penjualan`.`id_barang` = `barang`.`id`) 
 										WHERE `penjualan`.`jenis` = '4' AND `penjualan`.`total_bayar` < `penjualan`.`total_jual` 
-										LIMIT 20;";
+										LIMIT 100;";
 										if ($result = $data->runQuery($query)) {
 											while ($rs = $result->fetch_array()) {
 												echo "<tr>

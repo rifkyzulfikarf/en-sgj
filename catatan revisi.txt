@@ -43,4 +43,5 @@ pengajuan dana sisa masuk kas
 - nota loncat
 - dropping saldo langsung masuk potong bank
 - home - tebusan pending -> loading pending									OK
-- tanggal loading muncul antara tgl tebus dan no LO di laporan
+- tanggal loading muncul antara tgl tebus dan no LO di laporan				OK
+- home - limit 100 data piutang												OK
