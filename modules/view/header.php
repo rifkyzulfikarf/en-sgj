@@ -16,9 +16,9 @@
 			<li id="header_notification_bar" class="dropdown">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 					<i class="fa fa-bell-o"></i>
-					<span class="badge bg-warning"></span>
+					<span class="badge bg-warning">!</span>
 				</a>
-				<ul class="dropdown-menu extended notification">
+				<ul class="dropdown-menu extended notification notification-list">
 					<div class="notify-arrow notify-arrow-yellow"></div>
 					<li>
 						<p class="yellow">You have new notifications</p>

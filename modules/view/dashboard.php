@@ -117,20 +117,29 @@
 										<tr>
 											<th>Konsumen</th>
 											<th>Alokasi</th>
+											<th>Telah Diambil</th>
 										</tr>
 									</thead>
 									<tbody>
 									<?php
-										$query = "SELECT `konsumen`.`nama` AS `nama_konsumen`, `kuota_penjualan`.`jml_alokasi` 
+										$query = "SELECT `konsumen`.`id`, `konsumen`.`nama` AS `nama_konsumen`, `kuota_penjualan`.`jml_alokasi` 
 										FROM `kuota_penjualan` 
 										INNER JOIN `konsumen` ON (`kuota_penjualan`.`id_konsumen` = `konsumen`.`id`) 
 										WHERE tgl = '".date("Y-m-d")."';";
 										if ($result = $data->runQuery($query)) {
 											while ($rs = $result->fetch_array()) {
-												echo "<tr>
+												$qCek = "SELECT SUM(jml) FROM penjualan WHERE id_konsumen = '".$rs["id"]."' AND tgl = '".date("Y-m-d")."' AND id_barang = '1';";
+												if ($resCek = $data->runQuery($qCek)) {
+													$rsCek = $resCek->fetch_array();
+													$jumlahTerambil = $rsCek[0];
+													
+													echo "<tr>
 													<td>".$rs['nama_konsumen']."</td>
 													<td>".$rs['jml_alokasi']."</td>
+													<td>".$jumlahTerambil."</td>
 													</tr>";
+												}
+												
 											}
 										}
 									?>
@@ -139,6 +148,7 @@
 										<tr>
 											<th>Konsumen</th>
 											<th>Alokasi</th>
+											<th>Telah Diambil</th>
 										</tr>
 									</tfoot>
 								</table>
