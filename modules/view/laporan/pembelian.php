@@ -14,7 +14,7 @@
 				<div class="panel-body">
 					<?php  
 						if (isset($_POST['tgl-awal']) && $_POST['tgl-awal'] != "" && isset($_POST['tgl-akhir']) && $_POST['tgl-akhir'] != "" 
-						&& isset($_POST['cmb-bank']) && $_POST['cmb-bank'] != "") {
+						&& isset($_POST['cmb-bank']) && $_POST['cmb-bank'] != "" && isset($_POST['cmb-barang']) && $_POST['cmb-barang'] != "") {
 					?>
 						<div class="pull-right">
 							<button class="btn btn-default btn-sm" id="btn-print"><i class="fa fa-print"></i> Print</button>
@@ -46,7 +46,7 @@
 									$query = "SELECT `pembelian`.*, `barang`.`nama`, `loading_pembelian`.`tgl_loading` FROM `pembelian` 
 									INNER JOIN `barang` ON (`pembelian`.`id_barang` = `barang`.`id`) 
 									INNER JOIN `loading_pembelian` ON (`loading_pembelian`.`id_pembelian` = `pembelian`.`id`) 
-									WHERE `pembelian`.`id_bank` = '".$_POST['cmb-bank']."' 
+									WHERE `pembelian`.`id_bank` = '".$_POST['cmb-bank']."' AND `pembelian`.`id_barang` LIKE '".$_POST['cmb-barang']."' 
 									AND `pembelian`.`tgl_tebus` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."';";
 									
 									$totalJml = 0; $totalPajak = 0; $totalDiskon = 0; $totalAdmin = 0; $totalGT = 0;
@@ -129,7 +129,15 @@
 						<input type="text" class="form-control" id="tgl-akhir" name="tgl-akhir" placeholder="Tanggal Akhir">
 					</div>
 					<div class="form-group">
-						<select class="form-control" id="cmb-bank" name="cmb-bank"></select>
+						<select class="form-control" id="cmb-bank" name="cmb-bank">
+							<option value="1">BCA Energas Nusantara 0093177999</option>
+							<option value="2">BCA Sumber Gasindo Jaya 0095072858</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<select class="form-control" id="cmb-barang" name="cmb-barang">
+							<option value="1">LPG 3 Kg</option>
+						</select>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -143,20 +151,6 @@
 
 <script>
 $(document).ready(function(){
-	
-	$.ajax({
-		url : "./",
-		method: "POST",
-		cache: false,
-		data: {"aksi" : "<?php echo e_url('modules/controller/laporan/pembelian.php'); ?>", "apa" : "get-bank"},
-		success: function(event){
-			$('#cmb-bank').empty();	
-			$('#cmb-bank').html(event);
-		},
-		error: function(){
-			alert('Gagal terkoneksi dengan server, coba lagi..!');
-		}
-	});
 	
 	$('#tgl-awal').datepicker({
 		format : "yyyy-mm-dd",
@@ -173,6 +167,19 @@ $(document).ready(function(){
 			globalStyles: true,
 			timeout: 250
 		});
+	});
+	
+	$('#cmb-bank').change(function(){
+		if ($('#cmb-bank').val() == "1") {
+			$('#cmb-barang').empty();
+			$('#cmb-barang').append(new Option("LPG 3 Kg","1"));
+		} else {
+			$('#cmb-barang').empty();
+			$('#cmb-barang').append(new Option("LPG 12 Kg","2"));
+			$('#cmb-barang').append(new Option("LPG 50 Kg","3"));
+			$('#cmb-barang').append(new Option("LPG Bright Gas","4"));
+			$('#cmb-barang').append(new Option("Semua","%"));
+		}
 	});
 	
 });
