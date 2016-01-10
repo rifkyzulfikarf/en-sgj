@@ -10,10 +10,18 @@
 				
 				if ($query = $konsumen->get_konsumen()) {
 					while ($rs = $query->fetch_array()) {
+						
+						if ($rs["pangkalan"] == "1") {
+							$pangkalan = "Ya";
+						} else {
+							$pangkalan = "Bukan";
+						}
+					
 						$detail = array();
 						array_push($detail, $rs["nama"]);
 						array_push($detail, $rs["alamat"]);
 						array_push($detail, $rs["telepon"]);
+						array_push($detail, $pangkalan);
 						array_push($detail, "<button type='button' class='btn btn-sm btn-primary' id='btn-ubah-data' data-id='".$rs["id"]."' data-nama='".$rs["nama"]."' 
 											data-alamat='".$rs["alamat"]."' data-telp='".$rs["telepon"]."'><i class='fa fa-pencil'></i></button> 
 											<button type='button' class='btn btn-sm btn-danger' id='btn-hapus-konsumen' data-id='".$rs["id"]."'><i class='fa fa-trash-o'></i></button>");
@@ -29,7 +37,13 @@
 				if (isset($_POST['txt-nama']) && $_POST['txt-nama'] != "" && isset($_POST['txt-alamat']) && $_POST['txt-alamat'] != "" && 
 					isset($_POST['txt-telp']) && $_POST['txt-telp'] != "") {
 					
-					if ($result = $konsumen->tambah($_POST['txt-nama'], $_POST['txt-alamat'], $_POST['txt-telp'])) {
+					if (isset($_POST['cb-pangkalan']) && $_POST['cb-pangkalan'] != "") {
+						$pangkalan = "1";
+					} else {
+						$pangkalan = "0";
+					}
+					
+					if ($result = $konsumen->tambah($_POST['txt-nama'], $_POST['txt-alamat'], $_POST['txt-telp'], $_POST['cb-pangkalan'])) {
 						$arr['status']=TRUE;
 						$arr['msg']="Data tersimpan..";
 					} else {
@@ -49,7 +63,13 @@
 				if (isset($_POST['txt-nama']) && $_POST['txt-nama'] != "" && isset($_POST['txt-alamat']) && $_POST['txt-alamat'] != "" && 
 					isset($_POST['txt-telp']) && $_POST['txt-telp'] != "" && isset($_POST['txt-id']) && $_POST['txt-id'] != "") {
 					
-					if ($result = $konsumen->ubah($_POST['txt-id'], $_POST['txt-nama'], $_POST['txt-alamat'], $_POST['txt-telp'])) {
+					if (isset($_POST['cb-pangkalan']) && $_POST['cb-pangkalan'] != "") {
+						$pangkalan = "1";
+					} else {
+						$pangkalan = "0";
+					}
+					
+					if ($result = $konsumen->ubah($_POST['txt-id'], $_POST['txt-nama'], $_POST['txt-alamat'], $_POST['txt-telp'], $_POST['cb-pangkalan'])) {
 						$arr['status']=TRUE;
 						$arr['msg']="Data tersimpan..";
 					} else {

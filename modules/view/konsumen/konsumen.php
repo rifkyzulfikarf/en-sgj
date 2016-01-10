@@ -16,6 +16,7 @@
 									<th>Nama</th>
 									<th>Alamat</th>
 									<th>No. Telp</th>
+									<th>Pangkalan</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -27,6 +28,7 @@
 									<th>Nama</th>
 									<th>Alamat</th>
 									<th>No. Telp</th>
+									<th>Pangkalan</th>
 									<th></th>
 								</tr>
 							</tfoot>
@@ -43,7 +45,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Data Pangkalan</h4>
+				<h4 class="modal-title">Data Konsumen</h4>
 			</div>
 			<div class="modal-body">
 				<form id="frm-konsumen" action="#" method="POST" role="form">
@@ -57,6 +59,11 @@
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" id="txt-telp" name="txt-telp" placeholder="No. Telepon">
+					</div>
+					<div class="form-group">
+						<label>
+							<input type="checkbox" id="cb-pangkalan" name="cb-pangkalan" value="1"> Pangkalan
+						</label>
 					</div>
 				</form>
 			</div>
@@ -136,6 +143,7 @@ $(document).ready(function(){
 	$('#btn-simpan-data').click(function(ev){
 		ev.preventDefault();
 		var post_data = "aksi=" + "<?php echo e_url('modules/controller/konsumen/konsumen.php'); ?>" + "&" +$('#frm-konsumen').serialize();
+		console.log(post_data);
 		if (confirm('Simpan data ?')) {
 			$('#btn-simpan-data').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			$.ajax({
