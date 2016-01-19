@@ -6,7 +6,7 @@
 		
 		switch ($_POST['apa']) {
 			case 'get-konsumen':
-				if ($query = $konsumen->get_konsumen()) {
+				if ($query = $konsumen->get_pangkalan()) {
 					echo "<option value='%'>Semua</option>";
 					while ($rs = $query->fetch_array()) {
 						echo "<option value='".$rs['id']."'>".$rs['nama']."</option>";

@@ -14,6 +14,19 @@
 			}
 		}
 		
+		function get_pangkalan() {
+			if ($list = $this->runQuery("SELECT `id`, `nama`, `alamat`, `telepon`, `harga_3kg`, `harga_12kg`, `harga_12kg_bg`, `harga_50kg`, `pangkalan` 
+			FROM `konsumen` WHERE `pangkalan` = '1' AND `hapus` = '0';")) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
 		function get_konsumen_khusus() {
 			if ($list = $this->runQuery("SELECT `id`, `nama`, `alamat`, `telepon`, `harga_50kg_khusus` 
 			FROM `konsumen` WHERE `hapus` = '0';")) {
