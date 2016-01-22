@@ -61,6 +61,22 @@
 			</section>
 		</div>
 	</div>
+	
+	<div class="row">
+		<div class="col-lg-12">
+			<section class="panel">
+				<header class="panel-heading">
+					Import Data Dari Excel
+					<span class="tools pull-right">
+						<button type="button" class="btn btn-primary btn-sm" id="btn-download-format"><i class="fa fa-download"></i> Download Format</button>
+					</span>
+				</header>
+				<div class="panel-body">
+					<div id="dropzone" class="col-lg-12 dropzone"></div>
+				</div>
+			</section>
+		</div>
+	</div>
 </section>
 
 <div class="modal fade " id="mdl-tambah-kuota" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -124,6 +140,12 @@
 $(document).ready(function(){
 	
 	init();
+	
+	var myDropzone = $("#dropzone").dropzone({
+		url: "modules/controller/konsumen/impor_alokasi.php",
+		maxFilesize: 1,
+		acceptedFiles: "application/vnd.ms-excel"
+	});
 	
 	function init() {
 		$('#txt-tambah-kuota').number(true,0,'.');
@@ -317,6 +339,13 @@ $(document).ready(function(){
 				}
 			});
 		}
+	});
+	
+	$('#btn-download-format').click(function(ev){
+		ev.preventDefault();
+		
+		var url = "modules/controller/konsumen/download_format.php";
+		window.open(url);
 	});
 	
 });
