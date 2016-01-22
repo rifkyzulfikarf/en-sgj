@@ -101,6 +101,7 @@ $(document).ready(function(){
 				data: post_data,
 				success: function(eve){
 					if (eve.status){
+						$('#tabel-acc tbody').empty();
 						alert(eve.msg);
 						tabelacc.fnReloadAjax();
 					} else {
@@ -134,6 +135,7 @@ $(document).ready(function(){
 				data: post_data,
 				success: function(eve){
 					if (eve.status){
+						$('#tabel-acc tbody').empty();
 						alert(eve.msg);
 						tabelacc.fnReloadAjax();
 					} else {

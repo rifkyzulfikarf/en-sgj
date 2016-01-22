@@ -127,6 +127,7 @@ $(document).ready(function(){
 				data: post_data,
 				success: function(eve){
 					if (eve.status){
+						$('#tabel-kasir tbody').empty();
 						alert(eve.msg);
 						$('.btn-close-modal').click();
 						tabelkasir.fnReloadAjax();

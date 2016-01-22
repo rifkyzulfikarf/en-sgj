@@ -131,6 +131,7 @@ $(document).ready(function(){
 				data: post_data,
 				success: function(eve){
 					if (eve.status){
+						$('#tabel-bank tbody').empty();
 						alert(eve.msg);
 						$('.btn-close-modal').click();
 						tabelbank.fnReloadAjax();
