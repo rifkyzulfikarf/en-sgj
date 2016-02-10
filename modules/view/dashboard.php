@@ -29,6 +29,7 @@
 									<thead>
 										<tr>
 											<th>Tgl Tempo</th>
+											<th>No Nota</th>
 											<th>Konsumen</th>
 											<th>Barang</th>
 											<th>Jumlah</th>
@@ -37,7 +38,7 @@
 									</thead>
 									<tbody>
 									<?php
-										$query = "SELECT `penjualan`.`tgl_tempo`, `konsumen`.`nama` AS `nama_konsumen`, `barang`.`nama` AS 
+										$query = "SELECT `penjualan`.`tgl_tempo`, `penjualan`.`no_nota`, `konsumen`.`nama` AS `nama_konsumen`, `barang`.`nama` AS 
 										`nama_barang`, `penjualan`.`jml`, `penjualan`.`harga_jual`, `penjualan`.`total_jual` FROM `penjualan` 
 										INNER JOIN `konsumen` ON (`penjualan`.`id_konsumen` = `konsumen`.`id`) 
 										INNER JOIN `barang` ON (`penjualan`.`id_barang` = `barang`.`id`) 
@@ -47,6 +48,7 @@
 											while ($rs = $result->fetch_array()) {
 												echo "<tr>
 													<td>".$rs['tgl_tempo']."</td>
+													<td>".$rs['no_nota']."</td>
 													<td>".$rs['nama_konsumen']."</td>
 													<td>".$rs['nama_barang']."</td>
 													<td>".$rs['jml']." x Rp ".number_format($rs['harga_jual'],0,".",",")."</td>
