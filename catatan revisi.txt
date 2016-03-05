@@ -45,3 +45,9 @@ pengajuan dana sisa masuk kas
 - home - tebusan pending -> loading pending									OK
 - tanggal loading muncul antara tgl tebus dan no LO di laporan				OK
 - home - limit 100 data piutang												OK
+
+3 Maret 2016
+- saldo geseh
+- 1 tombol acc gudang														OK
+- id sama pada non do
+- laporan pelunasan piutang

@@ -49,6 +49,7 @@ class koneksi {
 	
 	public function runMultipleQueries($qry) {
 		$result = $this->konek->multi_query($qry);
+		while ($this->konek->more_results() && $this->konek->next_result());
 		return $result;     
 	}         
 	     

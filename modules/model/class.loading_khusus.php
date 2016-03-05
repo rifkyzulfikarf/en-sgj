@@ -35,13 +35,13 @@
 		}
 		
 		function get_loading_by_tgl($tgl) {
-			$query = "SELECT `khusus_loading_pembelian`.*, `kendaraan`.`nopol`, `driver`.`nama` AS `nama_driver`, `barang`.`nama` AS `nama_barang`, 
+			$query = "SELECT `khusus_loading_pembelian`.*, `kendaraan`.`nopol`, `driver`.`nama` AS `nama_driver`, `khusus_barang`.`nama` AS `nama_barang`, 
 			`gudang_out`.`nama` AS `nama_gudang_out`, `gudang_in`.`nama` AS `nama_gudang_in` FROM `khusus_loading_pembelian` 
 			LEFT JOIN `kendaraan` ON `khusus_loading_pembelian`.`id_kendaraan` = `kendaraan`.`id`
 			LEFT JOIN `karyawan` AS `driver` ON `khusus_loading_pembelian`.`id_driver` = `driver`.`id` 
 			LEFT JOIN `karyawan` AS `gudang_out` ON `khusus_loading_pembelian`.`id_gudang_berangkat` = `gudang_out`.`id` 
 			LEFT JOIN `karyawan` AS `gudang_in` ON `khusus_loading_pembelian`.`id_gudang_kembali` = `gudang_in`.`id` 
-			INNER JOIN `barang` ON `khusus_loading_pembelian`.`id_barang` = `barang`.`id` 
+			INNER JOIN `khusus_barang` ON `khusus_loading_pembelian`.`id_barang` = `khusus_barang`.`id` 
 			WHERE `khusus_loading_pembelian`.`tgl_loading` = '$tgl';";
 			if ($list = $this->runQuery($query)) {
 				if ($list->num_rows > 0) {

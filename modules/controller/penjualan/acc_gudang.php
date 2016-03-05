@@ -22,9 +22,7 @@
 							if ($rs['acc_gudang'] == null) {
 								$acc = "Belum";
 								$button = "<button class='btn btn-primary btn-sm' id='btn-acc' data-id='".$rs['id_penjualan']."' 
-										data-barang='".$rs['id_barang']."' data-jml='".$rs['jml']."'><i class='fa fa-check'></i></button>
-										<button class='btn btn-danger btn-sm' id='btn-tolak' data-id='".$rs['id_penjualan']."' 
-										data-barang='".$rs['id_barang']."' data-jml='".$rs['jml']."'><i class='fa fa-ban'></i></button>";
+										data-barang='".$rs['id_barang']."' data-jml='".$rs['jml']."'><i class='fa fa-check'></i></button>";
 							} else if($rs['acc_gudang'] == "1") {
 								$acc = "Ya";
 								$button = "";
