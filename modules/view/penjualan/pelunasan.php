@@ -188,6 +188,7 @@ $(document).ready(function(){
 		ev.preventDefault();
 		$('#mdl-bayar').modal();
 		$('#txt-id').val($(this).data('id'));
+		$('#txt-bayar').val($(this).data('bayar'));
 	});
 	
 	$('#cmb-jenis').change(function(){
@@ -231,7 +232,9 @@ $(document).ready(function(){
 				success: function(eve){
 					if (eve.status){
 						alert(eve.msg);
-						reloading();
+						tabelpenjualan.fnReloadAjax();
+						$('.btn-close-modal').click();
+						//reloading();
 					} else {
 						alert(eve.msg);
 					}

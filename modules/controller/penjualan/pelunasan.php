@@ -22,7 +22,7 @@
 							array_push($detail, "Rp ".number_format($rs["harga_jual"],0,".",","));
 							array_push($detail, "Rp ".number_format($rs["total_jual"],0,".",","));
 							array_push($detail, "Rp ".number_format($rs["total_bayar"],0,".",","));
-							array_push($detail, "<button type='button' class='btn btn-sm btn-primary' id='btn-show-bayar' data-id='".$rs["id"]."'> 
+							array_push($detail, "<button type='button' class='btn btn-sm btn-primary' id='btn-show-bayar' data-id='".$rs["id"]."' data-bayar='".$rs["total_jual"]."'> 
 							<i class='fa fa-shopping-cart'></i></button>");
 							array_push($collect, $detail);
 							unset($detail);
