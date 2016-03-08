@@ -44,7 +44,7 @@
 			$idKonsumen = $this->clearText($idKonsumen);
 			
 			if ($list = $this->runQuery("SELECT `konsumen`.`harga_3kg`, `konsumen`.`harga_12kg`, `konsumen`.`harga_12kg_bg`, 
-			`konsumen`.`harga_50kg` FROM `konsumen` WHERE `konsumen`.`id` = '$idKonsumen';")) {
+			`konsumen`.`harga_50kg`, `konsumen`.`waktu_tempo` FROM `konsumen` WHERE `konsumen`.`id` = '$idKonsumen';")) {
 				if ($list->num_rows > 0) {
 					return $list;
 				} else {

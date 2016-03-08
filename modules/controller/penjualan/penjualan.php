@@ -49,30 +49,44 @@
 						$rs = $query->fetch_array();
 						$arr['status']=TRUE;
 						
+						$add_days = $rs['waktu_tempo'];
+						$tglTempo = date('Y-m-d',strtotime($_POST['tgl']) + (24*3600*$add_days));
+						
 						if ($_POST['barang'] == "1") {
 							$arr['harga'] = ($rs['harga_3kg'] != null)?$rs['harga_3kg']:0;
 							
 							if ($kuota = $konsumen->get_kuota_jual($_POST['konsumen'], $_POST['tgl'], $_POST['tgl'])) {
-								$rsKuota = $kuota->fetch_array();
-								$arr['kuota'] = ($rsKuota['jml_alokasi'] != null)?$rsKuota['jml_alokasi']:0;
+								if ($kuota->num_rows > 0) {
+									$rsKuota = $kuota->fetch_array();
+									$arr['kuota'] = ($rsKuota['jml_alokasi'] != null)?$rsKuota['jml_alokasi']:0;
+								} else {
+									$arr['kuota'] = 0;
+								}
 							}
 							
 							$qCek = "SELECT SUM(`jml`) FROM `penjualan` WHERE `id_konsumen` = '".$_POST['konsumen']."' AND 
 							`tgl` = '".$_POST['tgl']."' AND `id_barang` = '".$_POST['barang']."';";
 							if ($resCek = $konsumen->runQuery($qCek)) {
 								$rsCek = $resCek->fetch_array();
-								$arr['kuota'] = $arr['kuota'] - $rsCek[0];
+								if ($rsCek[0] != null) {
+									$arr['kuota'] = $arr['kuota'] - $rsCek[0];
+								}
 							}
+							
+							$arr['tempo'] = $tglTempo;
 							
 						} elseif($_POST['barang'] == "2") {
 							$arr['harga'] = ($rs['harga_12kg'] != null)?$rs['harga_12kg']:0;
 							$arr['kuota'] = 0;
+							$arr['tempo'] = $tglTempo;
 						} elseif($_POST['barang'] == "3") {
 							$arr['harga'] = ($rs['harga_50kg'] != null)?$rs['harga_50kg']:0;
 							$arr['kuota'] = 0;
+							$arr['tempo'] = $tglTempo;
 						} elseif($_POST['barang'] == "4") {
 							$arr['harga'] = ($rs['harga_12kg_bg'] != null)?$rs['harga_12kg_bg']:0;
 							$arr['kuota'] = 0;
+							$arr['tempo'] = $tglTempo;
 						}
 					}
 				} else {

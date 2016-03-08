@@ -337,6 +337,7 @@ $(document).ready(function(){
 				if (eve.status){
 					$('#txt-alokasi').val(eve.kuota);
 					$('#txt-harga-jual').val(eve.harga);
+					$('#dp-tempo').val(eve.tempo);
 					hitungTotal();
 				} else {
 					alert(eve.msg);
