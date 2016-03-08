@@ -46,14 +46,29 @@
 										LIMIT 100;";
 										if ($result = $data->runQuery($query)) {
 											while ($rs = $result->fetch_array()) {
-												echo "<tr>
-													<td>".$rs['tgl_tempo']."</td>
-													<td>".$rs['no_nota']."</td>
-													<td>".$rs['nama_konsumen']."</td>
-													<td>".$rs['nama_barang']."</td>
-													<td>".$rs['jml']." x Rp ".number_format($rs['harga_jual'],0,".",",")."</td>
-													<td>Rp ".number_format($rs['total_jual'],0,".",",")."</td>
-													</tr>";
+											
+												$tglTempo = date('Y-m-d', strtotime($rs['tgl_tempo']));
+												$tglSekarang = date('Y-m-d');
+												
+												if ($tglTempo <= $tglSekarang) {
+													echo "<tr class='highlight'>
+														<td>".$rs['tgl_tempo']."</td>
+														<td>".$rs['no_nota']."</td>
+														<td>".$rs['nama_konsumen']."</td>
+														<td>".$rs['nama_barang']."</td>
+														<td>".$rs['jml']." x Rp ".number_format($rs['harga_jual'],0,".",",")."</td>
+														<td>Rp ".number_format($rs['total_jual'],0,".",",")."</td>
+														</tr>";
+												} else {
+													echo "<tr>
+														<td>".$rs['tgl_tempo']."</td>
+														<td>".$rs['no_nota']."</td>
+														<td>".$rs['nama_konsumen']."</td>
+														<td>".$rs['nama_barang']."</td>
+														<td>".$rs['jml']." x Rp ".number_format($rs['harga_jual'],0,".",",")."</td>
+														<td>Rp ".number_format($rs['total_jual'],0,".",",")."</td>
+														</tr>";
+												}
 											}
 										}
 									?>
@@ -61,6 +76,7 @@
 									<tfoot>
 										<tr>
 											<th>Tgl Tempo</th>
+											<th>No Nota</th>
 											<th>Konsumen</th>
 											<th>Barang</th>
 											<th>Jumlah</th>
@@ -91,12 +107,25 @@
 										LIMIT 20;";
 										if ($result = $data->runQuery($query)) {
 											while ($rs = $result->fetch_array()) {
-												echo "<tr>
-													<td>".$rs['no_bukti']."</td>
-													<td>".$rs['tgl_bg']."</td>
-													<td>".$rs['nama_konsumen']."</td>
-													<td>Rp ".number_format($rs['total_bayar'],0,".",",")."</td>
-													</tr>";
+												
+												$tglBG = date('Y-m-d', strtotime($rs['tgl_bg']));
+												$tglSekarang = date('Y-m-d');
+												
+												if ($tglBG <= $tglSekarang) {
+													echo "<tr class='highlight'>
+														<td>".$rs['no_bukti']."</td>
+														<td>".$rs['tgl_bg']."</td>
+														<td>".$rs['nama_konsumen']."</td>
+														<td>Rp ".number_format($rs['total_bayar'],0,".",",")."</td>
+														</tr>";
+												} else {
+													echo "<tr>
+														<td>".$rs['no_bukti']."</td>
+														<td>".$rs['tgl_bg']."</td>
+														<td>".$rs['nama_konsumen']."</td>
+														<td>Rp ".number_format($rs['total_bayar'],0,".",",")."</td>
+														</tr>";
+												}
 											}
 										}
 									?>
@@ -162,6 +191,7 @@
 									<thead>
 										<tr>
 											<th>Tgl Tebus</th>
+											<th>Tgl Loading</th>
 											<th>No LO</th>
 											<th>No SA</th>
 											<th>Barang</th>
@@ -170,7 +200,7 @@
 									</thead>
 									<tbody>
 									<?php
-										$query = "SELECT `pembelian`.`tgl_tebus`, `pembelian`.`no_lo`, `pembelian`.`no_sa`, `barang`.`nama`, 
+										$query = "SELECT `pembelian`.`tgl_tebus`, `pembelian`.`no_lo`, `pembelian`.`no_sa`, `barang`.`id` AS `id_barang`, `barang`.`nama`, 
 										`pembelian`.`jml_tabung`
 										FROM `loading_pembelian` 
 										INNER JOIN `pembelian` ON (`loading_pembelian`.`id_pembelian` = `pembelian`.`id`) 
@@ -178,13 +208,38 @@
 										WHERE `loading_pembelian`.`id_kendaraan` IS NULL;";
 										if ($result = $data->runQuery($query)) {
 											while ($rs = $result->fetch_array()) {
-												echo "<tr>
-													<td>".$rs['tgl_tebus']."</td>
-													<td>".$rs['no_lo']."</td>
-													<td>".$rs['no_sa']."</td>
-													<td>".$rs['nama']."</td>
-													<td>".$rs['jml_tabung']."</td>
-													</tr>";
+												
+												$tglTebus = date('Y-m-d', strtotime($rs['tgl_tebus']));
+												
+												if ($rs['id_barang'] == "1" || $rs['id_barang'] == "2") {
+													$tglLoading = date('Y-m-d', strtotime($rs['tgl_tebus']) + (24*3600*1));
+												} else {
+													$tglLoading = date('Y-m-d', strtotime($rs['tgl_tebus']) + (24*3600*0));
+												}
+												
+												$tglSekarang = date('Y-m-d');
+												
+												if ($tglLoading <= $tglSekarang) {
+													echo "<tr class='highlight'>
+														<td>".$rs['tgl_tebus']."</td>
+														<td>".$tglLoading."</td>
+														<td>".$rs['no_lo']."</td>
+														<td>".$rs['no_sa']."</td>
+														<td>".$rs['nama']."</td>
+														<td>".$rs['jml_tabung']."</td>
+														</tr>";
+												} else {
+													echo "<tr>
+														<td>".$rs['tgl_tebus']."</td>
+														<td>".$tglLoading."</td>
+														<td>".$rs['no_lo']."</td>
+														<td>".$rs['no_sa']."</td>
+														<td>".$rs['nama']."</td>
+														<td>".$rs['jml_tabung']."</td>
+														</tr>";
+												}
+												
+												
 											}
 										}
 									?>
@@ -192,6 +247,7 @@
 									<tfoot>
 										<tr>
 											<th>Tgl Tebus</th>
+											<th>Tgl Loading</th>
 											<th>No LO</th>
 											<th>No SA</th>
 											<th>Barang</th>
@@ -226,6 +282,5 @@ $(document).ready(function(){
 	});
 	$('#sidebar > ul').hide();
 	$("#container").addClass("sidebar-closed");
-	
 });
 </script>
