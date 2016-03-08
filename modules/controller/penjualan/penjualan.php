@@ -5,40 +5,40 @@
 		$penjualan = new penjualan();
 		
 		switch ($_POST['apa']) {
-			case "get-sales":
-				include 'modules/model/class.karyawan.php';
-				$karyawan = new karyawan();
-				if ($query = $karyawan->get_karyawan()) {
-					while ($rs = $query->fetch_array()) {
-						echo "<option value='".$rs['id']."'>".$rs['nama']."</option>";
-					}
-				}
-				break;
-			case "get-barang":
-				include 'modules/model/class.barang.php';
-				$barang = new barang();
-				if ($query = $barang->get_barang()) {
-					while ($rs = $query->fetch_array()) {
-						echo "<option value='".$rs['id']."' data-het='".$rs['het']."'>".$rs['nama']."</option>";
-					}
-				}
-				break;
-			case "get-konsumen":
-				$konsumen = new konsumen();
-				if ($query = $konsumen->get_konsumen()) {
-					while ($rs = $query->fetch_array()) {
-						echo "<option value='".$rs['id']."'>".$rs['nama']."</option>";
-					}
-				}
-				break;
-			case "get-bank":
-				$bank = new bank();
-				if ($query = $bank->get_bank()) {
-					while ($rs = $query->fetch_array()) {
-						echo "<option value='".$rs['id']."'>".$rs['nama']." ".$rs['nomor_rekening']."</option>";
-					}
-				}
-				break;
+			// case "get-sales":
+				// include 'modules/model/class.karyawan.php';
+				// $karyawan = new karyawan();
+				// if ($query = $karyawan->get_karyawan()) {
+					// while ($rs = $query->fetch_array()) {
+						// echo "<option value='".$rs['id']."'>".$rs['nama']."</option>";
+					// }
+				// }
+				// break;
+			// case "get-barang":
+				// include 'modules/model/class.barang.php';
+				// $barang = new barang();
+				// if ($query = $barang->get_barang()) {
+					// while ($rs = $query->fetch_array()) {
+						// echo "<option value='".$rs['id']."' data-het='".$rs['het']."'>".$rs['nama']."</option>";
+					// }
+				// }
+				// break;
+			// case "get-konsumen":
+				// $konsumen = new konsumen();
+				// if ($query = $konsumen->get_konsumen()) {
+					// while ($rs = $query->fetch_array()) {
+						// echo "<option value='".$rs['id']."'>".$rs['nama']."</option>";
+					// }
+				// }
+				// break;
+			// case "get-bank":
+				// $bank = new bank();
+				// if ($query = $bank->get_bank()) {
+					// while ($rs = $query->fetch_array()) {
+						// echo "<option value='".$rs['id']."'>".$rs['nama']." ".$rs['nomor_rekening']."</option>";
+					// }
+				// }
+				// break;
 			case "get-kuota-harga":
 				$konsumen = new konsumen();
 				$arr=array();
@@ -119,7 +119,13 @@
 								$totalBayar = 0;
 							} else {
 								$tempo = '0000-00-00';
-								$bank = $_POST['bank'];
+								
+								if ($_POST['barang'] == "1") {
+									$bank = "1";
+								} else {
+									$bank = "2";
+								}
+								
 								$bukti = $_POST['bukti'];
 								$totalBayar = $_POST['total'];
 							}

@@ -1,3 +1,12 @@
+<?php
+	include 'modules/model/class.karyawan.php';
+	include 'modules/model/class.penjualan.php';
+	include 'modules/model/class.barang.php';
+	$barang = new barang();
+	$karyawan = new karyawan();
+	$konsumen = new konsumen();
+?>
+
 <section class="wrapper site-min-height">
 	<div class="row">
 		<div class="col-lg-12">
@@ -25,7 +34,15 @@
 									<div class="form-group">
 										<label class="col-sm-4 col-sm-4 control-label">Sales</label>
 										<div class="col-sm-8">
-											<select class="form-control" id="cmb-sales" name="cmb-sales"></select>
+											<select class="form-control" id="cmb-sales" name="cmb-sales">
+												<?php
+													if ($query = $karyawan->get_karyawan()) {
+														while ($rs = $query->fetch_array()) {
+															echo "<option value='".$rs['id']."'>".$rs['nama']."</option>";
+														}
+													}
+												?>
+											</select>
 										</div>
 									</div>
 								</form>
@@ -39,7 +56,15 @@
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label">Barang</label>
 										<div class="col-sm-10">
-											<select class="form-control" id="cmb-barang" name="cmb-barang"></select>
+											<select class="form-control" id="cmb-barang" name="cmb-barang">
+												<?php
+													if ($query = $barang->get_barang()) {
+														while ($rs = $query->fetch_array()) {
+															echo "<option value='".$rs['id']."' data-het='".$rs['het']."'>".$rs['nama']."</option>";
+														}
+													}
+												?>
+											</select>
 										</div>
 									</div>
 								</form>
@@ -51,7 +76,15 @@
 									<div class="form-group">
 										<label class="col-sm-4 col-sm-4 control-label">Konsumen</label>
 										<div class="col-sm-8">
-											<select class="form-control" id="cmb-konsumen" name="cmb-konsumen"></select>
+											<select class="form-control" id="cmb-konsumen" name="cmb-konsumen">
+												<?php
+													if ($query = $konsumen->get_konsumen()) {
+														while ($rs = $query->fetch_array()) {
+															echo "<option value='".$rs['id']."'>".$rs['nama']."</option>";
+														}
+													}
+												?>
+											</select>
 										</div>
 									</div>
 								</form>
@@ -186,7 +219,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-4" id="div-bank">
+						<!--<div class="col-lg-4" id="div-bank">
 							<section class="panel">
 								<form class="form-horizontal tasi-form">
 									<div class="form-group">
@@ -197,7 +230,7 @@
 									</div>
 								</form>
 							</section>
-						</div>
+						</div>-->
 						<div class="col-lg-4" id="div-bukti">
 							<section class="panel">
 								<form class="form-horizontal tasi-form">
@@ -258,60 +291,63 @@ $(document).ready(function(){
 		$('#div-het').hide();
 		$('#div-tempo').hide();
 		$('#div-bukti').hide();
-		$.ajax({
-			url : "./",
-			method: "POST",
-			cache: false,
-			data: {"aksi" : "<?php echo e_url('modules/controller/penjualan/penjualan.php'); ?>", "apa" : "get-sales"},
-			success: function(event){
-				$('#cmb-sales').empty();	
-				$('#cmb-sales').html(event);
-				$('#cmb-sales').chosen();
-			},
-			error: function(){
-				alert('Gagal terkoneksi dengan server, coba lagi..!');
-			}
-		});
-		$.ajax({
-			url : "./",
-			method: "POST",
-			cache: false,
-			data: {"aksi" : "<?php echo e_url('modules/controller/penjualan/penjualan.php'); ?>", "apa" : "get-barang"},
-			success: function(event){
-				$('#cmb-barang').empty();	
-				$('#cmb-barang').html(event);
-			},
-			error: function(){
-				alert('Gagal terkoneksi dengan server, coba lagi..!');
-			}
-		});
-		$.ajax({
-			url : "./",
-			method: "POST",
-			cache: false,
-			data: {"aksi" : "<?php echo e_url('modules/controller/penjualan/penjualan.php'); ?>", "apa" : "get-konsumen"},
-			success: function(event){
-				$('#cmb-konsumen').empty();	
-				$('#cmb-konsumen').html(event);
-				$('#cmb-konsumen').chosen();
-			},
-			error: function(){
-				alert('Gagal terkoneksi dengan server, coba lagi..!');
-			}
-		});
-		$.ajax({
-			url : "./",
-			method: "POST",
-			cache: false,
-			data: {"aksi" : "<?php echo e_url('modules/controller/penjualan/penjualan.php'); ?>", "apa" : "get-bank"},
-			success: function(event){
-				$('#cmb-bank').empty();	
-				$('#cmb-bank').html(event);
-			},
-			error: function(){
-				alert('Gagal terkoneksi dengan server, coba lagi..!');
-			}
-		});
+		$('#cmb-barang').chosen();
+		$('#cmb-konsumen').chosen();
+		$('#cmb-sales').chosen();
+		// $.ajax({
+			// url : "./",
+			// method: "POST",
+			// cache: false,
+			// data: {"aksi" : "<?php echo e_url('modules/controller/penjualan/penjualan.php'); ?>", "apa" : "get-sales"},
+			// success: function(event){
+				// $('#cmb-sales').empty();	
+				// $('#cmb-sales').html(event);
+				// $('#cmb-sales').chosen();
+			// },
+			// error: function(){
+				// alert('Gagal terkoneksi dengan server, coba lagi..!');
+			// }
+		// });
+		// $.ajax({
+			// url : "./",
+			// method: "POST",
+			// cache: false,
+			// data: {"aksi" : "<?php echo e_url('modules/controller/penjualan/penjualan.php'); ?>", "apa" : "get-barang"},
+			// success: function(event){
+				// $('#cmb-barang').empty();	
+				// $('#cmb-barang').html(event);
+			// },
+			// error: function(){
+				// alert('Gagal terkoneksi dengan server, coba lagi..!');
+			// }
+		// });
+		// $.ajax({
+			// url : "./",
+			// method: "POST",
+			// cache: false,
+			// data: {"aksi" : "<?php echo e_url('modules/controller/penjualan/penjualan.php'); ?>", "apa" : "get-konsumen"},
+			// success: function(event){
+				// $('#cmb-konsumen').empty();	
+				// $('#cmb-konsumen').html(event);
+				// $('#cmb-konsumen').chosen();
+			// },
+			// error: function(){
+				// alert('Gagal terkoneksi dengan server, coba lagi..!');
+			// }
+		// });
+		// $.ajax({
+			// url : "./",
+			// method: "POST",
+			// cache: false,
+			// data: {"aksi" : "<?php echo e_url('modules/controller/penjualan/penjualan.php'); ?>", "apa" : "get-bank"},
+			// success: function(event){
+				// $('#cmb-bank').empty();	
+				// $('#cmb-bank').html(event);
+			// },
+			// error: function(){
+				// alert('Gagal terkoneksi dengan server, coba lagi..!');
+			// }
+		// });
 	};
 	
 	$('#btn-cek').click(function(ev){
@@ -366,14 +402,14 @@ $(document).ready(function(){
 		hitungTotal();
 	});
 	
-	$('#cmb-barang').change(function(){
-		var selected = $(this).val();
-		if (selected == '1') {
-			$('#cmb-bank').val("1");
-		} else {
-			$('#cmb-bank').val("2");
-		}
-    });
+	// $('#cmb-barang').change(function(){
+		// var selected = $(this).val();
+		// if (selected == '1') {
+			// $('#cmb-bank').val("1");
+		// } else {
+			// $('#cmb-bank').val("2");
+		// }
+    // });
 	
 	$('#cmb-jenis').change(function(){
 		var selected = $(this).val();
@@ -402,7 +438,7 @@ $(document).ready(function(){
 		var total = Number($('#txt-grand-total').val());
 		var jenis = $('#cmb-jenis').val();
 		var tempo = $('#dp-tempo').val();
-		var bank = $('#cmb-bank').val();
+		//var bank = $('#cmb-bank').val();
 		var bukti = $('#txt-bukti').val();
 		var nota = $('#txt-nota').val();
 		
@@ -415,7 +451,7 @@ $(document).ready(function(){
 			$('#btn-simpan').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 			var post_data = {"aksi" : "<?php echo e_url('modules/controller/penjualan/penjualan.php'); ?>", "apa" : "simpan", 
 							"tgl" : tgl, "sales" : sales, "barang" : barang, "konsumen" : konsumen, "jml" : jml, "hargaJual" : hargaJual, 
-							"het" : het, "total" : total, "jenis" : jenis, "tempo" : tempo, "bank" : bank, "bukti" : bukti, "nota" : nota};
+							"het" : het, "total" : total, "jenis" : jenis, "tempo" : tempo, "bukti" : bukti, "nota" : nota};
 			
 			$.ajax({
 				url: "./",
