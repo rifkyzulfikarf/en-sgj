@@ -6,26 +6,12 @@
 					Acc Penjualan - Gudang
 				</header>
 				<div class="panel-body">
-					<div class="row">
-						<div class="col-lg-2">
-							<section class="panel">
-								<div class="input-group input-large">
-									<input type="text" class="form-control" name="dp-jual" id="dp-jual" placeholder="Tanggal Penjualan">
-								</div>
-							</section>
-						</div>
-						<div class="col-lg-4">
-							<section class="panel">
-								<button type="button" class="btn btn-primary" id="btn-cari"><i class="fa fa-search"></i> Cari</button>
-							</section>
-						</div>
-					</div>
-					<hr>
 					<div class="adv-table">
 						<table class="display table table-bordered table-striped" id="tabel-acc">
 							<thead>
 								<tr>
 									<th>ID</th>
+									<th>Tgl</th>
 									<th>Nota</th>
 									<th>Konsumen</th>
 									<th>Barang</th>
@@ -40,6 +26,7 @@
 							<tfoot>
 								<tr>
 									<th>ID</th>
+									<th>Tgl</th>
 									<th>Nota</th>
 									<th>Konsumen</th>
 									<th>Barang</th>
@@ -62,10 +49,7 @@ $(document).ready(function(){
 	init();
 	
 	function init() {
-		$('#dp-jual').datepicker({
-			format : "yyyy-mm-dd",
-			autoclose : true
-		});
+		
 	};
 	
 	var tabelacc = $('#tabel-acc').dataTable({
@@ -74,13 +58,8 @@ $(document).ready(function(){
 		"fnServerParams": function ( aoData ) {
             aoData.push({"name": "aksi", "value": "<?php echo e_url('modules/controller/penjualan/acc_gudang.php'); ?>"});
             aoData.push({"name": "apa", "value": "get-penjualan"});
-            aoData.push({"name": "tgl", "value": $('#dp-jual').val()});
         }
     });
-	
-	$('#btn-cari').click(function(ev){
-		tabelacc.fnReloadAjax();
-	});
 	
 	$('#tabel-acc').on('click', '#btn-acc', function(ev){
 		ev.preventDefault();
