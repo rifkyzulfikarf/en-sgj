@@ -122,6 +122,7 @@
 			}
 			
 			$query .= "DELETE FROM `pembelian` WHERE `id` = '$id';";
+			$query .= "DELETE FROM `loading_pembelian` WHERE `id_pembelian` = '$id';";
 			
 			$revisiJumlah = $tarik;
 			$query .= "UPDATE `kas_bank` SET `saldo` = `saldo` + $revisiJumlah WHERE `id` > '$idKas' AND id_bank = '$idBank';";
