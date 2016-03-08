@@ -82,7 +82,7 @@
 									}
 									?>
 										<tr>
-											<td colspan="5"><strong>Total</strong></td>
+											<td colspan="6"><strong>Total</strong></td>
 											<td class="text-center"><?php echo number_format($totalJml,0,",",".") ?></td>
 											<td></td>
 											<td class="text-center"><?php echo number_format($totalPajak,0,",",".") ?></td>
