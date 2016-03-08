@@ -253,6 +253,10 @@ tr.even {
 	background-color: white;
 }
 
+tr.highlight {
+	background-color: #ff9a9a;
+}
+
 
 
 
