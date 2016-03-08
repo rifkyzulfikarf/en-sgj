@@ -2,7 +2,7 @@
 	class konsumen extends koneksi {
 		
 		function get_konsumen() {
-			if ($list = $this->runQuery("SELECT `id`, `nama`, `alamat`, `telepon`, `harga_3kg`, `harga_12kg`, `harga_12kg_bg`, `harga_50kg`, `pangkalan` 
+			if ($list = $this->runQuery("SELECT `id`, `nama`, `alamat`, `telepon`, `harga_3kg`, `harga_12kg`, `harga_12kg_bg`, `harga_50kg`, `pangkalan`, `waktu_tempo` 
 			FROM `konsumen` WHERE `hapus` = '0';")) {
 				if ($list->num_rows > 0) {
 					return $list;
@@ -105,28 +105,30 @@
 			}
 		}
 		
-		function tambah($nama, $alamat, $telepon, $pangkalan) {
+		function tambah($nama, $alamat, $telepon, $pangkalan, $tempo) {
 			$nama = $this->clearText($nama);
 			$alamat = $this->clearText($alamat);
 			$telepon = $this->clearText($telepon);
 			$pangkalan = $this->clearText($pangkalan);
+			$tempo = $this->clearText($tempo);
 			
 			if ($result = $this->runQuery("INSERT INTO `konsumen`(`nama`, `alamat`, `telepon`, `harga_3kg`, `harga_12kg`, `harga_12kg_bg`, 
-			`harga_50kg`, `pangkalan`, `hapus`) VALUES('$nama', '$alamat', '$telepon', '0', '0', '0', '0', '$pangkalan', '0');")) {
+			`harga_50kg`, `pangkalan`, `waktu_tempo`, `hapus`) VALUES('$nama', '$alamat', '$telepon', '0', '0', '0', '0', '$pangkalan', '$tempo', '0');")) {
 				return TRUE;
 			} else {
 				return FALSE;
 			}
 		}
 		
-		function ubah($id, $nama, $alamat, $telepon, $pangkalan) {
+		function ubah($id, $nama, $alamat, $telepon, $pangkalan, $tempo) {
 			$id = $this->clearText($id);
 			$nama = $this->clearText($nama);
 			$alamat = $this->clearText($alamat);
 			$telepon = $this->clearText($telepon);
 			$pangkalan = $this->clearText($pangkalan);
+			$tempo = $this->clearText($tempo);
 			
-			if ($result = $this->runQuery("UPDATE `konsumen` SET `nama` = '$nama', `alamat` = '$alamat', `telepon` = '$telepon', `pangkalan` = '$pangkalan' WHERE `id` = '$id';")) {
+			if ($result = $this->runQuery("UPDATE `konsumen` SET `nama` = '$nama', `alamat` = '$alamat', `telepon` = '$telepon', `pangkalan` = '$pangkalan', `waktu_tempo` = '$tempo' WHERE `id` = '$id';")) {
 				return TRUE;
 			} else {
 				return FALSE;

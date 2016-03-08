@@ -17,7 +17,8 @@
 									<th>Alamat</th>
 									<th>No. Telp</th>
 									<th>Pangkalan</th>
-									<th></th>
+									<th>Waktu Tempo</th>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -29,7 +30,8 @@
 									<th>Alamat</th>
 									<th>No. Telp</th>
 									<th>Pangkalan</th>
-									<th></th>
+									<th>Waktu Tempo</th>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
 								</tr>
 							</tfoot>
 						</table>
@@ -61,6 +63,9 @@
 						<input type="text" class="form-control" id="txt-telp" name="txt-telp" placeholder="No. Telepon">
 					</div>
 					<div class="form-group">
+						<input type="text" class="form-control" id="txt-tempo" name="txt-tempo" placeholder="Waktu Tempo">
+					</div>
+					<div class="form-group">
 						<label>
 							<input type="checkbox" id="cb-pangkalan" name="cb-pangkalan" value="1"> Pangkalan
 						</label>
@@ -81,7 +86,7 @@ $(document).ready(function(){
 	init();
 	
 	function init() {
-		
+		$('#txt-tempo').number(true,0);
 	};
 	
 	var tabelkonsumen = $('#tabel-konsumen').dataTable({
@@ -100,6 +105,7 @@ $(document).ready(function(){
 		$('#txt-nama').val("");
 		$('#txt-alamat').val("");
 		$('#txt-telp').val("");
+		$('#txt-tempo').val("30");
 	});
 	
 	$('#tabel-konsumen').on('click', '#btn-ubah-data', function(ev){
@@ -110,6 +116,7 @@ $(document).ready(function(){
 		$('#txt-nama').val($(this).data('nama'));
 		$('#txt-alamat').val($(this).data('alamat'));
 		$('#txt-telp').val($(this).data('telp'));
+		$('#txt-tempo').val($(this).data('tempo'));
 	});
 	
 	$('#tabel-konsumen').on('click', '#btn-hapus-konsumen', function(ev){

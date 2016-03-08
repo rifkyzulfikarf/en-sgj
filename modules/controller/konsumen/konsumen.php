@@ -22,8 +22,9 @@
 						array_push($detail, $rs["alamat"]);
 						array_push($detail, $rs["telepon"]);
 						array_push($detail, $pangkalan);
+						array_push($detail, $rs["waktu_tempo"]);
 						array_push($detail, "<button type='button' class='btn btn-sm btn-primary' id='btn-ubah-data' data-id='".$rs["id"]."' data-nama='".$rs["nama"]."' 
-											data-alamat='".$rs["alamat"]."' data-telp='".$rs["telepon"]."'><i class='fa fa-pencil'></i></button> 
+											data-alamat='".$rs["alamat"]."' data-telp='".$rs["telepon"]."' data-tempo='".$rs["waktu_tempo"]."'><i class='fa fa-pencil'></i></button> 
 											<button type='button' class='btn btn-sm btn-danger' id='btn-hapus-konsumen' data-id='".$rs["id"]."'><i class='fa fa-trash-o'></i></button>");
 						array_push($collect, $detail);
 						unset($detail);
@@ -35,7 +36,7 @@
 				$arr=array();
 				
 				if (isset($_POST['txt-nama']) && $_POST['txt-nama'] != "" && isset($_POST['txt-alamat']) && $_POST['txt-alamat'] != "" && 
-					isset($_POST['txt-telp']) && $_POST['txt-telp'] != "") {
+					isset($_POST['txt-telp']) && $_POST['txt-telp'] != "" && isset($_POST['txt-tempo']) && $_POST['txt-tempo'] != "") {
 					
 					if (isset($_POST['cb-pangkalan']) && $_POST['cb-pangkalan'] != "") {
 						$pangkalan = "1";
@@ -43,7 +44,7 @@
 						$pangkalan = "0";
 					}
 					
-					if ($result = $konsumen->tambah($_POST['txt-nama'], $_POST['txt-alamat'], $_POST['txt-telp'], $_POST['cb-pangkalan'])) {
+					if ($result = $konsumen->tambah($_POST['txt-nama'], $_POST['txt-alamat'], $_POST['txt-telp'], $pangkalan, $_POST['txt-tempo'])) {
 						$arr['status']=TRUE;
 						$arr['msg']="Data tersimpan..";
 					} else {
@@ -61,7 +62,8 @@
 				$arr=array();
 				
 				if (isset($_POST['txt-nama']) && $_POST['txt-nama'] != "" && isset($_POST['txt-alamat']) && $_POST['txt-alamat'] != "" && 
-					isset($_POST['txt-telp']) && $_POST['txt-telp'] != "" && isset($_POST['txt-id']) && $_POST['txt-id'] != "") {
+					isset($_POST['txt-telp']) && $_POST['txt-telp'] != "" && isset($_POST['txt-id']) && $_POST['txt-id'] != "" && 
+					isset($_POST['txt-tempo']) && $_POST['txt-tempo'] != "") {
 					
 					if (isset($_POST['cb-pangkalan']) && $_POST['cb-pangkalan'] != "") {
 						$pangkalan = "1";
@@ -69,7 +71,7 @@
 						$pangkalan = "0";
 					}
 					
-					if ($result = $konsumen->ubah($_POST['txt-id'], $_POST['txt-nama'], $_POST['txt-alamat'], $_POST['txt-telp'], $_POST['cb-pangkalan'])) {
+					if ($result = $konsumen->ubah($_POST['txt-id'], $_POST['txt-nama'], $_POST['txt-alamat'], $_POST['txt-telp'], $pangkalan, $_POST['txt-tempo'])) {
 						$arr['status']=TRUE;
 						$arr['msg']="Data tersimpan..";
 					} else {
