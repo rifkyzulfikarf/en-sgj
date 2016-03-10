@@ -6,21 +6,6 @@
 					Acc Gudang
 				</header>
 				<div class="panel-body">
-					<div class="row">
-						<div class="col-lg-2">
-							<section class="panel">
-								<div class="input-group input-large">
-									<input type="text" class="form-control" name="dp-loading" id="dp-loading" placeholder="Tanggal Loading">
-								</div>
-							</section>
-						</div>
-						<div class="col-lg-4">
-							<section class="panel">
-								<button type="button" class="btn btn-primary" id="btn-cari"><i class="fa fa-search"></i> Cari</button>
-							</section>
-						</div>
-					</div>
-					<hr>
 					<div class="adv-table">
 						<table class="display table table-bordered table-striped" id="tabel-loading">
 							<thead>
@@ -98,7 +83,6 @@
 					<div class="form-group">
 						<select class="form-control" id="cmb-acc-in" name="cmb-acc-in">
 							<option value="1">Acc</option>
-							<option value="2">Tolak</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -119,12 +103,7 @@ $(document).ready(function(){
 	
 	init();
 	
-	function init() {
-		$('#dp-loading').datepicker({
-			format : "yyyy-mm-dd",
-			autoclose : true
-		});
-	};
+	function init() {};
 	
 	var tabelloading = $('#tabel-loading').dataTable({
 		"sAjaxSource": './',
@@ -132,7 +111,6 @@ $(document).ready(function(){
 		"fnServerParams": function ( aoData ) {
             aoData.push({"name": "aksi", "value": "<?php echo e_url('modules/controller/pembelian/acc_gudang.php'); ?>"});
             aoData.push({"name": "apa", "value": "get-loading"});
-            aoData.push({"name": "tgl", "value": $('#dp-loading').val()});
         }
     });
 	

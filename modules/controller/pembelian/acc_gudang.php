@@ -8,35 +8,33 @@
 			case "get-loading":
 				$collect = array();
 				
-				if (isset($_POST['tgl']) && $_POST['tgl'] != "") {
-					if ($query = $loading->get_loading_by_tgl($_POST['tgl'])) {
-						while ($rs = $query->fetch_array()) {
-							$kendaraan = ($rs['nopol']==null)?" ":$rs['nopol'];
-							
-							if ($rs['id_gudang_berangkat'] == null) {
-								$tombol = "<button type='button' class='btn btn-sm btn-primary' id='btn-show-out' 
-										data-id='".$rs["id_pembelian"]."' data-idbarang='".$rs["id_barang"]."' data-jml='".$rs["tabung_kosong"]."'>
-										<i class='fa fa-check'></i></button>";
-							} else {
-								$tombol = "<button type='button' class='btn btn-sm btn-primary' id='btn-show-in' 
-										data-id='".$rs["id_pembelian"]."' data-idbarang='".$rs["id_barang"]."' data-jml='".$rs["tabung_isi"]."'>
-										<i class='fa fa-check'></i></button>";
-							}
-							
-							if ($rs['id_gudang_berangkat'] != null && $rs['id_gudang_kembali'] != null) {
-								$tombol = "";
-							}
-							
-							$driver = ($rs['nama_driver']==null)?" ":$rs['nama_driver'];
-							
-							$detail = array();
-							array_push($detail, $kendaraan." - ".$driver." - ".$rs['nama_barang']);
-							array_push($detail, $rs["tabung_kosong"]);
-							array_push($detail, $rs["tabung_isi"]);
-							array_push($detail, $tombol);
-							array_push($collect, $detail);
-							unset($detail);
+				if ($query = $loading->get_loading_belum_acc_gudang()) {
+					while ($rs = $query->fetch_array()) {
+						$kendaraan = ($rs['nopol']==null)?" ":$rs['nopol'];
+						
+						if ($rs['id_gudang_berangkat'] == null) {
+							$tombol = "<button type='button' class='btn btn-sm btn-primary' id='btn-show-out' 
+									data-id='".$rs["id_pembelian"]."' data-idbarang='".$rs["id_barang"]."' data-jml='".$rs["tabung_kosong"]."'>
+									<i class='fa fa-check'></i></button>";
+						} else {
+							$tombol = "<button type='button' class='btn btn-sm btn-primary' id='btn-show-in' 
+									data-id='".$rs["id_pembelian"]."' data-idbarang='".$rs["id_barang"]."' data-jml='".$rs["tabung_isi"]."'>
+									<i class='fa fa-check'></i></button>";
 						}
+						
+						if ($rs['id_gudang_berangkat'] != null && $rs['id_gudang_kembali'] != null) {
+							$tombol = "";
+						}
+						
+						$driver = ($rs['nama_driver']==null)?" ":$rs['nama_driver'];
+						
+						$detail = array();
+						array_push($detail, $rs['id_pembelian']." - ".$kendaraan." - ".$driver." - ".$rs['nama_barang']);
+						array_push($detail, $rs["tabung_kosong"]);
+						array_push($detail, $rs["tabung_isi"]);
+						array_push($detail, $tombol);
+						array_push($collect, $detail);
+						unset($detail);
 					}
 				}
 				
