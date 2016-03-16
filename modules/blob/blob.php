@@ -101,7 +101,10 @@ function cek_login($user,$pass){
 			$_SESSION['en-level'] = $rsCek['id_level'];
 			$_SESSION['en-jk'] = $rsCek['jk'];
 			
-			$log=$koneksi->runQuery("INSERT INTO `log_login`(`id_user`) VALUES ('".$rsCek['id']."')");
+			$qLog = "INSERT INTO `log_login`(`id_user`) VALUES ('".$rsCek['id']."');";
+			$qLog .= "UPDATE `kuota_penjualan` SET `jml_alokasi` = 0 WHERE `tgl` < '".date("Y-m-d")."';";
+			
+			$log=$koneksi->runMultipleQueries($qLog);
 			
 			return TRUE;
 		} else {
