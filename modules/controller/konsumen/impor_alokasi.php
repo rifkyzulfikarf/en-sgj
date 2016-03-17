@@ -45,8 +45,11 @@ if (!empty($_FILES)) {
 		
 		$tanggal = $tahun."-".$bulan."-".$hari;
 		
-		$query = $data->runQuery("INSERT INTO `kuota_penjualan`(`id_konsumen`, `tgl`, `jml_alokasi`, `jml_terambil`) 
-		VALUES('$idPangkalan', '$tanggal', '$alokasi', '0')");
+		$qAlokasi = "DELETE FROM `kuota_penjualan` WHERE `id_konsumen` = '$idPangkalan' AND `tgl` = '$tanggal';";
+		$qAlokasi .= "INSERT INTO `kuota_penjualan`(`id_konsumen`, `tgl`, `jml_alokasi`, `jml_terambil`) 
+					VALUES('$idPangkalan', '$tanggal', '$alokasi', '0');";
+		
+		$query = $data->runMultipleQueries($qAlokasi);
 	}
 	
 	
