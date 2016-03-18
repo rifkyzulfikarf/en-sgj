@@ -30,6 +30,9 @@
 										<th class="text-center">Tgl Loading</th>
 										<th class="text-center">No LO</th>
 										<th class="text-center">No SA</th>
+										<th class="text-center">SPBE</th>
+										<th class="text-center">Ship To</th>
+										<th class="text-center">Sold To</th>
 										<th class="text-center">Barang</th>
 										<th class="text-center">Jumlah</th>
 										<th class="text-center">Hrg Satuan</th>
@@ -43,9 +46,12 @@
 								</thead>
 								<tbody>
 									<?php
-									$query = "SELECT `pembelian`.*, `barang`.`nama`, `loading_pembelian`.`tgl_loading` FROM `pembelian` 
+									$query = "SELECT `pembelian`.*, `barang`.`nama`, `loading_pembelian`.`tgl_loading`, 
+									`spbe`.`nama` AS nama_spbe, `spbe_barang`.`ship_to`, `spbe_barang`.`sold_to` FROM `pembelian` 
 									INNER JOIN `barang` ON (`pembelian`.`id_barang` = `barang`.`id`) 
 									INNER JOIN `loading_pembelian` ON (`loading_pembelian`.`id_pembelian` = `pembelian`.`id`) 
+									INNER JOIN `spbe_barang` ON (`pembelian`.`id_spbe_barang` = `spbe_barang`.`id`) 
+									INNER JOIN `spbe` ON (`spbe_barang`.`id_spbe` = `spbe`.`id`) 
 									WHERE `pembelian`.`id_bank` = '".$_POST['cmb-bank']."' AND `pembelian`.`id_barang` LIKE '".$_POST['cmb-barang']."' 
 									AND `pembelian`.`tgl_tebus` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."';";
 									
@@ -68,6 +74,9 @@
 												<td class='text-center'>".$rs['tgl_loading']."</td>
 												<td class='text-center'>".$rs['no_lo']."</td>
 												<td class='text-center'>".$rs['no_sa']."</td>
+												<td class='text-center'>".$rs['nama_spbe']."</td>
+												<td class='text-center'>".$rs['ship_to']."</td>
+												<td class='text-center'>".$rs['sold_to']."</td>
 												<td class='text-center'>".$rs['nama']."</td>
 												<td class='text-center'>".number_format($rs['jml_tabung'],0,",",".")."</td>
 												<td class='text-center'>".number_format($rs['harga_satuan'],0,",",".")."</td>
@@ -82,7 +91,7 @@
 									}
 									?>
 										<tr>
-											<td colspan="6"><strong>Total</strong></td>
+											<td colspan="9"><strong>Total</strong></td>
 											<td class="text-center"><?php echo number_format($totalJml,0,",",".") ?></td>
 											<td></td>
 											<td class="text-center"><?php echo number_format($totalPajak,0,",",".") ?></td>
