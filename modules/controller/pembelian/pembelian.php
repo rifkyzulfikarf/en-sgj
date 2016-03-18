@@ -22,6 +22,15 @@
 					}
 				}
 				break;
+			case "get-spbe":
+				include 'modules/model/class.spbe.php';
+				$spbe = new spbe();
+				if ($query = $spbe->get_spbe_barang_by_barang($_POST['barang'])) {
+					while ($rs = $query->fetch_array()) {
+						echo "<option value='".$rs['id']."' data-ship='".$rs['ship_to']."' data-sold='".$rs['sold_to']."'>".$rs['nama_spbe']."</option>";
+					}
+				}
+				break;
 			case "simpan":
 				$arr=array();
 				if (isset($_POST['tgl']) && $_POST['tgl'] != "" && isset($_POST['lo']) && $_POST['lo'] != "" && 
@@ -30,12 +39,12 @@
 				isset($_POST['pajak']) && $_POST['pajak'] != "" && isset($_POST['diskon']) && $_POST['diskon'] != "" && 
 				isset($_POST['beaadmin']) && $_POST['beaadmin'] != "" && isset($_POST['total']) && $_POST['total'] != "" && 
 				isset($_POST['bank']) && $_POST['bank'] != "" && isset($_POST['jenis']) && $_POST['jenis'] != "" && 
-				isset($_POST['bukti']) && $_POST['bukti'] != "") {
+				isset($_POST['bukti']) && $_POST['bukti'] != "" && isset($_POST['spbe']) && $_POST['spbe'] != "") {
 					
 					if ($result = $pembelian->transaksi_pembelian($_POST['tgl'], $_POST['lo'], $_POST['sa'], 
 					$_POST['barang'], $_POST['jml'], $_POST['harga'], $_POST['pajak'], $_POST['diskon'], 
 					$_POST['beaadmin'], $_POST['total'], $_POST['bank'], $_POST['bukti'], 
-					$_POST['jenis'], d_code($_SESSION['en-data']))) {
+					$_POST['jenis'], d_code($_SESSION['en-data']), $_POST['spbe'])) {
 						$arr['status']=TRUE;
 						$arr['msg']="Transaksi sukses tersimpan..";
 					} else {

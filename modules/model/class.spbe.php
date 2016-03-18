@@ -27,6 +27,22 @@
 			}
 		}
 		
+		function get_spbe_barang_by_barang($idBarang){
+			$idBarang = $this->clearText($idBarang);
+			if ($list = $this->runQuery("SELECT `spbe_barang`.*, `spbe`.`nama` AS nama_spbe, `barang`.`nama` AS nama_barang 
+			FROM `spbe_barang` INNER JOIN `spbe` ON(`spbe_barang`.`id_spbe` = `spbe`.`id`) 
+			INNER JOIN `barang` ON(`spbe_barang`.`id_barang` = `barang`.`id`) WHERE 
+			`spbe_barang`.`id_barang` = '$idBarang' AND `spbe_barang`.`hapus` = '0';")) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
 		function tambah($nama) {
 			$nama = $this->clearText($nama);
 			

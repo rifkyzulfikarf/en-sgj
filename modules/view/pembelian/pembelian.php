@@ -38,6 +38,44 @@
 								</div>
 							</section>
 						</div>
+						<div class="col-lg-4">
+							<section class="panel">
+								<button class="btn btn-warning btn-md" type="button" id="btn-cek"><i class="fa fa-lightbulb-o"></i> Cek SPBE</button>
+							</section>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4">
+							<section class="panel">
+								<select class="form-control" id="cmb-spbe" name="cmb-spbe"></select>
+							</section>
+						</div>
+						<div class="col-lg-4">
+							<section class="panel">
+								<form class="form-horizontal tasi-form">
+									<div class="form-group">
+										<label class="col-sm-4 col-sm-4 control-label">Ship To</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" 
+											name="txt-ship-to" id="txt-ship-to" readonly>
+										</div>
+									</div>
+								</form>
+							</section>
+						</div>
+						<div class="col-lg-4">
+							<section class="panel">
+								<form class="form-horizontal tasi-form">
+									<div class="form-group">
+										<label class="col-sm-4 col-sm-4 control-label">Sold To</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" 
+											name="txt-sold-to" id="txt-sold-to" readonly>
+										</div>
+									</div>
+								</form>
+							</section>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-lg-4">
@@ -244,6 +282,39 @@ $(document).ready(function(){
 		}
     });
 	
+	$('#btn-cek').click(function(ev){
+		ev.preventDefault();
+		var barang = $('#cmb-barang').val();
+		
+		$('#btn-cek').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
+		
+		$.ajax({
+			url : "./",
+			method: "POST",
+			cache: false,
+			dataType: "HTML",
+			data: {"aksi" : "<?php echo e_url('modules/controller/pembelian/pembelian.php'); ?>", 
+			"apa" : "get-spbe", "barang" : barang},
+			success: function(event){
+				$('#cmb-spbe').empty();	
+				$('#cmb-spbe').html(event);
+				$('#cmb-spbe').change();
+				$('#btn-cek').removeClass('disabled').html('<i class="fa fa-lightbulb-o"></i> Cek SPBE');
+			},
+			error: function(err){
+				alert('Gagal terkoneksi dengan server..');
+			}
+		});
+	});
+	
+	$('#cmb-spbe').change(function(){
+       var selected = $(this).find('option:selected');
+       var ship = selected.data('ship'); 
+       var sold = selected.data('sold'); 
+       $('#txt-ship-to').val(ship);
+       $('#txt-sold-to').val(sold);
+    });
+	
 	function hitung(){
 		var jumlah; var harga; var subtotal; var pajak; var diskon; var beaadmin; var total;
 		jumlah = Number($('#txt-jml-tabung').val());
@@ -278,11 +349,12 @@ $(document).ready(function(){
 			var diskon = 0; var beaadmin = $('#txt-bea-admin').val();
 			var total = $('#txt-total').val(); var bank = $('#cmb-bank').val();
 			var jenis = $('#cmb-jenis').val(); var bukti = $('#txt-bukti').val();
+			var spbe = $('#cmb-spbe').val();
 			
 			var post_data = {"aksi" : "<?php echo e_url('modules/controller/pembelian/pembelian.php'); ?>", "apa" : "simpan", 
 							"tgl" : tgl, "lo" : lo, "sa" : sa, "barang" : barang, "harga" : harga, "jml" : jml, 
 							"pajak" : pajak, "diskon" : diskon, "beaadmin" : beaadmin, "total" : total, "bank" : bank, 
-							"jenis" : jenis, "bukti" : bukti};
+							"jenis" : jenis, "bukti" : bukti, "spbe" : spbe};
 			
 			$.ajax({
 				url: "./",

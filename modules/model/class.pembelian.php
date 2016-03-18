@@ -68,7 +68,7 @@
 		}
 		
 		function transaksi_pembelian($tglTebus, $noLO, $noSA, $idBarang, $jmlTabung, $hargaSatuan,
-		$pajak, $diskon, $beaAdmin, $grandTotal, $idBank, $bukti, $jenisTarikan, $idKaryawan) {
+		$pajak, $diskon, $beaAdmin, $grandTotal, $idBank, $bukti, $jenisTarikan, $idKaryawan, $idSPBE) {
 			$tglTebus = $this->clearText($tglTebus);
 			$noLO = $this->clearText($noLO);
 			$noSA = $this->clearText($noSA);
@@ -83,13 +83,14 @@
 			$bukti = $this->clearText($bukti);
 			$jenisTarikan = $this->clearText($jenisTarikan);
 			$idKaryawan = $this->clearText($idKaryawan);
+			$idSPBE = $this->clearText($idSPBE);
 			
 			
 			$id = $this->autocode_pembelian($tglTebus);
 			
 			$query = "INSERT INTO `pembelian` VALUES('$id', '$tglTebus', '$noLO', '$noSA', '$idBarang', 
 			'$jmlTabung', '$hargaSatuan', '$pajak', '$diskon', '$beaAdmin', '$grandTotal', '$idBank', 
-			'$bukti', '$jenisTarikan', '$idKaryawan');";
+			'$bukti', '$jenisTarikan', '$idKaryawan', '$idSPBE');";
 			if ($result = $this->runQuery($query)) {
 				$bank = new bank();
 				$hasilBank = $bank->transaksi_tarik($idBank, $bukti, $tglTebus, "Pembelian ".$id, 
