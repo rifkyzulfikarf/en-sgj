@@ -8,6 +8,7 @@
 					</li>";
 		$pangkalanBelumJual = 0;
 		$penjualanBelumAccGudang = 0;
+		$requestHapus = 0;
 		
 		$query = "SELECT `id` FROM `konsumen` WHERE `pangkalan` = '1' AND `hapus` = '0';";
 		if ($result = $data->runQuery($query)) {
@@ -40,6 +41,17 @@
 		}
 		
 		$listNotif .= "<li><a href='#'>".$penjualanBelumAccGudang." Penjualan belum diacc oleh gudang<br>pada hari ini.</a></li>";
+		
+		if ($_SESSION['en-level'] == "1" || $_SESSION['en-level'] == "2") {
+			$query = "SELECT COUNT(`id`) FROM `request_hapus` WHERE `is_proses` = '0';";
+			if ($result = $data->runQuery($query)) {
+				while ($rs = $result->fetch_array()) {
+					$requestHapus = $rs[0];
+				}
+				
+				$listNotif .= "<li><a href='#'>".$requestHapus." Request hapus transaksi<br>belum diproses.</a></li>";
+			}
+		}
 		
 		$arr['listNotif'] = $listNotif;
 		
