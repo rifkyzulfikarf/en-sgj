@@ -165,6 +165,7 @@
 			}
 			
 			$query .= "DELETE FROM `kas_kecil` WHERE `id` = '$id';";
+			$query .= "UPDATE `request_hapus` SET `is_proses` = '1' WHERE `jenis` = '3' AND `id_hapus` = '$id';";
 			
 			if ($result = $this->runMultipleQueries($query)) {
 				return TRUE;

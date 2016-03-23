@@ -255,6 +255,8 @@
 						$qFinal .= "DELETE FROM `penjualan_acc_gudang` WHERE `id_penjualan` = '$idPenjualan';";
 					}
 				}
+				
+				$qFinal .= "UPDATE `request_hapus` SET `is_proses` = '1' WHERE `jenis` = '1' AND `id_hapus` = '$idPenjualan';";
 			}
 			
 			if ($result = $this->runMultipleQueries($qFinal)) {

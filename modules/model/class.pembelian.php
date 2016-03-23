@@ -130,6 +130,7 @@
 			$query .= "UPDATE `bank` SET `saldo` = `saldo` + $revisiJumlah WHERE `id` = '$idBank';";
 			
 			$query .= "DELETE FROM `kas_bank` WHERE `id` = '$idKas';";
+			$query .= "UPDATE `request_hapus` SET `is_proses` = '1' WHERE `jenis` = '2' AND `id_hapus` = '$id';";
 			
 			if ($result = $this->runMultipleQueries($query)) {
 				return TRUE;
