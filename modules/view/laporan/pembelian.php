@@ -35,10 +35,10 @@
 										<th class="text-center">Sold To</th>
 										<th class="text-center">Barang</th>
 										<th class="text-center">Jumlah</th>
-										<th class="text-center">Hrg Satuan</th>
+										<!--<th class="text-center">Hrg Satuan</th>
 										<th class="text-center">Pajak</th>
 										<th class="text-center">Diskon</th>
-										<th class="text-center">Bea Admin</th>
+										<th class="text-center">Bea Admin</th>-->
 										<th class="text-center">Total</th>
 										<th class="text-center">Jenis</th>
 										<th class="text-center">Bukti</th>
@@ -61,9 +61,6 @@
 										while( $rs = $daftar->fetch_assoc() ) {
 											
 											$totalJml += $rs['jml_tabung'];
-											$totalPajak += $rs['pajak'];
-											$totalDiskon += $rs['diskon'];
-											$totalAdmin += $rs['bea_admin'];
 											$totalGT += $rs['grand_total'];
 											
 											$jenis = ($rs['jenis_tarikan']=="1")?"Tunai":"Transfer";
@@ -79,10 +76,6 @@
 												<td class='text-center'>".$rs['sold_to']."</td>
 												<td class='text-center'>".$rs['nama']."</td>
 												<td class='text-center'>".number_format($rs['jml_tabung'],0,",",".")."</td>
-												<td class='text-center'>".number_format($rs['harga_satuan'],0,",",".")."</td>
-												<td class='text-center'>".number_format($rs['pajak'],0,",",".")."</td>
-												<td class='text-center'>".number_format($rs['diskon'],0,",",".")."</td>
-												<td class='text-center'>".number_format($rs['bea_admin'],0,",",".")."</td>
 												<td class='text-center'>".number_format($rs['grand_total'],0,",",".")."</td>
 												<td class='text-center'>".$jenis."</td>
 												<td class='text-center'>".$rs['no_bukti']."</td>";
@@ -93,10 +86,6 @@
 										<tr>
 											<td colspan="9"><strong>Total</strong></td>
 											<td class="text-center"><?php echo number_format($totalJml,0,",",".") ?></td>
-											<td></td>
-											<td class="text-center"><?php echo number_format($totalPajak,0,",",".") ?></td>
-											<td class="text-center"><?php echo number_format($totalDiskon,0,",",".") ?></td>
-											<td class="text-center"><?php echo number_format($totalAdmin,0,",",".") ?></td>
 											<td class="text-center"><?php echo number_format($totalGT,0,",",".") ?></td>
 											<td></td>
 											<td></td>
