@@ -29,15 +29,15 @@
 								<select class="form-control" id="cmb-barang" name="cmb-barang"></select>
 							</section>
 						</div>
-						<div class="col-lg-4">
+						<!--<div class="col-lg-4">
 							<section class="panel">
 								<div class="input-group">
 									<span class="input-group-addon">Rp</span>
 									<input type="text" class="form-control rupiah-koma" name="txt-harga-satuan" 
-									id="txt-harga-satuan" readonly>
+									id="txt-harga-satuan">
 								</div>
 							</section>
-						</div>
+						</div>-->
 						<div class="col-lg-4">
 							<section class="panel">
 								<button class="btn btn-warning btn-md" type="button" id="btn-cek"><i class="fa fa-lightbulb-o"></i> Cek SPBE</button>
@@ -91,7 +91,7 @@
 								</form>
 							</section>
 						</div>
-						<div class="col-lg-4">
+						<!--<div class="col-lg-4">
 							<section class="panel">
 								<form class="form-horizontal tasi-form">
 									<div class="form-group">
@@ -100,13 +100,13 @@
 											<div class="input-group">
 												<span class="input-group-addon">Rp</span>
 												<input type="text" class="form-control rupiah-bulat" 
-												name="txt-subtotal" id="txt-subtotal" readonly>
+												name="txt-subtotal" id="txt-subtotal">
 											</div>
 										</div>
 									</div>
 								</form>
 							</section>
-						</div>
+						</div>-->
 						<!--
 						<div class="col-lg-4">
 							<section class="panel">
@@ -145,7 +145,7 @@
 							</section>
 						</div>
 						-->
-						<div class="col-lg-4">
+						<!--<div class="col-lg-4">
 							<section class="panel">
 								<form class="form-horizontal tasi-form">
 									<div class="form-group">
@@ -160,7 +160,7 @@
 									</div>
 								</form>
 							</section>
-						</div>
+						</div>-->
 						<div class="col-lg-4">
 							<section class="panel">
 								<form class="form-horizontal tasi-form">
@@ -170,7 +170,7 @@
 											<div class="input-group">
 												<span class="input-group-addon">Rp</span>
 												<input type="text" class="form-control rupiah-bulat" name="txt-total" 
-												id="txt-total" readonly>
+												id="txt-total">
 											</div>
 										</div>
 									</div>
@@ -271,9 +271,9 @@ $(document).ready(function(){
 	};
 	
 	$('#cmb-barang').change(function(){
-       var selected = $(this).find('option:selected');
-       var harga = selected.data('harga'); 
-       $('#txt-harga-satuan').val(harga);
+       // var selected = $(this).find('option:selected');
+       // var harga = selected.data('harga'); 
+       // $('#txt-harga-satuan').val(harga);
 	   
 	   if ($(this).val() == '1') {
 			$('#cmb-bank').val("1");
@@ -316,26 +316,26 @@ $(document).ready(function(){
     });
 	
 	function hitung(){
-		var jumlah; var harga; var subtotal; var pajak; var diskon; var beaadmin; var total;
-		jumlah = Number($('#txt-jml-tabung').val());
-		harga = Number($('#txt-harga-satuan').val());
-		diskon = 0;
-		beaadmin = Number($('#txt-bea-admin').val());
-		subtotal = jumlah * harga;
-		pajak = 0;
-		total = subtotal + pajak + beaadmin - diskon;
-		$('#txt-subtotal').val(subtotal);
-		//$('#txt-pajak').val(pajak);
-		$('#txt-total').val(total);
+		// var jumlah; var harga; var subtotal; var pajak; var diskon; var beaadmin; var total;
+		// jumlah = Number($('#txt-jml-tabung').val());
+		// harga = Number($('#txt-harga-satuan').val());
+		// diskon = 0;
+		// beaadmin = Number($('#txt-bea-admin').val());
+		// subtotal = jumlah * harga;
+		// pajak = 0;
+		// total = subtotal + pajak + beaadmin - diskon;
+		// $('#txt-subtotal').val(subtotal);
+		// //$('#txt-pajak').val(pajak);
+		// $('#txt-total').val(total);
 	};
 	
 	$('#txt-jml-tabung').keyup(function(){
 		hitung();
 	});
 	
-	$('#txt-bea-admin').keyup(function(){
-		hitung();
-	});
+	// $('#txt-bea-admin').keyup(function(){
+		// hitung();
+	// });
 	
 	$('#btn-simpan').click(function(ev){
 		ev.preventDefault();
@@ -344,9 +344,9 @@ $(document).ready(function(){
 			$('#btn-simpan').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 		
 			var tgl = $('#dp-tgl').val(); var lo = $('#txt-lo').val(); var sa = $('#txt-sa').val();
-			var barang = $('#cmb-barang').val(); var harga = $('#txt-harga-satuan').val();
+			var barang = $('#cmb-barang').val(); var harga = 0;
 			var jml = $('#txt-jml-tabung').val(); var pajak = 0;
-			var diskon = 0; var beaadmin = $('#txt-bea-admin').val();
+			var diskon = 0; var beaadmin = 0;
 			var total = $('#txt-total').val(); var bank = $('#cmb-bank').val();
 			var jenis = $('#cmb-jenis').val(); var bukti = $('#txt-bukti').val();
 			var spbe = $('#cmb-spbe').val();
