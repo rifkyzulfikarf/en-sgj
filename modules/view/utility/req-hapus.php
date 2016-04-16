@@ -14,6 +14,7 @@
 									<option value="1">Hapus Transaksi Penjualan</option>
 									<option value="2">Hapus Transaksi Penebusan</option>
 									<option value="3">Hapus Transaksi Kas Kecil</option>
+									<option value="4">Hapus Transaksi Penjualan Khusus</option>
 								</select>
 							</div>
 						</div>
@@ -21,7 +22,7 @@
 							<label class="col-sm-2 col-sm-2 control-label">ID Transaksi</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="txt-id">
-								<span class="help-block">Contoh -> Penjualan EGN15111101 / SGJ15111101, Penebusan EPB15111101, Kas Kecil KKE1511110001 / KKS1511110001.</span>
+								<span class="help-block">Contoh -> Penjualan EGN15111101 / SGJ15111101, Penebusan EPB15111101, Kas Kecil KKE1511110001 / KKS1511110001, Penjualan Khusus AHS15111101.</span>
 							</div>
 						</div>
 						<div class="form-group">

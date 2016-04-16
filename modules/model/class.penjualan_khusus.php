@@ -141,13 +141,13 @@
 			$totalKasRevisi = 0;
 			$qFinal = "";
 			
-			$qCekPenjualan = "SELECT * FROM `penjualan` WHERE `id` = '$idPenjualan';";
+			$qCekPenjualan = "SELECT * FROM `khusus_penjualan` WHERE `id` = '$idPenjualan';";
 			if ($resCekPenjualan = $this->runQuery($qCekPenjualan)) {
 				$rsCekPenjualan = $resCekPenjualan->fetch_array();
 				
 				if ($rsCekPenjualan['jenis'] == "4") {													//cek penjualan jika tempo
 					
-					$qCekPelunasan = "SELECT * FROM `pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
+					$qCekPelunasan = "SELECT * FROM `khusus_pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
 					if ($resCekPelunasan = $this->runQuery($qCekPelunasan)) {
 						$rsCekPelunasan = $resCekPelunasan->fetch_array();
 						
@@ -155,59 +155,59 @@
 							if ($rsCekPelunasan['ambil_bg'] == "1") {									//cek pelunasan jika bg sudah diambil
 								$bankRevisi = $rsCekPelunasan['id_bank'];
 								$totalKasRevisi = $rsCekPelunasan['total_bayar'];
-								$qFinal .= "DELETE FROM `pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
+								$qFinal .= "DELETE FROM `khusus_pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
 							} else {																	//cek pelunasan jika bg belum diambil
-								$qFinal .= "DELETE FROM `pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
+								$qFinal .= "DELETE FROM `khusus_pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
 							}
 						} elseif ($rsCekPelunasan['jenis'] == "2" || $rsCekPelunasan['jenis'] == "3") {	//cek pelunasan jika debet atau trf
 							$bankRevisi = $rsCekPelunasan['id_bank'];
 							$totalKasRevisi = $rsCekPelunasan['total_bayar'];
-							$qFinal .= "DELETE FROM `pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
+							$qFinal .= "DELETE FROM `khusus_pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
 						} elseif ($rsCekPelunasan['jenis'] == "1") {									//cek pelunasan jika cash
 							if ($rsCekPelunasan['no_bukti'] == "") {									//cek pelunasan jika cash belum disetor
-								$qFinal .= "DELETE FROM `pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
+								$qFinal .= "DELETE FROM `khusus_pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
 							} else {																	//cek pelunasan jika cash sudah disetor
 								$bankRevisi = $rsCekPelunasan['id_bank'];
 								$totalKasRevisi = $rsCekPelunasan['total_bayar'];
-								$qFinal .= "DELETE FROM `pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
+								$qFinal .= "DELETE FROM `khusus_pelunasan` WHERE `id_penjualan` = '$idPenjualan';";
 							}
 						}
 
 					}
 					
-					$qFinal .= "DELETE FROM `penjualan` WHERE `id` = '$idPenjualan';";
+					$qFinal .= "DELETE FROM `khusus_penjualan` WHERE `id` = '$idPenjualan';";
 					
 				} elseif ($rsCekPenjualan['jenis'] == "2" || $rsCekPenjualan['jenis'] == "3") {			//cek penjualan jika debet atau trf
 					$bankRevisi = $rsCekPenjualan['id_bank'];
 					$totalKasRevisi = $rsCekPenjualan['total_bayar'];
-					$qFinal .= "DELETE FROM `penjualan` WHERE `id` = '$idPenjualan';";
+					$qFinal .= "DELETE FROM `khusus_penjualan` WHERE `id` = '$idPenjualan';";
 				} elseif ($rsCekPenjualan['jenis'] == "1") {											//cek penjualan jika cash
 					if ($rsCekPenjualan['no_bukti'] == "") {											//cek penjualan jika cash belum disetor
-						$qFinal .= "DELETE FROM `penjualan` WHERE `id` = '$idPenjualan';";
+						$qFinal .= "DELETE FROM `khusus_penjualan` WHERE `id` = '$idPenjualan';";
 					} else {																			//cek penjualan jika cash sudah disetor
 						$bankRevisi = $rsCekPenjualan['id_bank'];
 						$totalKasRevisi = $rsCekPenjualan['total_bayar'];
-						$qFinal .= "DELETE FROM `penjualan` WHERE `id` = '$idPenjualan';";
+						$qFinal .= "DELETE FROM `khusus_penjualan` WHERE `id` = '$idPenjualan';";
 					}
 				}
 				
-				$qCekGudang = "SELECT * FROM `penjualan_acc_gudang` WHERE `id_penjualan` = '$idPenjualan';";
+				$qCekGudang = "SELECT * FROM `khusus_penjualan_acc_gudang` WHERE `id_penjualan` = '$idPenjualan';";
 				if ($resCekGudang = $this->runQuery($qCekGudang)) {
 					$rsCekGudang = $resCekGudang->fetch_array();
 					
 					if ($rsCekGudang['acc_gudang'] == "1") {
-						$qFinal .= "UPDATE `barang` SET `stok_isi` = `stok_isi` + ".$rsCekPenjualan['jml'].", 
+						$qFinal .= "UPDATE `khusus_barang` SET `stok_isi` = `stok_isi` + ".$rsCekPenjualan['jml'].", 
 						`stok_kosong` = `stok_kosong` - ".$rsCekPenjualan['jml']." WHERE `id` = '".$rsCekPenjualan['id_barang']."';";
-						$qFinal .= "DELETE FROM `penjualan_acc_gudang` WHERE `id_penjualan` = '$idPenjualan';";
+						$qFinal .= "DELETE FROM `khusus_penjualan_acc_gudang` WHERE `id_penjualan` = '$idPenjualan';";
 					} else {
-						$qFinal .= "DELETE FROM `penjualan_acc_gudang` WHERE `id_penjualan` = '$idPenjualan';";
+						$qFinal .= "DELETE FROM `khusus_penjualan_acc_gudang` WHERE `id_penjualan` = '$idPenjualan';";
 					}
 				}
 			}
 			
 			if ($result = $this->runMultipleQueries($qFinal)) {
 				if ($bankRevisi != "" && $totalKasRevisi != 0) {
-					$cbank = new bank();
+					$cbank = new bank_khusus();
 					$hasilBank = $cbank->transaksi_tarik($bankRevisi, "0000", date("Y-m-d"), "Revisi Transaksi Penjualan", 
 					$totalKasRevisi, 0, $idKaryawan, "1");
 					
