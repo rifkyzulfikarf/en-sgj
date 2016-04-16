@@ -53,7 +53,8 @@
 									INNER JOIN `spbe_barang` ON (`pembelian`.`id_spbe_barang` = `spbe_barang`.`id`) 
 									INNER JOIN `spbe` ON (`spbe_barang`.`id_spbe` = `spbe`.`id`) 
 									WHERE `pembelian`.`id_bank` = '".$_POST['cmb-bank']."' AND `pembelian`.`id_barang` LIKE '".$_POST['cmb-barang']."' 
-									AND `pembelian`.`tgl_tebus` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."';";
+									AND `pembelian`.`tgl_tebus` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."' 
+									ORDER BY `pembelian`.`tgl_tebus` ASC;";
 									
 									$totalJml = 0; $totalPajak = 0; $totalDiskon = 0; $totalAdmin = 0; $totalGT = 0;
 									
