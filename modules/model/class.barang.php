@@ -41,22 +41,67 @@
 			}
 		}
 		
-		function ubah_het($het, $id) {
-			$het = $this->clearText($het);
-			$id = $this->clearText($id);
+		function get_harga_beli_all() {
+			$qHarga = "SELECT `harga_beli`.`id`, `barang`.`nama`, `harga_beli`.`jumlah`, `harga_beli`.`harga_beli` 
+						FROM `harga_beli` INNER JOIN `barang` ON(`harga_beli`.`id_barang` = `barang`.`id`);";
+			if ($list = $this->runQuery($qHarga)) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function tambah_harga_beli($idBarang, $jumlah, $harga) {
+			$idBarang = $this->clearText($idBarang);
+			$jumlah = $this->clearText($jumlah);
+			$harga = $this->clearText($harga);
 			
-			if ($result = $this->runQuery("UPDATE `barang` SET `het` = '$het' WHERE `id` = '$id';")) {
+			$qHarga = "INSERT INTO `harga_beli`(`id_barang`, `jumlah`, `harga_beli`) VALUES('$idBarang', '$jumlah', '$harga')";
+			
+			if ($result = $this->runQuery($qHarga)) {
 				return TRUE;
 			} else {
 				return FALSE;
 			}
 		}
 		
-		function ubah_harga_beli($harga, $id) {
+		function ubah_harga_beli($id, $idBarang, $jumlah, $harga) {
+			$id = $this->clearText($id);
+			$idBarang = $this->clearText($idBarang);
+			$jumlah = $this->clearText($jumlah);
 			$harga = $this->clearText($harga);
+			
+			$qHarga = "UPDATE `harga_beli` SET `id_barang` = '$idBarang', `jumlah` = '$jumlah', `harga_beli` = '$harga' 
+						WHERE `id` = '$id';";
+			
+			if ($result = $this->runQuery($qHarga)) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function hapus_harga_beli($id) {
 			$id = $this->clearText($id);
 			
-			if ($result = $this->runQuery("UPDATE `barang` SET `harga_beli` = '$harga' WHERE `id` = '$id';")) {
+			$qHarga = "DELETE FROM `harga_beli` WHERE `id` = '$id';";
+			
+			if ($result = $this->runQuery($qHarga)) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function ubah_het($het, $id) {
+			$het = $this->clearText($het);
+			$id = $this->clearText($id);
+			
+			if ($result = $this->runQuery("UPDATE `barang` SET `het` = '$het' WHERE `id` = '$id';")) {
 				return TRUE;
 			} else {
 				return FALSE;

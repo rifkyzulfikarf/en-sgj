@@ -1,3 +1,6 @@
+<?php
+	$data = new koneksi();
+?>
 <section class="wrapper site-min-height">
 	<div class="row">
 		<div class="col-lg-12">
@@ -84,8 +87,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 col-sm-4 control-label">Jumlah Tabung</label>
 										<div class="col-sm-8">
-											<input type="text" class="form-control rupiah-bulat" 
-											name="txt-jml-tabung" id="txt-jml-tabung">
+											<select class="form-control" id="txt-jml-tabung" name="txt-jml-tabung"></select>
 										</div>
 									</div>
 								</form>
@@ -169,8 +171,8 @@
 										<div class="col-sm-10">
 											<div class="input-group">
 												<span class="input-group-addon">Rp</span>
-												<input type="text" class="form-control rupiah-bulat" name="txt-total" 
-												id="txt-total">
+												<input type="text" class="form-control rupiah-koma" name="txt-total" 
+												id="txt-total" readonly>
 											</div>
 										</div>
 									</div>
@@ -282,9 +284,61 @@ $(document).ready(function(){
 		}
     });
 	
+	<?php
+		$qHarga = "SELECT jumlah, harga_beli FROM harga_beli WHERE id_barang = '1';";
+		$t3kilo = "";
+		if ($query = $data->runQuery($qHarga)) {
+			while ($rs = $query->fetch_array()) {
+				$t3kilo .= "<option value='".$rs['jumlah']."' data-harga='".$rs['harga_beli']."'>".$rs['jumlah']."</option>";
+			}
+		}
+		
+		$qHarga = "SELECT jumlah, harga_beli FROM harga_beli WHERE id_barang = '2';";
+		$t12kilo = "";
+		if ($query = $data->runQuery($qHarga)) {
+			while ($rs = $query->fetch_array()) {
+				$t12kilo .= "<option value='".$rs['jumlah']."' data-harga='".$rs['harga_beli']."'>".$rs['jumlah']."</option>";
+			}
+		}
+		
+		$qHarga = "SELECT jumlah, harga_beli FROM harga_beli WHERE id_barang = '3';";
+		$t50kilo = "";
+		if ($query = $data->runQuery($qHarga)) {
+			while ($rs = $query->fetch_array()) {
+				$t50kilo .= "<option value='".$rs['jumlah']."' data-harga='".$rs['harga_beli']."'>".$rs['jumlah']."</option>";
+			}
+		}
+		
+		$qHarga = "SELECT jumlah, harga_beli FROM harga_beli WHERE id_barang = '4';";
+		$tbgkilo = "";
+		if ($query = $data->runQuery($qHarga)) {
+			while ($rs = $query->fetch_array()) {
+				$tbgkilo .= "<option value='".$rs['jumlah']."' data-harga='".$rs['harga_beli']."'>".$rs['jumlah']."</option>";
+			}
+		}
+	?>
+	
 	$('#btn-cek').click(function(ev){
 		ev.preventDefault();
 		var barang = $('#cmb-barang').val();
+		var t3kilo = "<?php echo $t3kilo ?>";
+		var t12kilo = "<?php echo $t12kilo ?>";
+		var t50kilo = "<?php echo $t50kilo ?>";
+		var tbgkilo = "<?php echo $tbgkilo ?>";
+		
+		if (barang == "1") {
+			$('#txt-jml-tabung').empty();
+			$('#txt-jml-tabung').html(t3kilo);
+		} else if (barang == "2") {
+			$('#txt-jml-tabung').empty();
+			$('#txt-jml-tabung').html(t12kilo);
+		} else if (barang == "3") {
+			$('#txt-jml-tabung').empty();
+			$('#txt-jml-tabung').html(t50kilo);
+		} else if (barang == "4") {
+			$('#txt-jml-tabung').empty();
+			$('#txt-jml-tabung').html(tbgkilo);
+		}
 		
 		$('#btn-cek').addClass('disabled').html('<i class="fa fa-spinner fa-pulse"></i> Processing...');
 		
@@ -299,6 +353,7 @@ $(document).ready(function(){
 				$('#cmb-spbe').empty();	
 				$('#cmb-spbe').html(event);
 				$('#cmb-spbe').change();
+				$('#txt-jml-tabung').change();
 				$('#btn-cek').removeClass('disabled').html('<i class="fa fa-lightbulb-o"></i> Cek SPBE');
 			},
 			error: function(err){
@@ -313,6 +368,12 @@ $(document).ready(function(){
        var sold = selected.data('sold'); 
        $('#txt-ship-to').val(ship);
        $('#txt-sold-to').val(sold);
+    });
+	
+	$('#txt-jml-tabung').change(function(){
+       var selected = $(this).find('option:selected');
+       var harga = selected.data('harga'); 
+       $('#txt-total').val(harga);
     });
 	
 	function hitung(){
