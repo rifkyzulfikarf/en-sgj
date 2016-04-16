@@ -36,6 +36,7 @@
 										<th class="text-center">Jenis</th>
 										<th class="text-center">Bukti</th>
 										<th class="text-center">Nota</th>
+										<th class="text-center">Lunas</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -65,7 +66,7 @@
 									
 									
 									
-									$totalJml = 0; $totalJual = 0; $totalBayar = 0;
+									$totalJml = 0; $totalJual = 0; $totalBayar = 0; $tglLunas = "-";
 									
 									if ($daftar = $data->runQuery($query)) {
 										while( $rs = $daftar->fetch_assoc() ) {
@@ -76,12 +77,22 @@
 											
 											if ($rs['jenis'] == "1") {
 												$jenis = "Cash";
+												$tglLunas = "-";
 											} elseif ($rs['jenis'] == "2") {
 												$jenis = "Debet";
+												$tglLunas = "-";
 											} elseif ($rs['jenis'] == "3") {
 												$jenis = "Transfer";
+												$tglLunas = "-";
 											} else {
 												$jenis = "Tempo";
+												$qCekLunas = "SELECT `tgl` FROM `pelunasan` WHERE `id_penjualan` = '".$rs['id']."';";
+												if ($resCekLunas = $data->runQuery($qCekLunas)) {
+													if ($resCekLunas->num_rows > 0) {
+														$rsCekLunas = $resCekLunas->fetch_array();
+														$tglLunas = $rsCekLunas['tgl'];
+													}
+												}
 											}
 											
 											echo "<tr>
@@ -95,7 +106,8 @@
 												<td class='text-center'>".number_format($rs['total_bayar'],0,",",".")."</td>
 												<td class='text-center'>".$jenis."</td>
 												<td class='text-center'>".$rs['no_bukti']."</td>
-												<td class='text-center'>".$rs['no_nota']."</td>";
+												<td class='text-center'>".$rs['no_nota']."</td>
+												<td class='text-center'>".$tglLunas."</td>";
 											echo "</tr>";
 										}
 									}
@@ -106,6 +118,7 @@
 											<td></td>
 											<td class="text-center"><?php echo number_format($totalJual,0,",",".") ?></td>
 											<td class="text-center"><?php echo number_format($totalBayar,0,",",".") ?></td>
+											<td></td>
 											<td></td>
 											<td></td>
 											<td></td>
