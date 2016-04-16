@@ -91,8 +91,8 @@
 								<table class="display table table-bordered table-striped" id="tabel-bg-cair">
 									<thead>
 										<tr>
-											<th>Nomor BG</th>
 											<th>Tgl Cair BG</th>
+											<th>Nomor BG</th>
 											<th>Konsumen</th>
 											<th>Total</th>
 										</tr>
@@ -113,15 +113,15 @@
 												
 												if ($tglBG <= $tglSekarang) {
 													echo "<tr class='highlight'>
-														<td>".$rs['no_bukti']."</td>
 														<td>".$rs['tgl_bg']."</td>
+														<td>".$rs['no_bukti']."</td>
 														<td>".$rs['nama_konsumen']."</td>
 														<td>Rp ".number_format($rs['total_bayar'],0,".",",")."</td>
 														</tr>";
 												} else {
 													echo "<tr>
-														<td>".$rs['no_bukti']."</td>
 														<td>".$rs['tgl_bg']."</td>
+														<td>".$rs['no_bukti']."</td>
 														<td>".$rs['nama_konsumen']."</td>
 														<td>Rp ".number_format($rs['total_bayar'],0,".",",")."</td>
 														</tr>";
@@ -132,8 +132,8 @@
 									</tbody>
 									<tfoot>
 										<tr>
-											<th>Nomor BG</th>
 											<th>Tgl Cair BG</th>
+											<th>Nomor BG</th>
 											<th>Konsumen</th>
 											<th>Total</th>
 										</tr>
