@@ -2,7 +2,9 @@
 	if (isset($_POST['apa']) && $_POST['apa'] != "") {
 		
 		include 'modules/model/class.penjualan.php';
+		include 'modules/model/class.pemesanan.php';
 		$penjualan = new penjualan();
+		$pemesanan = new pemesanan();
 		
 		switch ($_POST['apa']) {
 			// case "get-sales":
@@ -128,6 +130,10 @@
 								
 								$bukti = $_POST['bukti'];
 								$totalBayar = $_POST['total'];
+							}
+							
+							if (isset($_POST['idpesanan']) && $_POST['idpesanan']) {
+								$pesanan = $pemesanan->telah_proses($_POST['idpesanan']);
 							}
 							
 							if ($result = $penjualan->transaksi_penjualan($_POST['tgl'], $_POST['konsumen'], $_POST['barang'], $_POST['jml'], 

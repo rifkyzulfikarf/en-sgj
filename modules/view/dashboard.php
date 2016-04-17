@@ -19,6 +19,9 @@
 						<li>
 							<a data-toggle="tab" href="#tebusanpending" aria-expanded="false">Loading Pending</a>
 						</li>
+						<li>
+							<a data-toggle="tab" href="#pemesanan" aria-expanded="false">Pemesanan LPG</a>
+						</li>
 					</ul>
 				</header>
 				<div class="panel-body">
@@ -257,6 +260,54 @@
 								</table>
 							</div>
 						</div>
+						<div id="pemesanan" class="tab-pane active">
+							<div class="adv-table">
+								<table class="display table table-bordered table-striped" id="tabel-pemesanan">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Tgl Pesan</th>
+											<th>Konsumen</th>
+											<th>Barang</th>
+											<th>Jml</th>
+											<th>Penginput</th>
+										</tr>
+									</thead>
+									<tbody>
+									<?php
+										$query = "SELECT `pemesanan`.*, `konsumen`.`nama` AS nama_konsumen, `barang`.`nama` AS nama_barang, 
+										`barang`.`het`, `karyawan`.`nama` AS nama_karyawan FROM `pemesanan` INNER JOIN `konsumen` 
+										ON(`pemesanan`.`id_konsumen` = `konsumen`.`id`) INNER JOIN `barang` 
+										ON(`pemesanan`.`id_barang` = `barang`.`id`) INNER JOIN `karyawan` 
+										ON(`pemesanan`.`id_karyawan` = `karyawan`.`id`) WHERE `pemesanan`.`proses` = '0' 
+										AND `pemesanan`.`hapus` = '0';";
+										if ($result = $data->runQuery($query)) {
+											while ($rs = $result->fetch_array()) {
+												echo "<tr>
+													<td>".$rs['id']."</td>
+													<td>".$rs['tgl']."</td>
+													<td>".$rs['nama_konsumen']."</td>
+													<td>".$rs['nama_barang']."</td>
+													<td>".$rs['jml']."</td>
+													<td>".$rs['nama_karyawan']."</td>
+													</tr>";
+											}
+										}
+									?>
+									</tbody>
+									<tfoot>
+										<tr>
+											<th>ID</th>
+											<th>Tgl Pesan</th>
+											<th>Konsumen</th>
+											<th>Barang</th>
+											<th>Jml</th>
+											<th>Penginput</th>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -273,6 +324,8 @@ $(document).ready(function(){
 	var tblalokasi = $('#tabel-alokasi-pangkalan').dataTable();
 	
 	var tbltebusanpending = $('#tabel-tebusan-pending').dataTable();
+	
+	var tblpemesanan = $('#tabel-pemesanan').dataTable();
 	
 	$('#main-content').css({
 		'margin-left': '0px'

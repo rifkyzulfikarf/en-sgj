@@ -1,6 +1,25 @@
 <?php
 	class pemesanan extends koneksi {
-	
+		
+		function get_pemesanan() {
+			$query = "SELECT `pemesanan`.*, `konsumen`.`nama` AS nama_konsumen, `barang`.`nama` AS nama_barang, 
+						`barang`.`het`, `karyawan`.`nama` AS nama_karyawan FROM `pemesanan` INNER JOIN `konsumen` 
+						ON(`pemesanan`.`id_konsumen` = `konsumen`.`id`) INNER JOIN `barang` 
+						ON(`pemesanan`.`id_barang` = `barang`.`id`) INNER JOIN `karyawan` 
+						ON(`pemesanan`.`id_karyawan` = `karyawan`.`id`) WHERE `pemesanan`.`proses` = '0' 
+						AND `pemesanan`.`hapus` = '0';";
+			
+			if ($list = $this->runQuery($query)) {
+				if ($list->num_rows > 0) {
+					return $list;
+				} else {
+					return FALSE;
+				}
+			} else {
+				return FALSE;
+			}
+		}
+		
 		function autocode_pemesanan($tgl, $idBarang) {
 			$kode = "";
 			$prefix = "";
@@ -39,7 +58,7 @@
 			
 			$id = $this->autocode_pemesanan($tgl, $idBarang);
 			
-			$query = "INSERT INTO `pemesanan` VALUES('$id', '$tgl', '$idKonsumen', '$idBarang', '$jml', '$idKaryawan', '0');";
+			$query = "INSERT INTO `pemesanan` VALUES('$id', '$tgl', '$idKonsumen', '$idBarang', '$jml', '$idKaryawan', '0', '0');";
 			
 			if ($result = $this->runQuery($query)) {
 				return TRUE;
@@ -52,6 +71,18 @@
 			$id = $this->clearText($id);
 			
 			$query = "UPDATE `pemesanan` SET `hapus` = '1' WHERE `id` = '$id';";
+			
+			if ($result = $this->runQuery($query)) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+		
+		function telah_proses($id) {
+			$id = $this->clearText($id);
+			
+			$query = "UPDATE `pemesanan` SET `proses` = '1' WHERE `id` = '$id';";
 			
 			if ($result = $this->runQuery($query)) {
 				return TRUE;
