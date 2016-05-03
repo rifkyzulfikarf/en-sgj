@@ -22,21 +22,21 @@
 						<div id="print-section">
 							<div class="text-center"><h3>Laporan Penjualan <?php echo ($_POST['cmb-bank'] == "1")?"PT. Energas Nusantara":"PT. Sumber Gasindo Jaya"; ?></h3></div><hr>
 							Periode : <?php echo $_POST['tgl-awal']." s/d ".$_POST['tgl-akhir'] ?><br><br>
-							<table class="table table-hover table-striped table-mod">
+							<table class="display table table-bordered table-striped" id="tabel-laporan">
 								<thead>
 									<tr>
 										<th class="text-center">ID</th>
-										<th class="text-center">Tgl</th>
+										<th class="text-center">Tgl Trx</th>
+										<th class="text-center">Tgl Tempo</th>
+										<th class="text-center">Tgl Lunas</th>
+										<th class="text-center">Nota</th>
 										<th class="text-center">Konsumen</th>
 										<th class="text-center">Barang</th>
 										<th class="text-center">Jumlah</th>
-										<th class="text-center">Hrg Jual</th>
-										<th class="text-center">Total Jual</th>
+										<th class="text-center">Hrg Stn</th>
 										<th class="text-center">Total Bayar</th>
 										<th class="text-center">Jenis</th>
 										<th class="text-center">Bukti</th>
-										<th class="text-center">Nota</th>
-										<th class="text-center">Lunas</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -64,33 +64,52 @@
 										AND `penjualan`.`tgl` BETWEEN '".$_POST['tgl-awal']."' AND '".$_POST['tgl-akhir']."';";
 									}
 									
-									
-									
-									$totalJml = 0; $totalJual = 0; $totalBayar = 0; $tglLunas = "-";
-									
 									if ($daftar = $data->runQuery($query)) {
 										while( $rs = $daftar->fetch_assoc() ) {
 											
-											$totalJml += $rs['jml'];
-											$totalJual += $rs['total_jual'];
-											$totalBayar += $rs['total_bayar'];
-											
 											if ($rs['jenis'] == "1") {
 												$jenis = "Cash";
-												$tglLunas = "-";
+												$tglTempo = "-";
+												$tglLunas = $rs['tgl'];
 											} elseif ($rs['jenis'] == "2") {
 												$jenis = "Debet";
-												$tglLunas = "-";
+												$tglTempo = "-";
+												$tglLunas = $rs['tgl'];
 											} elseif ($rs['jenis'] == "3") {
 												$jenis = "Transfer";
-												$tglLunas = "-";
+												$tglTempo = "-";
+												$tglLunas = $rs['tgl'];
 											} else {
 												$jenis = "Tempo";
-												$qCekLunas = "SELECT `tgl` FROM `pelunasan` WHERE `id_penjualan` = '".$rs['id']."';";
+												$tglTempo = $rs['tgl_tempo'];
+												$qCekLunas = "SELECT `tgl`, `jenis`, `tgl_bg`, `ambil_bg` FROM `pelunasan` WHERE `id_penjualan` = '".$rs['id']."';";
 												if ($resCekLunas = $data->runQuery($qCekLunas)) {
 													if ($resCekLunas->num_rows > 0) {
 														$rsCekLunas = $resCekLunas->fetch_array();
 														$tglLunas = $rsCekLunas['tgl'];
+														
+														if ($rsCekLunas['jenis'] == "1") {
+															$jenis = "Cash";
+														} elseif ($rsCekLunas['jenis'] == "2") {
+															$jenis = "Debet";
+														} elseif ($rsCekLunas['jenis'] == "3") {
+															$jenis = "Transfer";
+														} else {
+															$jenis = "BG";
+														}
+														
+														if ($rsCekLunas['jenis'] == "4") {
+															if ($rsCekLunas['ambil_bg'] == "0") {
+																$tglTempo = $rsCekLunas['tgl_bg'];
+																$tglLunas = "-";
+															} else {
+																$tglTempo = "-";
+																$tglLunas = $rsCekLunas['tgl_bg'];
+															}
+														}
+														
+													} else {
+														$tglLunas = "-";
 													}
 												}
 											}
@@ -98,33 +117,32 @@
 											echo "<tr>
 												<td class='text-center'>".$rs['id']."</td>
 												<td class='text-center'>".$rs['tgl']."</td>
+												<td class='text-center'>".$tglTempo."</td>
+												<td class='text-center'>".$tglLunas."</td>
+												<td class='text-center'>".$rs['no_nota']."</td>
 												<td class='text-center'>".$rs['nama_konsumen']."</td>
 												<td class='text-center'>".$rs['nama_barang']."</td>
 												<td class='text-center'>".number_format($rs['jml'],0,",",".")."</td>
 												<td class='text-center'>".number_format($rs['harga_jual'],0,",",".")."</td>
-												<td class='text-center'>".number_format($rs['total_jual'],0,",",".")."</td>
 												<td class='text-center'>".number_format($rs['total_bayar'],0,",",".")."</td>
 												<td class='text-center'>".$jenis."</td>
-												<td class='text-center'>".$rs['no_bukti']."</td>
-												<td class='text-center'>".$rs['no_nota']."</td>
-												<td class='text-center'>".$tglLunas."</td>";
+												<td class='text-center'>".$rs['no_bukti']."</td>";
 											echo "</tr>";
 										}
 									}
 									?>
-										<tr>
-											<td colspan="4"><strong>Total</strong></td>
-											<td class="text-center"><?php echo number_format($totalJml,0,",",".") ?></td>
-											<td></td>
-											<td class="text-center"><?php echo number_format($totalJual,0,",",".") ?></td>
-											<td class="text-center"><?php echo number_format($totalBayar,0,",",".") ?></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
 								</tbody>
-							</table>
+								<tfoot>
+									<tr>
+										<th style="text-align:right" colspan="7">Total:</th>
+										<th style="text-align:center"></th>
+										<th></th>
+										<th style="text-align:center"></th>
+										<th></th>
+										<th></th>
+									</tr>
+								</tfoot>
+							</table><br><br><br>
 							<p class="text-muted small">Dicetak oleh <?php echo $_SESSION['en-nama'] ?>, pada <?php echo date("d M Y"); ?> </p>
 						</div>
 					<?php
@@ -234,6 +252,44 @@ $(document).ready(function(){
 	
 	$('#mdl-kriteria').on('shown.bs.modal', function () {
 		$('#cmb-konsumen', this).chosen();
+	});
+	
+	function thousandFormat(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+	};
+	
+	String.prototype.replaceAll = function(search, replacement) {
+		var target = this;
+		return target.replace(new RegExp(escapeRegExp(search), 'g'), replacement);
+	};
+	
+	function escapeRegExp(str) {
+	  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+	};
+	
+	var tabellaporan = $('#tabel-laporan').dataTable({
+		"aLengthMenu": [
+			[25, 50, 100, 200, -1],
+			[25, 50, 100, 200, "All"]
+		],
+		"iDisplayLength": -1,
+		"bPaginate": false,
+		"bFilter": false,
+		"fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+            var iJumlah = 0;
+            var iTotalBayar = 0;
+            for ( var i=0 ; i<aaData.length ; i++ )
+            {
+                iJumlah += parseFloat(aaData[i][7]);
+                iTotalBayar += parseFloat(aaData[i][9].replaceAll('.', ''));
+            }
+             
+            /* Modify the footer row to match what we want */
+            var nCells = nRow.getElementsByTagName('th');
+            nCells[1].innerHTML = thousandFormat(iJumlah);
+            nCells[3].innerHTML = thousandFormat(iTotalBayar);
+        }
+		
 	});
 	
 });
