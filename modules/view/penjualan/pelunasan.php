@@ -238,7 +238,7 @@ $(document).ready(function(){
 					} else {
 						alert(eve.msg);
 					}
-					$('#btn-simpan-data').removeClass('disabled').html('Bayar Pelunasan');
+					$('#btn-simpan-pelunasan').removeClass('disabled').html('Bayar Pelunasan');
 				},
 				error: function(err){
 					console.log("AJAX error in request: " + JSON.stringify(err, null, 2));

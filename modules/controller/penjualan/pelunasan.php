@@ -46,19 +46,32 @@
 				isset($_POST['total']) && $_POST['total'] != "" && isset($_POST['jenis']) && $_POST['jenis'] != "" && 
 				isset($_POST['bank']) && $_POST['bank'] != "") {
 					
+					$validasiTglBG = TRUE;
+					
 					if ($_POST['jenis'] == '4') {
 						$tglBg = $_POST['tglbg'];
 					} else {
 						$tglBg = '0000-00-00';
 					}
 					
-					if ($result = $pelunasan->bayar_pelunasan($_POST['id'], $_POST['tgl'], $_POST['total'], $_POST['jenis'], 
-					$tglBg, $_POST['bank'], $_POST['bukti'], d_code($_SESSION['en-data']))) {
-						$arr['status']=TRUE;
-						$arr['msg']="Pelunasan sukses tersimpan..";
+					if ($_POST['jenis'] == '4' && isset($_POST['tglbg']) && $_POST['tglbg'] != "") {
+						$validasiTglBG = TRUE;
+					} else {
+						$validasiTglBG = FALSE;
+					}
+					
+					if ($validasiTglBG == TRUE) {
+						if ($result = $pelunasan->bayar_pelunasan($_POST['id'], $_POST['tgl'], $_POST['total'], $_POST['jenis'], 
+						$tglBg, $_POST['bank'], $_POST['bukti'], d_code($_SESSION['en-data']))) {
+							$arr['status']=TRUE;
+							$arr['msg']="Pelunasan sukses tersimpan..";
+						} else {
+							$arr['status']=FALSE;
+							$arr['msg']="Gagal menyimpan..";
+						}
 					} else {
 						$arr['status']=FALSE;
-						$arr['msg']="Gagal menyimpan..";
+						$arr['msg']="Harap isi data dengan lengkap..";
 					}
 				} else {
 					$arr['status']=FALSE;
