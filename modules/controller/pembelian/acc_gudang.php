@@ -29,7 +29,7 @@
 						$driver = ($rs['nama_driver']==null)?" ":$rs['nama_driver'];
 						
 						$detail = array();
-						array_push($detail, $rs['id_pembelian']." - ".$kendaraan." - ".$driver." - ".$rs['nama_barang']);
+						array_push($detail, $rs['id_pembelian']." - ".$kendaraan." - ".$driver." - ".$rs['nama_barang']." - ".$rs['nama_spbe']);
 						array_push($detail, $rs["tabung_kosong"]);
 						array_push($detail, $rs["tabung_isi"]);
 						array_push($detail, $tombol);

@@ -2,14 +2,17 @@
 	class loading extends koneksi {
 		
 		function get_loading_by_lo($noLO) {
-			$query = "SELECT `loading_pembelian`.*, `kendaraan`.`nopol`, `driver`.`nama` AS `nama_driver`, `barang`.`nama` AS `nama_barang`, 
-			`pembelian`.`id_barang`, `gudang_out`.`nama` AS `nama_gudang_out`, `gudang_in`.`nama` AS `nama_gudang_in` FROM `loading_pembelian` 
+			$query = "SELECT `loading_pembelian`.*, `kendaraan`.`nopol`, `driver`.`nama` AS `nama_driver`, 
+			`barang`.`nama` AS `nama_barang`, `pembelian`.`id_barang`, `gudang_out`.`nama` AS `nama_gudang_out`, 
+			`gudang_in`.`nama` AS `nama_gudang_in`, `spbe`.`nama` AS `nama_spbe` FROM `loading_pembelian` 
 			INNER JOIN `pembelian` ON `loading_pembelian`.`id_pembelian` = `pembelian`.`id` 
 			LEFT JOIN `kendaraan` ON `loading_pembelian`.`id_kendaraan` = `kendaraan`.`id`
 			LEFT JOIN `karyawan` AS `driver` ON `loading_pembelian`.`id_driver` = `driver`.`id` 
 			LEFT JOIN `karyawan` AS `gudang_out` ON `loading_pembelian`.`id_gudang_berangkat` = `gudang_out`.`id` 
 			LEFT JOIN `karyawan` AS `gudang_in` ON `loading_pembelian`.`id_gudang_kembali` = `gudang_in`.`id` 
 			INNER JOIN `barang` ON `pembelian`.`id_barang` = `barang`.`id` 
+			INNER JOIN `spbe_barang` ON `pembelian`.`id_spbe_barang` = `spbe_barang`.`id` 
+			INNER JOIN `spbe` ON `spbe_barang`.`id_spbe` = `spbe`.`id` 
 			WHERE `pembelian`.`no_lo` = '$noLO';";
 			if ($list = $this->runQuery($query)) {
 				if ($list->num_rows > 0) {
@@ -44,14 +47,17 @@
 		}
 		
 		function get_loading_belum_acc_gudang() {
-			$query = "SELECT `loading_pembelian`.*, `kendaraan`.`nopol`, `driver`.`nama` AS `nama_driver`, `barang`.`nama` AS `nama_barang`, 
-			`pembelian`.`id_barang`, `gudang_out`.`nama` AS `nama_gudang_out`, `gudang_in`.`nama` AS `nama_gudang_in` FROM `loading_pembelian` 
+			$query = "SELECT `loading_pembelian`.*, `kendaraan`.`nopol`, `driver`.`nama` AS `nama_driver`, 
+			`barang`.`nama` AS `nama_barang`, `pembelian`.`id_barang`, `gudang_out`.`nama` AS `nama_gudang_out`, 
+			`gudang_in`.`nama` AS `nama_gudang_in`, `spbe`.`nama` AS `nama_spbe` FROM `loading_pembelian` 
 			INNER JOIN `pembelian` ON `loading_pembelian`.`id_pembelian` = `pembelian`.`id` 
 			LEFT JOIN `kendaraan` ON `loading_pembelian`.`id_kendaraan` = `kendaraan`.`id`
 			LEFT JOIN `karyawan` AS `driver` ON `loading_pembelian`.`id_driver` = `driver`.`id` 
 			LEFT JOIN `karyawan` AS `gudang_out` ON `loading_pembelian`.`id_gudang_berangkat` = `gudang_out`.`id` 
 			LEFT JOIN `karyawan` AS `gudang_in` ON `loading_pembelian`.`id_gudang_kembali` = `gudang_in`.`id` 
 			INNER JOIN `barang` ON `pembelian`.`id_barang` = `barang`.`id` 
+			INNER JOIN `spbe_barang` ON `pembelian`.`id_spbe_barang` = `spbe_barang`.`id` 
+			INNER JOIN `spbe` ON `spbe_barang`.`id_spbe` = `spbe`.`id` 
 			WHERE (`loading_pembelian`.`id_karyawan_berangkat` IS NOT NULL AND `loading_pembelian`.`id_gudang_berangkat` IS NULL) 
 			OR (`loading_pembelian`.`id_karyawan_kembali` IS NOT NULL AND `loading_pembelian`.`id_gudang_kembali` IS NULL);";
 			if ($list = $this->runQuery($query)) {

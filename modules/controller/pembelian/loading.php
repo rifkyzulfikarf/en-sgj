@@ -27,6 +27,7 @@
 							$detail = array();
 							array_push($detail, $kendaraan." - ".$driver." - ".$rs['nama_barang']);
 							array_push($detail, $rs["tgl_loading"]);
+							array_push($detail, $rs["nama_spbe"]);
 							array_push($detail, $rs["jam_berangkat"]);
 							array_push($detail, $rs["tabung_kosong"]);
 							array_push($detail, $rs["jam_kembali"]);

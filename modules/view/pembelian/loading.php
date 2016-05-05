@@ -27,10 +27,11 @@
 								<tr>
 									<th>Data</th>
 									<th>Tgl Loading</th>
+									<th>SPPBE</th>
 									<th>Jam Ambil</th>
-									<th>Tabung Kosong</th>
+									<th>Kosong</th>
 									<th>Jam Kembali</th>
-									<th>Tabung Isi</th>
+									<th>Isi</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -41,10 +42,11 @@
 								<tr>
 									<th>Data</th>
 									<th>Tgl Loading</th>
+									<th>SPPBE</th>
 									<th>Jam Ambil</th>
-									<th>Tabung Kosong</th>
+									<th>Kosong</th>
 									<th>Jam Kembali</th>
-									<th>Tabung Isi</th>
+									<th>Isi</th>
 									<th></th>
 								</tr>
 							</tfoot>

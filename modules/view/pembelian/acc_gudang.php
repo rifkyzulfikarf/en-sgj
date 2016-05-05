@@ -11,8 +11,8 @@
 							<thead>
 								<tr>
 									<th>Data</th>
-									<th>Tabung Kosong</th>
-									<th>Tabung Isi</th>
+									<th>Kosong</th>
+									<th>Isi</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -22,8 +22,8 @@
 							<tfoot>
 								<tr>
 									<th>Data</th>
-									<th>Tabung Kosong</th>
-									<th>Tabung Isi</th>
+									<th>Kosong</th>
+									<th>Isi</th>
 									<th></th>
 								</tr>
 							</tfoot>
