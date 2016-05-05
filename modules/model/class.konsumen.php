@@ -2,7 +2,7 @@
 	class konsumen extends koneksi {
 		
 		function get_konsumen() {
-			if ($list = $this->runQuery("SELECT `id`, `nama`, `alamat`, `telepon`, `harga_3kg`, `harga_12kg`, `harga_12kg_bg`, `harga_50kg`, `pangkalan`, `waktu_tempo` 
+			if ($list = $this->runQuery("SELECT `id`, `nama`, `alamat`, `telepon`, `harga_3kg`, `harga_12kg`, `harga_12kg_bg`, `harga_50kg`, `pangkalan`, `waktu_tempo`, `pic` 
 			FROM `konsumen` WHERE `hapus` = '0';")) {
 				if ($list->num_rows > 0) {
 					return $list;
@@ -105,30 +105,43 @@
 			}
 		}
 		
-		function tambah($nama, $alamat, $telepon, $pangkalan, $tempo) {
+		function tambah($nama, $alamat, $telepon, $pangkalan, $tempo, $pic, $harga3kg, $harga12kg, $hargabg, $harga50kg) {
 			$nama = $this->clearText($nama);
 			$alamat = $this->clearText($alamat);
 			$telepon = $this->clearText($telepon);
 			$pangkalan = $this->clearText($pangkalan);
 			$tempo = $this->clearText($tempo);
+			$pic = $this->clearText($pic);
+			$harga3kg = $this->clearText($harga3kg);
+			$harga12kg = $this->clearText($harga12kg);
+			$hargabg = $this->clearText($hargabg);
+			$harga50kg = $this->clearText($harga50kg);
 			
-			if ($result = $this->runQuery("INSERT INTO `konsumen`(`nama`, `alamat`, `telepon`, `harga_3kg`, `harga_12kg`, `harga_12kg_bg`, 
-			`harga_50kg`, `pangkalan`, `waktu_tempo`, `hapus`) VALUES('$nama', '$alamat', '$telepon', '0', '0', '0', '0', '$pangkalan', '$tempo', '0');")) {
+			if ($result = $this->runQuery("INSERT INTO `konsumen`(`nama`, `alamat`, `telepon`, `harga_3kg`, `harga_12kg`, 
+			`harga_12kg_bg`, `harga_50kg`, `pangkalan`, `waktu_tempo`, `pic`, `hapus`) VALUES('$nama', '$alamat', 
+			'$telepon', '$harga3kg', '$harga12kg', '$hargabg', '$harga50kg', '$pangkalan', '$tempo', '$pic', '0');")) {
 				return TRUE;
 			} else {
 				return FALSE;
 			}
 		}
 		
-		function ubah($id, $nama, $alamat, $telepon, $pangkalan, $tempo) {
+		function ubah($id, $nama, $alamat, $telepon, $pangkalan, $tempo, $pic, $harga3kg, $harga12kg, $hargabg, $harga50kg) {
 			$id = $this->clearText($id);
 			$nama = $this->clearText($nama);
 			$alamat = $this->clearText($alamat);
 			$telepon = $this->clearText($telepon);
 			$pangkalan = $this->clearText($pangkalan);
 			$tempo = $this->clearText($tempo);
+			$pic = $this->clearText($pic);
+			$harga3kg = $this->clearText($harga3kg);
+			$harga12kg = $this->clearText($harga12kg);
+			$hargabg = $this->clearText($hargabg);
+			$harga50kg = $this->clearText($harga50kg);
 			
-			if ($result = $this->runQuery("UPDATE `konsumen` SET `nama` = '$nama', `alamat` = '$alamat', `telepon` = '$telepon', `pangkalan` = '$pangkalan', `waktu_tempo` = '$tempo' WHERE `id` = '$id';")) {
+			if ($result = $this->runQuery("UPDATE `konsumen` SET `nama` = '$nama', `alamat` = '$alamat', `telepon` = '$telepon', 
+			`pangkalan` = '$pangkalan', `waktu_tempo` = '$tempo', `pic` = '$pic', `harga_3kg` = '$harga3kg', 
+			`harga_12kg` = '$harga12kg', `harga_12kg_bg` = '$hargabg', `harga_50kg` = '$harga50kg' WHERE `id` = '$id';")) {
 				return TRUE;
 			} else {
 				return FALSE;
