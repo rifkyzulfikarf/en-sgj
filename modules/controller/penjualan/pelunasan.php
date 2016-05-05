@@ -49,15 +49,13 @@
 					$validasiTglBG = TRUE;
 					
 					if ($_POST['jenis'] == '4') {
-						$tglBg = $_POST['tglbg'];
+						if (isset($_POST['tglbg']) && $_POST['tglbg'] != "") {
+							$tglBg = $_POST['tglbg'];
+						} else {
+							$validasiTglBG = FALSE;
+						}
 					} else {
 						$tglBg = '0000-00-00';
-					}
-					
-					if ($_POST['jenis'] == '4' && isset($_POST['tglbg']) && $_POST['tglbg'] != "") {
-						$validasiTglBG = TRUE;
-					} else {
-						$validasiTglBG = FALSE;
 					}
 					
 					if ($validasiTglBG == TRUE) {
