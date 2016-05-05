@@ -49,8 +49,9 @@
 			return $kode;
 		}
 		
-		function tambah($tgl, $idKonsumen, $idBarang, $jml, $idKaryawan) {
+		function tambah($tgl, $tglKirim, $idKonsumen, $idBarang, $jml, $idKaryawan) {
 			$tgl = $this->clearText($tgl);
+			$tglKirim = $this->clearText($tglKirim);
 			$idKonsumen = $this->clearText($idKonsumen);
 			$idBarang = $this->clearText($idBarang);
 			$jml = $this->clearText($jml);
@@ -58,7 +59,8 @@
 			
 			$id = $this->autocode_pemesanan($tgl, $idBarang);
 			
-			$query = "INSERT INTO `pemesanan` VALUES('$id', '$tgl', '$idKonsumen', '$idBarang', '$jml', '$idKaryawan', '0', '0');";
+			$query = "INSERT INTO `pemesanan` VALUES('$id', '$tgl', '$tglKirim', '$idKonsumen', '$idBarang', 
+					'$jml', '$idKaryawan', '0', '0');";
 			
 			if ($result = $this->runQuery($query)) {
 				return TRUE;

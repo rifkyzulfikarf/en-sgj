@@ -17,7 +17,7 @@
 							<section class="panel">
 								<form class="form-horizontal tasi-form">
 									<div class="form-group">
-										<label class="col-sm-4 col-sm-4 control-label">Tgl Pesan</label>
+										<label class="col-sm-4 col-sm-4 control-label">Tgl Kirim</label>
 										<div class="col-sm-8">
 											<input type="text" class="form-control" id="dp-tgl">
 										</div>

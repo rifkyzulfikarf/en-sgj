@@ -11,7 +11,9 @@
 				if (isset($_POST['tgl']) && $_POST['tgl'] != "" && isset($_POST['barang']) && $_POST['barang'] != "" && 
 				isset($_POST['konsumen']) && $_POST['konsumen'] != "" && isset($_POST['jml']) && $_POST['jml'] != "") {
 					
-					if ($result = $pemesanan->tambah($_POST['tgl'], $_POST['konsumen'], $_POST['barang'], $_POST['jml'], d_code($_SESSION['en-data']))) {
+					$tgl = date("Y-m-d");
+					
+					if ($result = $pemesanan->tambah($tgl, $_POST['tgl'], $_POST['konsumen'], $_POST['barang'], $_POST['jml'], d_code($_SESSION['en-data']))) {
 						$arr['status']=TRUE;
 						$arr['msg']="Data tersimpan..";
 					} else {

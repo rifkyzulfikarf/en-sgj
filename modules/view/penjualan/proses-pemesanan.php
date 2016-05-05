@@ -14,7 +14,8 @@
 							<thead>
 								<tr>
 									<th>ID</th>
-									<th>Tgl Pesan</th>
+									<th>Pesan</th>
+									<th>Kirim</th>
 									<th>Konsumen</th>
 									<th>Barang</th>
 									<th>Jml</th>
@@ -26,7 +27,8 @@
 							<tfoot>
 								<tr>
 									<th>ID</th>
-									<th>Tgl Pesan</th>
+									<th>Pesan</th>
+									<th>Kirim</th>
 									<th>Konsumen</th>
 									<th>Barang</th>
 									<th>Jml</th>

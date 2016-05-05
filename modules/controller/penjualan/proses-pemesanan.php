@@ -13,6 +13,7 @@
 						$detail = array();
 						array_push($detail, $rs["id"]);
 						array_push($detail, $rs["tgl"]);
+						array_push($detail, $rs["tgl_kirim"]);
 						array_push($detail, $rs["nama_konsumen"]);
 						array_push($detail, $rs["nama_barang"]);
 						array_push($detail, $rs["jml"]);

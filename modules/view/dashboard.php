@@ -265,8 +265,9 @@
 								<table class="display table table-bordered table-striped" id="tabel-pemesanan">
 									<thead>
 										<tr>
+											<th>Kirim</th>
+											<th>Pesan</th>
 											<th>ID</th>
-											<th>Tgl Pesan</th>
 											<th>Konsumen</th>
 											<th>Barang</th>
 											<th>Jml</th>
@@ -283,22 +284,38 @@
 										AND `pemesanan`.`hapus` = '0';";
 										if ($result = $data->runQuery($query)) {
 											while ($rs = $result->fetch_array()) {
-												echo "<tr>
-													<td>".$rs['id']."</td>
+											
+												if ($rs['tgl_kirim'] <= date("Y-m-d")) {
+													echo "<tr class='highlight'>
+													<td>".$rs['tgl_kirim']."</td>
 													<td>".$rs['tgl']."</td>
+													<td>".$rs['id']."</td>
 													<td>".$rs['nama_konsumen']."</td>
 													<td>".$rs['nama_barang']."</td>
 													<td>".$rs['jml']."</td>
 													<td>".$rs['nama_karyawan']."</td>
 													</tr>";
+												} else {
+													echo "<tr>
+													<td>".$rs['tgl_kirim']."</td>
+													<td>".$rs['tgl']."</td>
+													<td>".$rs['id']."</td>
+													<td>".$rs['nama_konsumen']."</td>
+													<td>".$rs['nama_barang']."</td>
+													<td>".$rs['jml']."</td>
+													<td>".$rs['nama_karyawan']."</td>
+													</tr>";
+												}
+												
 											}
 										}
 									?>
 									</tbody>
 									<tfoot>
 										<tr>
+											<th>Kirim</th>
+											<th>Pesan</th>
 											<th>ID</th>
-											<th>Tgl Pesan</th>
 											<th>Konsumen</th>
 											<th>Barang</th>
 											<th>Jml</th>
