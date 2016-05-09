@@ -22,7 +22,7 @@
 						<div id="print-section">
 							<div class="text-center"><h3>Laporan Tebus <?php echo ($_POST['cmb-bank'] == "1")?"PT. Energas Nusantara":"PT. Sumber Gasindo Jaya"; ?></h3></div><hr>
 							Periode : <?php echo $_POST['tgl-awal']." s/d ".$_POST['tgl-akhir'] ?><br><br>
-							<table class="table table-hover table-striped table-mod">
+							<table class="display table table-bordered table-striped" id="tabel-laporan">
 								<thead>
 									<tr>
 										<th class="text-center">ID</th>
@@ -84,15 +84,17 @@
 										}
 									}
 									?>
-										<tr>
-											<td colspan="9"><strong>Total</strong></td>
-											<td class="text-center"><?php echo number_format($totalJml,0,",",".") ?></td>
-											<td class="text-center"><?php echo number_format($totalGT,0,",",".") ?></td>
-											<td></td>
-											<td></td>
-										</tr>
 								</tbody>
-							</table>
+								<tfoot>
+									<tr>
+										<th style="text-align:right" colspan="9">Total:</th>
+										<th style="text-align:center"></th>
+										<th style="text-align:center"></th>
+										<th></th>
+										<th></th>
+									</tr>
+								</tfoot>
+							</table><br><br><br>
 							<p class="text-muted small">Dicetak oleh <?php echo $_SESSION['en-nama'] ?>, pada <?php echo date("d M Y"); ?> </p>
 						</div>
 					<?php
@@ -179,6 +181,44 @@ $(document).ready(function(){
 			$('#cmb-barang').append(new Option("LPG Bright Gas","4"));
 			$('#cmb-barang').append(new Option("Semua","%"));
 		}
+	});
+	
+	function thousandFormat(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+	};
+	
+	String.prototype.replaceAll = function(search, replacement) {
+		var target = this;
+		return target.replace(new RegExp(escapeRegExp(search), 'g'), replacement);
+	};
+	
+	function escapeRegExp(str) {
+	  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+	};
+	
+	var tabellaporan = $('#tabel-laporan').dataTable({
+		"aLengthMenu": [
+			[25, 50, 100, 200, -1],
+			[25, 50, 100, 200, "All"]
+		],
+		"iDisplayLength": -1,
+		"bPaginate": false,
+		"bFilter": false,
+		"fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+            var iJumlah = 0;
+            var iTotalBayar = 0;
+            for ( var i=0 ; i<aaData.length ; i++ )
+            {
+                iJumlah += parseFloat(aaData[i][9]);
+                iTotalBayar += parseFloat(aaData[i][10].replaceAll('.', ''));
+            }
+             
+            /* Modify the footer row to match what we want */
+            var nCells = nRow.getElementsByTagName('th');
+            nCells[1].innerHTML = thousandFormat(iJumlah);
+            nCells[2].innerHTML = thousandFormat(iTotalBayar);
+        }
+		
 	});
 	
 });
