@@ -1,5 +1,11 @@
 <?php
 	$data = new koneksi();
+	$qTotal = "SELECT SUM(`penjualan`.`total_jual`) AS `total_piutang` FROM `penjualan` 
+				WHERE `penjualan`.`jenis` = '4' AND `penjualan`.`total_bayar` < `penjualan`.`total_jual`;";
+	
+	if ($query = $data->runQuery($qTotal)) {
+		$rs = $query->fetch_array();
+	}
 ?>
 <section class="wrapper site-min-height">
 	<div class="row">
@@ -10,16 +16,16 @@
 				</header>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-lg-2">
+						<!--<div class="col-lg-2">
 							<section class="panel">
 								<div class="input-group input-large">
 									<select class="form-control" id="cmb-konsumen">
 									<?php
-										if ($result = $data->runQuery("SELECT id, nama FROM konsumen WHERE hapus = '0'")) {
-											while ($rs = $result->fetch_array()) {
-												echo "<option value='".$rs['id']."'>".$rs['nama']."</option>";
-											}
-										}
+										//if ($result = $data->runQuery("SELECT id, nama FROM konsumen WHERE hapus = '0'")) {
+											//while ($rs = $result->fetch_array()) {
+												//echo "<option value='".$rs['id']."'>".$rs['nama']."</option>";
+											//}
+										//}
 									?>
 									</select>
 								</div>
@@ -29,6 +35,9 @@
 							<section class="panel">
 								<button type="button" class="btn btn-primary" id="btn-cari"><i class="fa fa-search"></i> Cari</button>
 							</section>
+						</div>-->
+						<div class="col-lg-12">
+							<strong>Total Keseluruhan Piutang : Rp <?php echo number_format($rs['total_piutang'], 0, ",", "."); ?></strong>
 						</div>
 					</div>
 					<hr>
@@ -36,6 +45,7 @@
 						<table class="display table table-bordered table-striped" id="tabel-penjualan">
 							<thead>
 								<tr>
+									<th>Tgl Tempo</th>
 									<th>ID</th>
 									<th>Nota</th>
 									<th>Tgl Jual</th>
@@ -44,7 +54,6 @@
 									<th>Jml</th>
 									<th>Harga</th>
 									<th>Total</th>
-									<th>Bayar</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -53,6 +62,7 @@
 							</tbody>
 							<tfoot>
 								<tr>
+									<th>Tgl Tempo</th>
 									<th>ID</th>
 									<th>Nota</th>
 									<th>Tgl Jual</th>
@@ -61,7 +71,6 @@
 									<th>Jml</th>
 									<th>Harga</th>
 									<th>Total</th>
-									<th>Bayar</th>
 									<th></th>
 								</tr>
 							</tfoot>
@@ -176,7 +185,6 @@ $(document).ready(function(){
 		"fnServerParams": function ( aoData ) {
             aoData.push({"name": "aksi", "value": "<?php echo e_url('modules/controller/penjualan/pelunasan.php'); ?>"});
             aoData.push({"name": "apa", "value": "get-penjualan-tempo"});
-            aoData.push({"name": "konsumen", "value": $('#cmb-konsumen').val()});
         }
     });
 	

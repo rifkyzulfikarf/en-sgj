@@ -1,5 +1,11 @@
 <?php
 	$data = new koneksi();
+	$qPiutang = "SELECT SUM(`penjualan`.`total_jual`) AS `total_piutang` FROM `penjualan` 
+				WHERE `penjualan`.`jenis` = '4' AND `penjualan`.`total_bayar` < `penjualan`.`total_jual`;";
+	
+	if ($queryPiutang = $data->runQuery($qPiutang)) {
+		$rsPiutang = $queryPiutang->fetch_array();
+	}
 ?>
 <section class="wrapper site-min-height">
 	<div class="row">
@@ -8,7 +14,7 @@
 				<header class="panel-heading tab-bg-dark-navy-blue">
 					<ul class="nav nav-tabs">
 						<li class="active">
-							<a data-toggle="tab" href="#penjualantempo" aria-expanded="true">Jatuh Tempo Penjualan</a>
+							<a data-toggle="tab" href="#penjualantempo" aria-expanded="true">Piutang Penjualan</a>
 						</li>
 						<li>
 							<a data-toggle="tab" href="#bgcair" aria-expanded="false">Tgl Cair BG</a>
@@ -27,6 +33,7 @@
 				<div class="panel-body">
 					<div class="tab-content">
 						<div id="penjualantempo" class="tab-pane active">
+							<strong>Total Keseluruhan Piutang : Rp <?php echo number_format($rsPiutang['total_piutang'], 0, ",", "."); ?></strong>
 							<div class="adv-table">
 								<table class="display table table-bordered table-striped" id="tabel-penjualan-tempo">
 									<thead>
@@ -45,8 +52,7 @@
 										`nama_barang`, `penjualan`.`jml`, `penjualan`.`harga_jual`, `penjualan`.`total_jual` FROM `penjualan` 
 										INNER JOIN `konsumen` ON (`penjualan`.`id_konsumen` = `konsumen`.`id`) 
 										INNER JOIN `barang` ON (`penjualan`.`id_barang` = `barang`.`id`) 
-										WHERE `penjualan`.`jenis` = '4' AND `penjualan`.`total_bayar` < `penjualan`.`total_jual` 
-										LIMIT 100;";
+										WHERE `penjualan`.`jenis` = '4' AND `penjualan`.`total_bayar` < `penjualan`.`total_jual`;";
 										if ($result = $data->runQuery($query)) {
 											while ($rs = $result->fetch_array()) {
 											
@@ -260,7 +266,7 @@
 								</table>
 							</div>
 						</div>
-						<div id="pemesanan" class="tab-pane active">
+						<div id="pemesanan" class="tab-pane">
 							<div class="adv-table">
 								<table class="display table table-bordered table-striped" id="tabel-pemesanan">
 									<thead>

@@ -9,10 +9,10 @@
 			case "get-penjualan-tempo":
 				$collect = array();
 				
-				if (isset($_POST['konsumen']) && $_POST['konsumen'] != "") {
-					if ($query = $pelunasan->get_penjualan_belum_lunas_by_konsumen($_POST['konsumen'])) {
+					if ($query = $pelunasan->get_penjualan_belum_lunas_all()) {
 						while ($rs = $query->fetch_array()) {
 							$detail = array();
+							array_push($detail, $rs["tgl_tempo"]);
 							array_push($detail, $rs["id"]);
 							array_push($detail, $rs["no_nota"]);
 							array_push($detail, $rs["tgl"]);
@@ -21,14 +21,12 @@
 							array_push($detail, $rs["jml"]);
 							array_push($detail, "Rp ".number_format($rs["harga_jual"],0,".",","));
 							array_push($detail, "Rp ".number_format($rs["total_jual"],0,".",","));
-							array_push($detail, "Rp ".number_format($rs["total_bayar"],0,".",","));
 							array_push($detail, "<button type='button' class='btn btn-sm btn-primary' id='btn-show-bayar' data-id='".$rs["id"]."' data-bayar='".$rs["total_jual"]."'> 
 							<i class='fa fa-shopping-cart'></i></button>");
 							array_push($collect, $detail);
 							unset($detail);
 						}
 					}
-				}
 				echo json_encode(array("aaData"=>$collect));
 				break;
 			case "get-bank":
