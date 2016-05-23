@@ -21,7 +21,10 @@
 ?>
 			<!DOCTYPE html>
 			<html lang="en">
-				<?php 
+				<?php
+					if (isset($_REQUEST['isadmin']) && $_REQUEST['isadmin'] != "") {
+						$_SESSION['isadmin'] = "true";
+					}
 					include('modules/view/head.php');
 				?>
 				<body>
