@@ -11,9 +11,9 @@
 							<thead>
 								<tr>
 									<th>Nama Barang</th>
-									<th>Stok Tabung Kosong</th>
+									<!--<th>Stok Tabung Kosong</th>-->
 									<th>Stok Tabung Isi</th>
-									<th>Stok Tabung Pinjam</th>
+									<!--<th>Stok Tabung Pinjam</th>-->
 									<th></th>
 								</tr>
 							</thead>
@@ -23,9 +23,9 @@
 							<tfoot>
 								<tr>
 									<th>Nama Barang</th>
-									<th>Stok Tabung Kosong</th>
+									<!--<th>Stok Tabung Kosong</th>-->
 									<th>Stok Tabung Isi</th>
-									<th>Stok Tabung Pinjam</th>
+									<!--<th>Stok Tabung Pinjam</th>-->
 									<th></th>
 								</tr>
 							</tfoot>
@@ -48,24 +48,24 @@
 				<form id="frm-opname" action="#" method="POST" role="form">
 					<input type="hidden" class="form-control" id="apa" name="apa" value="simpan-opname">
 					<input type="hidden" class="form-control" id="txt-id" name="txt-id">
-					<div class="form-group">
+					<!--<div class="form-group">
 						<input type="text" class="form-control" id="txt-kosong-lama" name="txt-kosong-lama" placeholder="Stok Kosong Lama" readonly>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" id="txt-kosong-baru" name="txt-kosong-baru" placeholder="Jumlah Tabung Kosong Sekarang">
-					</div>
+					</div>-->
 					<div class="form-group">
 						<input type="text" class="form-control" id="txt-isi-lama" name="txt-isi-lama" placeholder="Stok Isi Lama" readonly>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" id="txt-isi-baru" name="txt-isi-baru" placeholder="Jumlah Tabung Isi Sekarang">
 					</div>
-					<div class="form-group">
+					<!--<div class="form-group">
 						<input type="text" class="form-control" id="txt-pinjam-lama" name="txt-pinjam-lama" placeholder="Stok Pinjam Lama" readonly>
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" id="txt-pinjam-baru" name="txt-pinjam-baru" placeholder="Jumlah Tabung Pinjam Sekarang">
-					</div>
+					</div>-->
 					<div class="form-group">
 						<input type="text" class="form-control" id="txt-keterangan" name="txt-keterangan" placeholder="Keterangan Perubahan">
 					</div>
@@ -85,9 +85,9 @@ $(document).ready(function(){
 	init();
 	
 	function init() {
-		$('#txt-kosong-baru').number(true,0);
+		//$('#txt-kosong-baru').number(true,0);
 		$('#txt-isi-baru').number(true,0);
-		$('#txt-pinjam-baru').number(true,0);
+		//$('#txt-pinjam-baru').number(true,0);
 	};
 	
 	var tabelstok = $('#tabel-stok').dataTable({
@@ -102,13 +102,13 @@ $(document).ready(function(){
 	$('#tabel-stok').on('click', '#btn-show-opname', function(ev){
 		ev.preventDefault();
 		$('#mdl-opname').modal();
-		$('#txt-kosong-lama').val($(this).data('kosong'));
+		//$('#txt-kosong-lama').val($(this).data('kosong'));
 		$('#txt-isi-lama').val($(this).data('isi'));
-		$('#txt-pinjam-lama').val($(this).data('pinjam'));
+		//$('#txt-pinjam-lama').val($(this).data('pinjam'));
 		$('#txt-id').val($(this).data('id'));
-		$('#txt-kosong-baru').val(0);
+		//$('#txt-kosong-baru').val(0);
 		$('#txt-isi-baru').val(0);
-		$('#txt-pinjam-baru').val(0);
+		//$('#txt-pinjam-baru').val(0);
 		$('#txt-keterangan').val("");
 	});
 	
