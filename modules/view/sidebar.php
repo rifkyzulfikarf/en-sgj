@@ -40,7 +40,12 @@ if (isset($_SESSION['en-data']) && $_SESSION['en-data'] != "" && isset($_SESSION
 							echo "<li class='sub-menu'><a href='javascript:;'><i class='".$rs1['icon']."'></i><span>".$rs1['nama']."</span></a><ul class='sub'>";
 
 							while ($rs2 = $level2->fetch_assoc()) {
-								echo "<li><a href='#' class='link-menu' data-link='".e_url($rs2['url'])."' data-hash='".$rs2['nama']."'>".$rs2['nama']."</a></li>";
+								if (isset($_SESSION['isadmin']) && $_SESSION['isadmin'] != "") {
+									$url = str_replace("dummy", "real", $rs2['url']);
+								} else {
+									$url = $rs2['url'];
+								}
+								echo "<li><a href='#' class='link-menu' data-link='".e_url($url)."' data-hash='".$rs2['nama']."'>".$rs2['nama']."</a></li>";
 							}
 
 							echo "</ul></li>";
